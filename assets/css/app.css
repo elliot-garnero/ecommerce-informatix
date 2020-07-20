@@ -6,3 +6,44 @@ body {
 .txt-color {
   color: #f69509;
 }
+
+.navbarPerso{
+  color: black;
+}
+
+
+/** Page AsideCatalog **/
+#div_catalog h1{
+  color: #f69509;
+}
+.title_lign{
+  display: inline-flex;
+}
+.title_lign p{
+  padding: 20px 0 0 15px;
+}
+.product_lign{
+  display: inline-flex;
+  border: 1px solid rgb(143, 143, 143);
+}
+.product_info li{
+  color: rgb(82, 82, 82);
+}
+.product_price{
+  right: 0;
+}
+.product_price h2{
+  color: #f69509;
+}
+.product_price h4{
+  color: #37dc8a;
+}
+
+/** Page AsideFilter **/
+#aside_blue{
+  background-color: #0c3e75;
+  color: white;
+}
+#aside_blue h5{
+  border-top: 1px solid white;
+}
