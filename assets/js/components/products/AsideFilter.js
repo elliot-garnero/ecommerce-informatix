@@ -7,6 +7,7 @@ class AsideFilter extends Component{
         this.state = {
           price_min: '0',
           price_max: '500',
+          listCat: [],
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,9 +22,8 @@ class AsideFilter extends Component{
     }
   
     handleSubmit(event) {
-      alert('Votre prix est : ' + this.state.price_min + this.state.price_max);
+      //alert('Votre prix est : ' + this.state.price_min + this.state.price_max);
       event.preventDefault();
-      
       
       axios({
         method: 'post',
@@ -39,14 +39,9 @@ class AsideFilter extends Component{
             //handle error
             console.log(response);
         });
-      
-    // axios.post('http://localhost:8000/api/searchByPrice', {'min': this.state.price_min , 'max': this.state.price_max})
-    //   .then(res=>{
-    //     console.log(res);
-    //     console.log(res.data);
-    //   })
-    // }
     }
+
+
 
     render(){
         return(

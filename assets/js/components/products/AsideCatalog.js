@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import './../../../css/app.css';
 
 class AsideCatalog extends Component{
     constructor(props) {
