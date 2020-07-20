@@ -7,12 +7,8 @@ class AsideFilter extends Component{
         this.state = {
           price_min: '0',
           price_max: '500',
-<<<<<<< HEAD
-          listCat: [],
-=======
           brand:[],
           search: ''
->>>>>>> f616c538e68f1b9b032edf03b8102c9842bbfd4f
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,15 +35,10 @@ class AsideFilter extends Component{
     }
   
     handleSubmit(event) {
-<<<<<<< HEAD
       //alert('Votre prix est : ' + this.state.price_min + this.state.price_max);
       event.preventDefault();
       
       axios({
-=======
-        event.preventDefault();
-        axios({
->>>>>>> f616c538e68f1b9b032edf03b8102c9842bbfd4f
         method: 'post',
         url: 'http://localhost:8000/api/searchByPrice',
         data: {'min': this.state.price_min,'max': this.state.price_max },
@@ -61,31 +52,6 @@ class AsideFilter extends Component{
             //handle error
             console.log(response);
         });
-<<<<<<< HEAD
-=======
-    }
-
-    byBrandChange(event) {
-        this.setState({search: event.target.value});
-    }
-
-    byBrand(event) {
-        event.preventDefault();
-        axios({
-        method: 'post',
-        url: 'http://localhost:8000/api/searchByBrand',
-        data: {'brand': this.state.search },
-        headers: {'Content-Type': 'application/json' }
-        })
-        .then(function (response) {
-            //handle success
-            console.log(response);
-        })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
->>>>>>> f616c538e68f1b9b032edf03b8102c9842bbfd4f
     }
 
 
