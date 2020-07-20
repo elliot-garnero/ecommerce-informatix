@@ -127,6 +127,23 @@ class ProductController extends AbstractController
         return new Response($serializedEntity);
         
     }
+/**
+     * @Route("/api/searchByBrand", name="show_products_byBrand")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchByBrand(Request $request, ProductsRepository $repository):Response
+    {
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+        $brand = $data['brand'];
+        // fonction personalisée
+        $products = $repository->findBybrand($brand);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($products, 'json');
+        return new Response($serializedEntity);
+        
+    }
 
     /**
      * @Route("/api/products/searchByPriceGreater", name="show_products_byPrice_greater")
