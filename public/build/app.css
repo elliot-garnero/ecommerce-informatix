@@ -5,6 +5,9 @@ body {
 .bg-blue{
   background-color: #0c3e75;
 }
+.bg-grey{
+  background-color: rgb(197, 197, 197);
+}
 .txt-color {
   color: #f69509;
 }
