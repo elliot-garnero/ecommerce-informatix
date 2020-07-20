@@ -3,8 +3,5 @@
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
   "build/vendors~app.js": "/build/vendors~app.js",
-  "build/images/logoTransp.png": "/build/images/logoTransp.3fa09994.png",
-  "build/images/panier.png": "/build/images/panier.d3c8dff0.png",
-  "build/images/user.png": "/build/images/user.3ea7d30a.png",
   "build/images/logoSmall.png": "/build/images/logoSmall.d22d5b86.png"
 }
