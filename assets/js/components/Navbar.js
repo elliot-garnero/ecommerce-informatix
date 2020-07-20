@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import logoSmall from '../../images/logoSmall.png';
+import { Redirect } from 'react-router-dom';
 
 
 class Navbar extends Component {
+  
   render() {
     return (
       <div className="container">
@@ -13,22 +15,20 @@ class Navbar extends Component {
             </a>
           </div>
           <div className="col 4">
-            <input type="text" placeholder="Rechercher"></input>
+            <input type="text" placeholder="Rechercher un produit..."></input>
+            <i className="fab fa-sistrix bg-warning m-1 p-2 rounded"></i>
           </div>
-          <div className="col 2 d-flex justify-content-around">
+          <div className="col 2 d-flex justify-content-around ">
             <a className="text-decoration-none" href="/user"> 
+              <span className="m-2 txt-white">Se connecter</span>
               <i className="fas fa-user bg-warning p-3 rounded-circle"></i>
             </a>
             <a className="text-decoration-none" href="/panier">
+              <span className="m-2 txt-white">Mon panier</span>
               <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
             </a>
           </div>
         </nav>
-
-
-
-
-
 
         <nav className="bg-grey navbar navbar-expand-lg navbar-light">
           <a className="navbar-brand" href="/catalog">Espace Admin : </a>
