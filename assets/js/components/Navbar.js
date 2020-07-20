@@ -1,69 +1,27 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import logoSmall from '../../images/logoSmall.png';
+
 
 class Navbar extends Component {
   render() {
     return (
-      <div>
-        <nav className="navbarPerso navbar navbar-expand-lg bg">
-          <Link className={'navbar-brand navbarPerso'} to={'/'}>
-            {' '}
-            Informatix{' '}
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="navbarPerso nav-link" href="#">
-                  Home <span className="sr-only">(current)</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="navbarPerso nav-link" href="/add">
-                  Add
-                </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="navbarPerso nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="navbarPerso dropdown-item" href="#">
-                    Action
-                  </a>
-                  <a className="navbarPerso dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a className="navbarPerso dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </div>
-              </li>
-              <li className="nav-item">
-                <a className="navbarPerso nav-link disabled" href="#">
-                  Disabled
-                </a>
-              </li>
-            </ul>
+      <div className="container">
+        <nav className="text-center background_blue navbar navbar-expand-lg">
+          <div className="col 6">
+            <a className="navbar-brand" href="/catalog">
+              <img className="img-thumbnail w-50" src={logoSmall} alt="logoInformatix"/>
+            </a>
+          </div>
+          <div className="col 4">
+            <input type="text" placeholder="Rechercher"></input>
+          </div>
+          <div className="col 2 d-flex justify-content-around">
+            <a className="text-decoration-none" href="/user"> 
+              <i className="fas fa-user bg-warning p-3 rounded-circle"></i>
+            </a>
+            <a className="text-decoration-none" href="/panier">
+              <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
+            </a>
           </div>
         </nav>
       </div>
