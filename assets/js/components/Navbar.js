@@ -5,8 +5,8 @@ import logoSmall from '../../images/logoSmall.png';
 class Navbar extends Component {
   render() {
     return (
-      <div className="container">
-        <nav className="text-center background_blue navbar navbar-expand-lg">
+      <div className="container text-center">
+        <nav className="bg-blue navbar navbar-expand-lg">
           <div className="col 6">
             <a className="navbar-brand" href="/catalog">
               <img className="img-thumbnail w-50" src={logoSmall} alt="logoInformatix"/>
