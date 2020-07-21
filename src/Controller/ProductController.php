@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\Entity\Products;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Repository\ProductsRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,6 +24,46 @@ class ProductController extends AbstractController
         ]);
     }
     
+    /**
+     * @Route("/api/products", name="products")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showProducts(): Response
+    {
+        // fetch entityManager grace à $this->getDoctrine()
+        $repository = $this->getDoctrine()->getRepository(Products::class);
+        $products = $repository->findAll();
+        // Si pas d'article
+        if (!$products) {
+            throw $this->createNotFoundException(
+                'Pas d\'article dans le catalogue ! '
+            );
+        }
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($products, 'json');
+        return new Response($serializedEntity);
+    }
+
+    /**
+     * @Route("/api/products/{id}", name="show_product")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showOne($id ): Response
+    {
+        // fetch entityManager grace à $this->getDoctrine()
+        $repository = $this->getDoctrine()->getRepository(Products::class);
+        $product = $repository->find($id);
+        // Si pas d'article
+        
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($product, 'json');
+        return new Response($serializedEntity);
+    }
+
+
+
      /**
      * @Route("/api/createproduct", name="createproduct")
      * @return \Symfony\Component\HttpFoundation\Response
@@ -67,4 +108,71 @@ class ProductController extends AbstractController
 
         return new Response('Saved new product with id '. $product->getIdProduct() . "<br><a href=\"/\">Back</a>");
     }
+
+    /**
+     * @Route("/api/searchByPrice", name="show_products_byPrice")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchByPrice(Request $request, ProductsRepository $repository):Response
+    {
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+        $min = $data['min'];
+        $max = $data['max'];
+        // fonction personalisée
+        $products = $repository->findByPrice($min, $max);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($products, 'json');
+        return new Response($serializedEntity);
+        
+    }
+
+    /**
+     * @Route("/api/products/searchByPriceGreater", name="show_products_byPrice_greater")
+     * @return Product[]
+     */
+    public function findAllGreaterThanPrice(Request $request, ProductsRepository $repository): array
+    {
+        $price = $request->query->get('min');
+        $products = $repository->findAllGreaterThanPrice($price);
+
+        // returns an array of Product objects
+        return $products;
+    }
+
+    /**
+     * @Route("/api/products/searchByPriceLower", name="show_products_byPrice_lower")
+     * @return Product[]
+     */
+    public function findAllLowerThanPrice(Request $request, ProductsRepository $repository): array
+    {
+        $price = $request->query->get('max');
+        $products = $repository->findAllLowerThanPrice($price);
+
+        // returns an array of Product objects
+        return $products;
+    }
+
+     /**
+     * @Route("/api/products/showByCat/{id}", name="products_showByCat")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showByCat(): Response
+    {
+        // fetch entityManager grace à $this->getDoctrine()
+        $repository = $this->getDoctrine()->getRepository(Products::class);
+        $products = $repository->findAll();
+        // Si pas d'article
+        if (!$products) {
+            throw $this->createNotFoundException(
+                'Pas d\'article dans le catalogue ! '
+            );
+        }
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($products, 'json');
+        return new Response($serializedEntity);
+    }
+
 }
