@@ -9,29 +9,35 @@ class AsideFilter extends Component{
           price_max: '500',
           brand:[],
           search: '',
-          update:''
+          update:'',
+
+          nameProduct: [],
+          categorie: [],
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.byBrand = this.byBrand.bind(this);
         this.byBrandChange =this.byBrandChange.bind(this);
+        this.byName = this.byName.bind(this);
+        this.byNameChange =this.byNameChange.bind(this);
+        this.byCategorie = this.byCategorie.bind(this);
+        this.byCategorieChange =this.byCategorieChange.bind(this);
     }
-    // componentDidUpdate(){
-    //     if (this.state.update !== '') {
-    //         this.sendToParent()
-    //     }
-    // }
 
     componentDidMount() {
-        this.setState({
-          brand: [
-            {id: 'msi', name: 'MSI'},
-            {id: 'amd', name: 'AMD'},
-            {id: 'gygabyte', name: 'GIGABYTE'},
-            {id: 'asus', name: 'ASUS'}
-          ]
-        });
-      }
+        fetch('http://localhost:8000/api/products')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({ nameProduct: json, brand: json });
+                //console.log(this.state.nameProduct);
+            });
+        fetch('http://localhost:8000/api/getcategories')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({ categorie: json });
+                //console.log(this.state.categorie);
+            });
+    }
 
     handleChange(event) {
         const target = event.target;
@@ -49,11 +55,9 @@ class AsideFilter extends Component{
         headers: {'Content-Type': 'application/json' }
         })
         .then(function (response) {
-            //handle success
             console.log(response);
         })
         .catch(function (response) {
-            //handle error
             console.log(response);
         });
     }
@@ -64,6 +68,7 @@ class AsideFilter extends Component{
     
     byBrand(event) {
         event.preventDefault();
+        //console.log(this.state.search);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByBrand',
@@ -77,7 +82,6 @@ class AsideFilter extends Component{
             this.sendToParent()
         })
         .catch(function (response) {
-            //handle error
             console.log(response);
         });
     }
@@ -86,15 +90,76 @@ class AsideFilter extends Component{
         const update = this.state;
         this.props.valueHandler(update);
     }
-    render(){
-        const { brand } = this.state;
 
+    byNameChange(event) {
+        this.setState({search: event.target.value});
+    }
+
+    byName(event) {
+        event.preventDefault();
+        //console.log(this.state.search);
+        axios({
+        method: 'post',
+        url: 'http://localhost:8000/api/searchByName',
+        data: {'name': this.state.search },
+        headers: {'Content-Type': 'application/json' }
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (response) {
+            console.log(response);
+        });
+    }
+
+    byCategorieChange(event) {
+        this.setState({search: event.target.value});
+    }
+
+    byCategorie(event) {
+        event.preventDefault();
+        //console.log(this.state.search);
+        axios({
+        method: 'post',
+        url: 'http://localhost:8000/api/searchByCategorie',
+        data: {'name': this.state.search },
+        headers: {'Content-Type': 'application/json' }
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (response) {
+            console.log(response);
+        });
+    }
+    
+
+    render(){
+
+    const { brand } = this.state;
     let brandList = brand.length > 0
     	&& brand.map((item, i) => {
       return (
-        <option key={i} value={item.id}>{item.name}</option>
+        <option key={i} value={item.idProduct}>{item.brand}</option>
       )
-    }, this);
+      }, this);
+
+    const { nameProduct } = this.state;
+    let productNameList = nameProduct.length > 0
+        && nameProduct.map((item, i) => {
+        return (
+            <option key={i} value={item.idProduct}>{item.name}</option>
+        )
+        }, this);
+
+    const { categorie } = this.state;
+    let categorieList = categorie.length > 0
+        && categorie.map((item, i) => {
+        return (
+            <option key={i} value={item.idCat}>{item.catName}</option>
+        )
+        }, this);
+
         return(
             <div id="aside_blue">
                 <h5>Affiner votre recherche :</h5>
@@ -142,27 +207,54 @@ class AsideFilter extends Component{
                         <button type="submit" className="btn btn-secondary mb-2">valider</button>
                     </div>
                 </form>
+
                 <h5>Par marque :</h5>
-                
                 <form onSubmit = { this.byBrand } method="post">
                     <div className="form-row align-items-center">
                         <div className="form-group col-md-10">
                 
-                    <select value={this.state.search} onChange={this.byBrandChange} name="brand_name" id="brand_name" className="form-control">
-                    {brandList}
-                    </select>                        
+                            <select value={this.state.search} onChange={this.byBrandChange} name="brand_name" id="brand_name" className="form-control">
+                            {brandList}
+                            </select>                        
                         </div>
-                        </div>
-                        <div className="col">
-                            <button type="submit" className="btn btn-secondary mb-2">valider</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div className="col">
+                        <button type="submit" className="btn btn-secondary mb-2">valider</button>
+                    </div>
+                </form>
+
                 <h5>Par nom :</h5>
+                <form onSubmit = { this.byName } method="post">
+                    <div className="form-row align-items-center">
+                        <div className="form-group col-md-10">
+                
+                            <select value={this.state.search} onChange={this.byNameChange} name="product_name" id="product_name" className="form-control">
+                            {productNameList}
+                            </select>                        
+                        </div>
+                    </div>
+                    <div className="col">
+                        <button type="submit" className="btn btn-secondary mb-2">valider</button>
+                    </div>
+                </form>
+
                 <h5>Par catégorie :</h5>
-            </div>
+                <form onSubmit = { this.byCategorie } method="post">
+                    <div className="form-row align-items-center">
+                        <div className="form-group col-md-10">
+                
+                            <select value={this.state.search} onChange={this.byCategorieChange} name="categorie_name" id="categorie_name" className="form-control">
+                            {categorieList}
+                            </select>                        
+                        </div>
+                    </div>
+                    <div className="col">
+                        <button type="submit" className="btn btn-secondary mb-2">valider</button>
+                    </div>
+                </form>
+                </div>
         )
     }
-
 }
 
 export default AsideFilter;

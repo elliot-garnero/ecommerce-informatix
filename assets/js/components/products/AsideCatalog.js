@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import './../../../css/app.css';
 
 class AsideCatalog extends Component{
     constructor(props) {
@@ -46,9 +45,9 @@ class AsideCatalog extends Component{
                     </div>
                     
                     <div className="div_all_product">
-                        {items.map(item => (
-                            <div className="product_lign" key={item.id_product}>
-                                <img src="https://media.materiel.net/r550/products/MN0005048928_1.jpg" alt="product" width="250px"></img>
+                        {items.map((item, i) => (
+                            <div className="product_lign" key={i} id={item.id_product}>
+                                <img src={item.picture1} alt="product" width="250px"></img>
                                 <div className="product_info">
                                     <h2>{item.name}</h2>
                                     <p>{item.description}</p>
