@@ -13,7 +13,8 @@ class MainAdd extends Component {
   }
 
   getCategories() {
-    axios.get(`http://localhost:8000/api/getcategories`).then((res) => {
+    axios.get(`http://localhost:8000/api/getcategories`)
+    .then((res) => {
       const categories = res.data;
       this.setState({ categories, loading: false });
     });
