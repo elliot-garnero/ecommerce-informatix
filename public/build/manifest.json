@@ -2,5 +2,6 @@
   "build/app.css": "/build/app.css",
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
-  "build/vendors~app.js": "/build/vendors~app.js"
+  "build/vendors~app.js": "/build/vendors~app.js",
+  "build/images/pcrogW.jpg": "/build/images/pcrogW.9ede5a83.jpg"
 }
