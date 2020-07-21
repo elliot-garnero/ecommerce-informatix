@@ -46,7 +46,6 @@ class AsideFilter extends Component{
   
     handleSubmit(event) {
         event.preventDefault();
-        //console.log(this.state.brand);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByPrice',
@@ -54,11 +53,9 @@ class AsideFilter extends Component{
         headers: {'Content-Type': 'application/json' }
         })
         .then(function (response) {
-            //handle success
             console.log(response);
         })
         .catch(function (response) {
-            //handle error
             console.log(response);
         });
     }
@@ -69,6 +66,7 @@ class AsideFilter extends Component{
 
     byBrand(event) {
         event.preventDefault();
+        //console.log(this.state.search);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByBrand',
@@ -89,6 +87,7 @@ class AsideFilter extends Component{
 
     byName(event) {
         event.preventDefault();
+        //console.log(this.state.search);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByName',
@@ -109,6 +108,7 @@ class AsideFilter extends Component{
 
     byCategorie(event) {
         event.preventDefault();
+        //console.log(this.state.search);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByCategorie',
@@ -138,7 +138,7 @@ class AsideFilter extends Component{
     let productNameList = nameProduct.length > 0
         && nameProduct.map((item, i) => {
         return (
-            <option key={i} value={item.id}>{item.name}</option>
+            <option key={i} value={item.idProduct}>{item.name}</option>
         )
         }, this);
 
