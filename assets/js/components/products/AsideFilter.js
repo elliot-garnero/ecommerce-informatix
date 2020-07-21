@@ -8,14 +8,16 @@ class AsideFilter extends Component{
           price_min: '0',
           price_max: '500',
           brand:[],
-          search: ''
+          search: '',
+          product: [],
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.byBrand = this.byBrand.bind(this);
         this.byBrandChange =this.byBrandChange.bind(this);
+        
     }
-  
+
     componentDidMount() {
         this.setState({
           brand: [
@@ -25,7 +27,14 @@ class AsideFilter extends Component{
             {id: 'asus', name: 'ASUS'}
           ]
         });
-      }
+        fetch('http://localhost:8000/api/products')
+          .then(res => res.json())
+          .then(json => {
+              this.setState({
+                product: json,
+              })
+          });
+    }
 
     handleChange(event) {
         const target = event.target;
@@ -35,10 +44,8 @@ class AsideFilter extends Component{
     }
   
     handleSubmit(event) {
-      //alert('Votre prix est : ' + this.state.price_min + this.state.price_max);
-      event.preventDefault();
-      
-      axios({
+        event.preventDefault();
+        axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByPrice',
         data: {'min': this.state.price_min,'max': this.state.price_max },
@@ -54,10 +61,53 @@ class AsideFilter extends Component{
         });
     }
 
+    byBrandChange(event) {
+        this.setState({search: event.target.value});
+    }
 
+    byBrand(event) {
+        event.preventDefault();
+        axios({
+        method: 'post',
+        url: 'http://localhost:8000/api/searchByBrand',
+        data: {'brand': this.state.search },
+        headers: {'Content-Type': 'application/json' }
+        })
+        .then(function (response) {
+            //handle success
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+    }
+
+    byNameChange(event) {
+        this.setState({search: event.target.value});
+    }
+
+    byName(event) {
+        event.preventDefault();
+        axios({
+        method: 'post',
+        url: 'http://localhost:8000/api/searchByName',
+        data: {'name': this.state.search },
+        headers: {'Content-Type': 'application/json' }
+        })
+        .then(function (response) {
+            //handle success
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+    }
+    
 
     render(){
-        const { brand } = this.state;
+    const { brand } = this.state;
 
     let brandList = brand.length > 0
     	&& brand.map((item, i) => {
@@ -65,6 +115,17 @@ class AsideFilter extends Component{
         <option key={i} value={item.id}>{item.name}</option>
       )
     }, this);
+
+    
+    const { product } = this.state;
+    
+    let productNameList = product.length > 0
+        && product.map((item, i) => {
+        return (
+            <option key={i} value={item.id}>{item.name}</option>
+        )
+        }, this);
+
         return(
             <div id="aside_blue">
                 <h5>Affiner votre recherche :</h5>
@@ -112,22 +173,37 @@ class AsideFilter extends Component{
                         <button type="submit" className="btn btn-secondary mb-2">valider</button>
                     </div>
                 </form>
+
                 <h5>Par marque :</h5>
-                
                 <form onSubmit = { this.byBrand } method="post">
                     <div className="form-row align-items-center">
                         <div className="form-group col-md-10">
                 
-                    <select value={this.state.search} onChange={this.byBrandChange} name="brand_name" id="brand_name" className="form-control">
-                    {brandList}
-                    </select>                        
+                            <select value={this.state.search} onChange={this.byBrandChange} name="brand_name" id="brand_name" className="form-control">
+                            {brandList}
+                            </select>                        
                         </div>
-                        </div>
-                        <div className="col">
-                            <button type="submit" className="btn btn-secondary mb-2">valider</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div className="col">
+                        <button type="submit" className="btn btn-secondary mb-2">valider</button>
+                    </div>
+                </form>
+
                 <h5>Par nom :</h5>
+                <form onSubmit = { this.byName } method="post">
+                    <div className="form-row align-items-center">
+                        <div className="form-group col-md-10">
+                
+                            <select value={this.state.search} onChange={this.byNameChange} name="product_name" id="product_name" className="form-control">
+                            {productNameList}
+                            </select>                        
+                        </div>
+                    </div>
+                    <div className="col">
+                        <button type="submit" className="btn btn-secondary mb-2">valider</button>
+                    </div>
+                </form>
+
                 <h5>Par catégorie :</h5>
             </div>
         )
