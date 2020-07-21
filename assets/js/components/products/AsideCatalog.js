@@ -6,10 +6,11 @@ class AsideCatalog extends Component{
      
         this.state = {
           isLoaded: false,
-          items: [],
+          items: this.props.dataFromParent.updatedatas,
+           
         };
     }
-     
+   
     componentDidMount() {
         fetch('http://localhost:8000/api/products')
           .then(res => res.json())
@@ -17,13 +18,17 @@ class AsideCatalog extends Component{
               this.setState({
                 isLoaded: true,
                 items: json,
+               
               })
           });
     }
     
     
     render(){
-
+        if(this.props.dataFromParent.updatedatas.data !== this.state.items && this.props.dataFromParent.updatedatas.data !== undefined)
+        {  
+            this.setState({items: this.props.dataFromParent.updatedatas.data});
+        }
         var{ isLoaded, items } = this.state;
         var count = Object.keys(items).length;
 
