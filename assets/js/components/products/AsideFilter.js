@@ -8,14 +8,20 @@ class AsideFilter extends Component{
           price_min: '0',
           price_max: '500',
           brand:[],
-          search: ''
+          search: '',
+          update:''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.byBrand = this.byBrand.bind(this);
         this.byBrandChange =this.byBrandChange.bind(this);
     }
-  
+    // componentDidUpdate(){
+    //     if (this.state.update !== '') {
+    //         this.sendToParent()
+    //     }
+    // }
+
     componentDidMount() {
         this.setState({
           brand: [
@@ -55,7 +61,7 @@ class AsideFilter extends Component{
     byBrandChange(event) {
         this.setState({search: event.target.value});
     }
-
+    
     byBrand(event) {
         event.preventDefault();
         axios({
@@ -64,16 +70,22 @@ class AsideFilter extends Component{
         data: {'brand': this.state.search },
         headers: {'Content-Type': 'application/json' }
         })
-        .then(function (response) {
+        .then( (response) => {
             //handle success
             console.log(response);
+            this.setState({update:response});
+            this.sendToParent()
         })
         .catch(function (response) {
             //handle error
             console.log(response);
         });
     }
-
+    
+    sendToParent() {
+        const update = this.state;
+        this.props.valueHandler(update);
+    }
     render(){
         const { brand } = this.state;
 
