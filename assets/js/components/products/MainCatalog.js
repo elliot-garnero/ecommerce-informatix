@@ -8,11 +8,11 @@ class MainCatalog extends Component {
         this.state = {
         updatedatas: []
       } 
-      this.doSomething = this.doSomething.bind(this);
+      this.updateState = this.updateState.bind(this);
     }
 
     
-    doSomething(value) {
+    updateState(value) {
         this.setState({updatedatas:value.update})
     
     }
@@ -24,7 +24,7 @@ class MainCatalog extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-3">
-                        <AsideFilter valueHandler={this.doSomething} />
+                        <AsideFilter dataToParent={this.updateState} />
                     </div>
                     <div className="col-9">
                         <AsideCatalog dataFromParent={updatedatas}/>

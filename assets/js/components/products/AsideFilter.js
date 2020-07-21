@@ -5,17 +5,16 @@ class AsideFilter extends Component{
     constructor(props){
         super(props);
         this.state = {
-          price_min: '0',
-          price_max: '500',
+          price_min: '',
+          price_max: '',
           brand:[],
           search: '',
           update:'',
-
           nameProduct: [],
           categorie: [],
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.byPriceChange = this.byPriceChange.bind(this);
+        this.byPrice = this.byPrice.bind(this);
         this.byBrand = this.byBrand.bind(this);
         this.byBrandChange =this.byBrandChange.bind(this);
         this.byName = this.byName.bind(this);
@@ -39,14 +38,14 @@ class AsideFilter extends Component{
             });
     }
 
-    handleChange(event) {
+    byPriceChange(event) {
         const target = event.target;
         const price_min = target.name;
         const price_max = target.name;
         this.setState({[price_min]: event.target.value, [price_max]: event.target.value});
     }
   
-    handleSubmit(event) {
+    byPrice(event) {
         event.preventDefault();
         axios({
         method: 'post',
@@ -54,8 +53,10 @@ class AsideFilter extends Component{
         data: {'min': this.state.price_min,'max': this.state.price_max },
         headers: {'Content-Type': 'application/json' }
         })
-        .then(function (response) {
+        .then( (response) => {
             console.log(response);
+            this.setState({update:response});
+            this.sendToParent()
         })
         .catch(function (response) {
             console.log(response);
@@ -68,7 +69,7 @@ class AsideFilter extends Component{
     
     byBrand(event) {
         event.preventDefault();
-        //console.log(this.state.search);
+        // console.log(this.state.search);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByBrand',
@@ -79,7 +80,7 @@ class AsideFilter extends Component{
             //handle success
             console.log(response);
             this.setState({update:response});
-            this.sendToParent()
+            this.sendToParent();
         })
         .catch(function (response) {
             console.log(response);
@@ -88,7 +89,7 @@ class AsideFilter extends Component{
     
     sendToParent() {
         const update = this.state;
-        this.props.valueHandler(update);
+        this.props.dataToParent(update);
     }
 
     byNameChange(event) {
@@ -140,7 +141,7 @@ class AsideFilter extends Component{
     let brandList = brand.length > 0
     	&& brand.map((item, i) => {
       return (
-        <option key={i} value={item.idProduct}>{item.brand}</option>
+        <option key={i} value={item.brand}>{item.brand}</option>
       )
       }, this);
 
@@ -148,7 +149,7 @@ class AsideFilter extends Component{
     let productNameList = nameProduct.length > 0
         && nameProduct.map((item, i) => {
         return (
-            <option key={i} value={item.idProduct}>{item.name}</option>
+            <option key={i} value={item.name}>{item.name}</option>
         )
         }, this);
 
@@ -156,7 +157,7 @@ class AsideFilter extends Component{
     let categorieList = categorie.length > 0
         && categorie.map((item, i) => {
         return (
-            <option key={i} value={item.idCat}>{item.catName}</option>
+            <option key={i} value={item.catName}>{item.catName}</option>
         )
         }, this);
 
@@ -164,11 +165,11 @@ class AsideFilter extends Component{
             <div id="aside_blue">
                 <h5>Affiner votre recherche :</h5>
                 <h5>Par prix :</h5>
-                <form onSubmit = { this.handleSubmit } method="post">
+                <form onSubmit = { this.byPrice } method="post">
                     <div className="form-row align-items-center">
                         <div className="form-group col-md-5">
                             <label htmlFor="inputState">min</label>
-                            <select value={this.state.price_min} onChange={this.handleChange} name="price_min" id="price_min" className="form-control">
+                            <select value={this.state.price_min} onChange={this.byPriceChange} name="price_min" id="price_min" className="form-control">
                                 <option value="0" defaultValue>0</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
@@ -186,7 +187,7 @@ class AsideFilter extends Component{
                         </div>
                         <div className="form-group col-md-5">
                             <label htmlFor="inputState">max</label>
-                            <select value={this.state.price_max} onChange={this.handleChange} name="price_max" id="price_max" className="form-control">
+                            <select value={this.state.price_max} onChange={this.byPriceChange} name="price_max" id="price_max" className="form-control">
                             <option value="0">0</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
