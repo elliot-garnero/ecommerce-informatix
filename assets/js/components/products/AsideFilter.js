@@ -26,8 +26,14 @@ class AsideFilter extends Component{
         fetch('http://localhost:8000/api/products')
             .then(res => res.json())
             .then(json => {
-                this.setState({ nameProduct: json, brand: json });
+                this.setState({ nameProduct: json });
                 //console.log(this.state.nameProduct);
+            });
+        fetch('http://localhost:8000/api/productsBrand')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({ brand: json });
+                console.log(this.state.brand);
             });
         fetch('http://localhost:8000/api/getcategories')
             .then(res => res.json())
@@ -52,10 +58,10 @@ class AsideFilter extends Component{
         data: {'min': this.state.price_min,'max': this.state.price_max },
         headers: {'Content-Type': 'application/json' }
         })
-        .then(function (response) {
+        .then((response) =>{
             console.log(response);
         })
-        .catch(function (response) {
+        .catch((response) =>{
             console.log(response);
         });
     }
@@ -73,10 +79,10 @@ class AsideFilter extends Component{
         data: {'brand': this.state.search },
         headers: {'Content-Type': 'application/json' }
         })
-        .then(function (response) {
+        .then((response) =>{
             console.log(response);
         })
-        .catch(function (response) {
+        .catch((response) =>{
             console.log(response);
         });
     }
@@ -94,10 +100,10 @@ class AsideFilter extends Component{
         data: {'name': this.state.search },
         headers: {'Content-Type': 'application/json' }
         })
-        .then(function (response) {
+        .then((response) =>{
             console.log(response);
         })
-        .catch(function (response) {
+        .catch((response) =>{
             console.log(response);
         });
     }
@@ -115,10 +121,10 @@ class AsideFilter extends Component{
         data: {'name': this.state.search },
         headers: {'Content-Type': 'application/json' }
         })
-        .then(function (response) {
+        .then((response) => {
             console.log(response);
         })
-        .catch(function (response) {
+        .catch((response) =>{
             console.log(response);
         });
     }
@@ -130,7 +136,7 @@ class AsideFilter extends Component{
     let brandList = brand.length > 0
     	&& brand.map((item, i) => {
       return (
-        <option key={i} value={item.idProduct}>{item.brand}</option>
+        <option key={i} value={item.brand}>{item.brand}</option>
       )
       }, this);
 
