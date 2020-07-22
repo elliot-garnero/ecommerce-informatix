@@ -27,8 +27,14 @@ class AsideFilter extends Component{
         fetch('http://localhost:8000/api/products')
             .then(res => res.json())
             .then(json => {
-                this.setState({ nameProduct: json, brand: json });
+                this.setState({ nameProduct: json });
                 //console.log(this.state.nameProduct);
+            });
+        fetch('http://localhost:8000/api/productsBrand')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({ brand: json });
+                console.log(this.state.brand);
             });
         fetch('http://localhost:8000/api/getcategories')
             .then(res => res.json())
@@ -51,14 +57,14 @@ class AsideFilter extends Component{
         method: 'post',
         url: 'http://localhost:8000/api/searchByPrice',
         data: {'min': this.state.price_min,'max': this.state.price_max },
-        headers: {'Content-Type': 'application/json' }
+        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', }
         })
         .then( (response) => {
             console.log(response);
             this.setState({update:response});
             this.sendToParent()
         })
-        .catch(function (response) {
+        .catch((response) =>{
             console.log(response);
         });
     }
@@ -82,7 +88,7 @@ class AsideFilter extends Component{
             this.setState({update:response});
             this.sendToParent();
         })
-        .catch(function (response) {
+        .catch((response) =>{
             console.log(response);
         });
     }
@@ -105,12 +111,12 @@ class AsideFilter extends Component{
         data: {'name': this.state.search },
         headers: {'Content-Type': 'application/json' }
         })
-        .then( (response) => {
+        .then((response) =>{
             console.log(response);
             this.setState({update:response});
             this.sendToParent();
         })
-        .catch(function (response) {
+        .catch((response) =>{
             console.log(response);
         });
     }
@@ -128,12 +134,12 @@ class AsideFilter extends Component{
         data: {'name': this.state.search },
         headers: {'Content-Type': 'application/json' }
         })
-        .then( (response) => {
+        .then((response) => {
             console.log(response);
             this.setState({update:response});
             this.sendToParent();
         })
-        .catch(function (response) {
+        .catch((response) =>{
             console.log(response);
         });
     }

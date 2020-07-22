@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Categories;
@@ -128,7 +127,7 @@ class ProductController extends AbstractController
         return new Response($serializedEntity);
         
     }
-/**
+    /**
      * @Route("/api/searchByBrand", name="show_products_byBrand")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -208,4 +207,18 @@ class ProductController extends AbstractController
         ->serialize($product, 'json');
         return new Response($serializedEntity);
     }
+
+    /**
+     * @Route("/api/productsBrand", name="productsBrand")
+     * @return Product[]
+     */
+    public function AllBrand(ProductsRepository $repository):Response
+    {
+        $products = $repository->findAllBrand();
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($products, 'json');
+        return new Response($serializedEntity);
+    }
+
 }
