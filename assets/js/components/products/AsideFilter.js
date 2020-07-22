@@ -34,7 +34,7 @@ class AsideFilter extends Component{
             .then(res => res.json())
             .then(json => {
                 this.setState({ brand: json });
-                console.log(this.state.brand);
+                //console.log(this.state.brand);
             });
         fetch('http://localhost:8000/api/getcategories')
             .then(res => res.json())
@@ -57,7 +57,7 @@ class AsideFilter extends Component{
         method: 'post',
         url: 'http://localhost:8000/api/searchByPrice',
         data: {'min': this.state.price_min,'max': this.state.price_max },
-        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', }
+        headers: {'Content-Type': 'application/json'}
         })
         .then( (response) => {
             console.log(response);
