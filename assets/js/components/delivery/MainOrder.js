@@ -23,8 +23,8 @@ class MainOrder extends React.Component {
         <div className="row">
           <div className="col-md-4 order-md-2 mb-4">
             <h4 className="d-flex justify-content-between align-items-center mb-3">
-              <span className="text-muted">Votre panier</span>
-              <span className="badge badge-secondary badge-pill">
+              <span className="txt-color">Votre panier</span>
+              <span className="badge bg-blue txt-white badge-pill">
                 {products.length} éléments
               </span>
             </h4>
@@ -62,7 +62,7 @@ class MainOrder extends React.Component {
                   placeholder="Code promo"
                 />
                 <div className="input-group-append">
-                  <button type="submit" className="btn btn-secondary">
+                  <button type="submit" className="btn bg-blue txt-white">
                     Valider
                   </button>
                 </div>
@@ -70,7 +70,7 @@ class MainOrder extends React.Component {
             </form>
           </div>
           <div className="col-md-8 order-md-1">
-            <h4 className="mb-3">Adresse personnelle</h4>
+            <h4 className="mb-3 txt-color">Adresse personnelle</h4>
             <form className="needs-validation">
               <div className="row">
                 <div className="col-md-6 mb-3">
@@ -160,7 +160,7 @@ class MainOrder extends React.Component {
               </div>
               <hr className="mb-4" />
 
-              <h4 className="mb-3">Paiement</h4>
+              <h4 className="mb-3 txt-color">Paiement</h4>
               <div className="row">
                 <div className="col-md-6 mb-3">
                   <label htmlFor="cc-name">Nom du porteur de la carte</label>
@@ -203,7 +203,7 @@ class MainOrder extends React.Component {
               </div>
               <hr className="mb-4" />
               <button
-                className="btn btn-primary btn-lg btn-block"
+                className="btn txt-white btn-lg btn-block bg-blue"
                 type="submit"
               >
                 Continuer
