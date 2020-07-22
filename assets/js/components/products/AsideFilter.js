@@ -98,15 +98,17 @@ class AsideFilter extends Component{
 
     byName(event) {
         event.preventDefault();
-        //console.log(this.state.search);
+        console.log(this.state.search);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByName',
         data: {'name': this.state.search },
         headers: {'Content-Type': 'application/json' }
         })
-        .then(function (response) {
+        .then( (response) => {
             console.log(response);
+            this.setState({update:response});
+            this.sendToParent();
         })
         .catch(function (response) {
             console.log(response);
@@ -119,15 +121,17 @@ class AsideFilter extends Component{
 
     byCategorie(event) {
         event.preventDefault();
-        //console.log(this.state.search);
+        console.log(this.state.search);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByCategorie',
         data: {'name': this.state.search },
         headers: {'Content-Type': 'application/json' }
         })
-        .then(function (response) {
+        .then( (response) => {
             console.log(response);
+            this.setState({update:response});
+            this.sendToParent();
         })
         .catch(function (response) {
             console.log(response);
