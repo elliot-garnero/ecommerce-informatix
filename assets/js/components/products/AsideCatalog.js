@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 
 class AsideCatalog extends Component{
     constructor(props) {
@@ -11,6 +11,8 @@ class AsideCatalog extends Component{
         };
     }
    
+    
+    
     componentDidMount() {
         fetch('http://localhost:8000/api/products')
           .then(res => res.json())
@@ -25,6 +27,7 @@ class AsideCatalog extends Component{
     
     
     render(){
+        
         if(this.props.dataFromParent.updatedatas.data !== this.state.items && this.props.dataFromParent.updatedatas.data !== undefined)
         {  
             this.setState({items: this.props.dataFromParent.updatedatas.data});
