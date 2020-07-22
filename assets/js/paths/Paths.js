@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import MainCatalog from '../components/products/MainCatalog';
 import MainAdd from '../components/products/MainAdd';
+import Footer from '../components/Footer';
 
 class Paths extends Component {
   render() {
@@ -15,6 +16,7 @@ class Paths extends Component {
           <Route path="/catalog" component={MainCatalog} />
           <Route path="/add" component={MainAdd} />
         </Switch>
+        <Footer/>
       </div>
     );
   }
