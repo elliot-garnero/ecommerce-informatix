@@ -57,7 +57,7 @@ class AsideFilter extends Component{
         method: 'post',
         url: 'http://localhost:8000/api/searchByPrice',
         data: {'min': this.state.price_min,'max': this.state.price_max },
-        headers: {'Content-Type': 'application/json' }
+        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', }
         })
         .then( (response) => {
             console.log(response);
