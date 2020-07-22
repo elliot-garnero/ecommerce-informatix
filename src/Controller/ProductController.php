@@ -210,7 +210,7 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/api/productsBrand", name="productsBrand")
-     * @return Product[]
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function AllBrand(ProductsRepository $repository):Response
     {
