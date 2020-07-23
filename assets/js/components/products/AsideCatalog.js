@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom";
 import React, { Component, useEffect } from 'react';
 
 class AsideCatalog extends Component{
@@ -7,8 +8,8 @@ class AsideCatalog extends Component{
         this.state = {
           isLoaded: false,
           items: this.props.dataFromParent.updatedatas,
-           
-        };
+        }
+        this.productClick = this.productClick.bind(this);
     }
    
     
@@ -24,7 +25,12 @@ class AsideCatalog extends Component{
               })
           });
     }
-    
+
+    productClick(event, $id) {
+        event.preventDefault();
+        console.log($id);
+        //this.props.history.push('/login');
+    }
     
     render(){
         
@@ -49,13 +55,14 @@ class AsideCatalog extends Component{
                     
                     <div className="div_all_product">
                         {items.map((item, i) => (
-                            <div className="product_lign" key={i} id={item.id_product}>
+                            <div className="product_lign" key={i} id={item.idProduct}>
                                 <img src={item.picture1} alt="product" width="250px"></img>
                                 <div className="product_info">
-                                    <h2>{item.name}</h2>
-                                    <p>{item.description}</p>
-                                    <p>{item.characteristics}</p>
-
+                                    <a href="#" onClick={(event) => this.productClick(event, item.idProduct)}>
+                                        <h2>{item.name}</h2>
+                                        <p>{item.description}</p>
+                                        <p>{item.characteristics}</p>
+                                    </a>
                                     <div>
                                         <p>N avis</p>
                                     </div>
@@ -74,7 +81,6 @@ class AsideCatalog extends Component{
                 </div>
             )
         }
-
     }
 }
 

@@ -15,6 +15,7 @@ body {
   color: white;
 }
 
+
 /** Page AsideCatalog **/
 #div_catalog h1{
   color: #f69509;
@@ -32,6 +33,14 @@ body {
 .product_info li{
   color: rgb(82, 82, 82);
 }
+.product_info a{
+  text-decoration: none;
+  color: black;
+}
+.product_info a:hover{
+  text-decoration: none;
+  color:#0f5aaa;
+}
 .product_price{
   right: 0;
 }
@@ -41,6 +50,7 @@ body {
 .product_price h4{
   color: #37dc8a;
 }
+
 
 /** Page AsideFilter **/
 #aside_blue{
