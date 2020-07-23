@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Controller;
 
+use App\Entity\Categories;
 use App\Entity\Products;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -127,12 +127,29 @@ class ProductController extends AbstractController
         return new Response($serializedEntity);
         
     }
+    /**
+     * @Route("/api/searchByBrand", name="show_products_byBrand")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchByBrand(Request $request, ProductsRepository $repository):Response
+    {
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+        $brand = $data['brand'];
+        // fonction personalisée
+        $products = $repository->findBybrand($brand);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($products, 'json');
+        return new Response($serializedEntity);
+        
+    }
 
     /**
      * @Route("/api/products/searchByPriceGreater", name="show_products_byPrice_greater")
      * @return Product[]
      */
-    public function findAllGreaterThanPrice(Request $request, ProductsRepository $repository): array
+    public function AllGreaterThanPrice(Request $request, ProductsRepository $repository): array
     {
         $price = $request->query->get('min');
         $products = $repository->findAllGreaterThanPrice($price);
@@ -145,7 +162,7 @@ class ProductController extends AbstractController
      * @Route("/api/products/searchByPriceLower", name="show_products_byPrice_lower")
      * @return Product[]
      */
-    public function findAllLowerThanPrice(Request $request, ProductsRepository $repository): array
+    public function AllLowerThanPrice(Request $request, ProductsRepository $repository): array
     {
         $price = $request->query->get('max');
         $products = $repository->findAllLowerThanPrice($price);
@@ -155,20 +172,49 @@ class ProductController extends AbstractController
     }
 
      /**
-     * @Route("/api/products/showByCat/{id}", name="products_showByCat")
+     * @Route("/api/searchByCategorie", name="products_searchByCategorie")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showByCat(): Response
+    public function ByCategorie(Request $request, ProductsRepository $repository): Response
     {
-        // fetch entityManager grace à $this->getDoctrine()
-        $repository = $this->getDoctrine()->getRepository(Products::class);
-        $products = $repository->findAll();
-        // Si pas d'article
-        if (!$products) {
-            throw $this->createNotFoundException(
-                'Pas d\'article dans le catalogue ! '
-            );
-        }
+        $repoCat = $this->getDoctrine()->getRepository(Categories::class);
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+        $cat = $data['name'];
+        $category = $repoCat->findOneBy(['catName'=> $cat]);
+        $id= $category['idCat'];
+       
+        $product = $repository->find($id);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($product, 'json');
+        return new Response($serializedEntity);
+    }
+
+    /**
+     * @Route("/api/searchByName", name="products_searchByName")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function ByName(Request $request, ProductsRepository $repository): Response
+    {
+        
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+        $name= $data['name'];
+        $product = $repository->findBy(['name' => $name]);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($product, 'json');
+        return new Response($serializedEntity);
+    }
+
+    /**
+     * @Route("/api/productsBrand", name="productsBrand")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function AllBrand(ProductsRepository $repository):Response
+    {
+        $products = $repository->findAllBrand();
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($products, 'json');
