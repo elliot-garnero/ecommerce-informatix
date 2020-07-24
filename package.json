@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@babel/plugin-transform-runtime": "^7.10.5",
+        "react-country-region-selector": "^2.1.0",
         "react-router-dom": "^5.2.0",
         "react-select": "^3.1.0"
     }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import AsideFilter from "./AsideFilter";
-import AsideCatalog from "./AsideCatalog";
+import AsideProfile from "./AsideProfile";
+import AsideNav from "./AsideNav";
 
-class MainCatalog extends Component {
+
+class MainProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,8 +13,8 @@ class MainCatalog extends Component {
     }
 
     updateState(value) {
-        this.setState({updatedatas:value.update})
-    
+        this.setState({updatedatas:value})
+        
     }
     
     render(){
@@ -22,15 +23,16 @@ class MainCatalog extends Component {
         return(
         
             <div className="container">
-                
-                <div className="row">
+    
+                <div className="row mt-3">
                     
                     <div className="col-3">
                    
-                        <AsideFilter dataToParent={this.updateState} />
+                        <AsideNav dataToParent={this.updateState}/>
                     </div>
                     <div className="col-9">
-                        <AsideCatalog dataFromParent={updatedatas}/>
+                    
+                        <AsideProfile dataFromParent={updatedatas}/>
                     </div>
                 </div>
             </div>
@@ -38,4 +40,4 @@ class MainCatalog extends Component {
     }
 }
 
-export default MainCatalog;
+export default MainProfile;
