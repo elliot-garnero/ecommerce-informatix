@@ -4,21 +4,21 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\PayementsRepository;
+use App\Repository\OrdersRepository;
 use Symfony\Component\HttpFoundation\Response;
 
-class PayementsController extends AbstractController
+class OrdersController extends AbstractController
 {
     /**
-     * @Route("/api/pay/{idPay}", name="show_pay")
+     * @Route("/api/command/{idUser}", name="show_orders")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showOne($idPay , PayementsRepository $repository): Response
+    public function showOne($idUser , OrdersRepository $repository): Response
     {
-        $pay = $repository->findAll($idPay);
+        $orders = $repository->findBy(['idUser' => $idUser]);
         $serializedEntity = $this->container
         ->get('serializer')
-        ->serialize($pay, 'json');
+        ->serialize($orders, 'json');
         return new Response($serializedEntity);
     }
 }

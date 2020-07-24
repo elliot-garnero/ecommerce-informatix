@@ -36,7 +36,12 @@ class ProfileAddress extends Component {
         }
         else {
             return (
-                <div className="container-fluid">
+                <div className=" mt-5">
+                    <div className="h2 text-center">Mes Adresses</div><br/>
+                    {addresses == null && <p className="text-center">
+                        Retrouvez ici toutes les adresses que vous avez utilisées pour être livré lors de vos précédents achats sur notre site.<br />
+                        </p>} 
+                        {addresses !== null && <div className="container-fluid">
                     <div className="row">
                         {addresses.map((address, i) =>
                             <div className="div_all_adresses col-6" key={i} id={address.idDeliv}>
@@ -54,6 +59,7 @@ class ProfileAddress extends Component {
                             </div>
                         )}
                     </div>
+                </div>}
                 </div>
             )
         }

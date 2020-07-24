@@ -14,10 +14,10 @@ class AsideProfile extends Component {
         this.state = {
         updatedatas: [],
         isEmptyState: true,
-        update: true,
-        pay: false,
         update: false,
-        commands: false, 
+        pay: false,
+        commands: true,
+        address:false 
       } 
       this.updateState = this.updateState.bind(this);
       this.addCommands = this.addCommands.bind(this);
@@ -34,7 +34,7 @@ class AsideProfile extends Component {
         this.setState({
           ...this.state,
           isEmptyState: true,
-          update: false,
+          address: false,
           pay: false,
           update: false,
           commands: true,
@@ -49,7 +49,7 @@ class AsideProfile extends Component {
             commands: false,
             update: false,
             pay:false,
-            adress: true
+            address: true
         })
       }
 
@@ -58,7 +58,7 @@ class AsideProfile extends Component {
             ...this.state,
             isEmptyState: true,
             commands: false,
-            adress: false,
+            address: false,
             pay: false,
             update: true          
         })
@@ -69,7 +69,7 @@ class AsideProfile extends Component {
             isEmptyState: true,
             commands: false,
             update: false,
-            adress: false,
+            address: false,
             pay: true
         })
       }
@@ -85,7 +85,7 @@ class AsideProfile extends Component {
             {this.state.isEmptyState && <AddAdressButton addAdress={this.addAdress} />}
             {this.state.isEmptyState && <AddUpdateButton addUpdate={this.addUpdate} />}
             {this.state.isEmptyState && <AddPayButton addPay={this.addPay} />}
-            {this.state.adress && <ProfileAddress />}
+            {this.state.address && <ProfileAddress />}
             {this.state.commands && <ProfileCommands />}
             {this.state.update && <ProfileUpdate />}
             {this.state.pay && <ProfilePay />}
