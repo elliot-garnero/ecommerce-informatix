@@ -1,5 +1,5 @@
 import { Redirect } from "react-router-dom";
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 
 class AsideCatalog extends Component{
     constructor(props) {
@@ -40,7 +40,6 @@ class AsideCatalog extends Component{
         }
         var{ isLoaded, items } = this.state;
         var count = Object.keys(items).length;
-
         if (!isLoaded){
             return <div>Chargement...</div>
         }

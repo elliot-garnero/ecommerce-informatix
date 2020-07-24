@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class AsideCommands extends Component {
+class ProfileCommands extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,4 +25,4 @@ class AsideCommands extends Component {
     }
 }
 
-export default AsideCommands;
+export default ProfileCommands;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AsideProfile from "./AsideProfile";
-import AsideNav from "./AsideNav";
+import AsideUser from "./AsideUser";
 
 
 class MainProfile extends Component {
@@ -28,7 +28,7 @@ class MainProfile extends Component {
                     
                     <div className="col-3">
                    
-                        <AsideNav dataToParent={this.updateState}/>
+                        <AsideUser dataToParent={this.updateState}/>
                     </div>
                     <div className="col-9">
                     

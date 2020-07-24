@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProfileCommands from './profile/ProfileCommands';
-import ProfileAdress from './profile/ProfileAdress';
+import ProfileAddress from './profile/ProfileAddress';
 import ProfilePay from './profile/ProfilePay';
 import ProfileUpdate from './profile/ProfileUpdate'
 import AddComButton from './buttons/AddComButton';
@@ -85,7 +85,7 @@ class AsideProfile extends Component {
             {this.state.isEmptyState && <AddAdressButton addAdress={this.addAdress} />}
             {this.state.isEmptyState && <AddUpdateButton addUpdate={this.addUpdate} />}
             {this.state.isEmptyState && <AddPayButton addPay={this.addPay} />}
-            {this.state.adress && <ProfileAdress />}
+            {this.state.adress && <ProfileAddress />}
             {this.state.commands && <ProfileCommands />}
             {this.state.update && <ProfileUpdate />}
             {this.state.pay && <ProfilePay />}

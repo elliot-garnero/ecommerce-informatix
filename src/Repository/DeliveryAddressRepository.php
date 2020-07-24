@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method DeliveryAddress[]    findAll()
  * @method DeliveryAddress[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DeliveryAdressRepository extends ServiceEntityRepository
+class DeliveryAddressRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
