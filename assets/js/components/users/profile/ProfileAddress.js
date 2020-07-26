@@ -12,6 +12,7 @@ class ProfileAddress extends Component {
             show:false
         }
         this.updateState = this.updateState.bind(this);
+        this.showModal = this.showModal.bind(this);
     }
 
     updateState(value) {
@@ -28,7 +29,11 @@ class ProfileAddress extends Component {
         }
     }
 
-    
+    showModal(e) {
+        this.setState({
+          show: true
+        });
+      };
 
     componentDidMount() {
         fetch('http://localhost:8000/api/address/1')

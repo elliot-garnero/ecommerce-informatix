@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Orders;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\OrdersRepository;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 
 class OrdersController extends AbstractController
 {
@@ -21,4 +24,6 @@ class OrdersController extends AbstractController
         ->serialize($orders, 'json');
         return new Response($serializedEntity);
     }
+
+ 
 }

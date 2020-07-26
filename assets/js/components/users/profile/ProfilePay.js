@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import PayModal  from './modal/PayModal';
+import cardLogo from '../../../../images/cb.jpg';
 class ProfilePay extends Component {
     constructor(props) {
         super(props);
@@ -7,16 +8,36 @@ class ProfilePay extends Component {
             updatedatas: [],
             isLoaded: false,
             payment: null,
-            user: null
+            user: null,
+            show:false
         }
         this.updateState = this.updateState.bind(this);
-
-
+        this.showModal = this.showModal.bind(this);
     }
+
+    showModal(e) {
+        this.setState({
+          show: true
+        });
+      };
 
     updateState(value) {
         this.setState({ updatedatas: value.update })
 
+    }
+
+    updateState(value) {
+        if(value.update =='refresh'){
+            fetch('http://localhost:8000/api/pay/1')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({
+                    payment: json,
+                    isLoaded: true,
+                    show:false
+                })
+            });
+        }
     }
 
     async componentDidMount() {
@@ -33,7 +54,8 @@ class ProfilePay extends Component {
             .then(json => {
                 this.setState({
                     payment: json,
-                    isLoaded: true
+                    isLoaded: true,
+                    show:false
                 })
             });
     }
@@ -77,7 +99,7 @@ class ProfilePay extends Component {
                                 {payment.map((cb, i) => (
                                     
                                     <div className="card mr-5" key={i} style={payStyle}>
-                                    <img className="card-img-top" src="https://image.freepik.com/photos-gratuite/main-tenant-carte-puce-vierge-fond-bleu_9555-670.jpg" alt="Card image"/>
+                                    <img className="card-img-top" src={cardLogo} alt="Card image"/>
                                     <div className="card-img-overlay">
                                       <h5 className="card-title d-flex flex-row-reverse mb-5">Carte n° {cb.payCb.toString().replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim()}</h5>
                                       <p className="card-text d-flex flex-row-reverse pt-5">Mr {cb.payLastname} {cb.payFirstname}</p>
@@ -89,8 +111,9 @@ class ProfilePay extends Component {
                         </div>}
                     </div>
                     <div className="text-center">
-                        <button className="btn btn-info mb-5 mr-3 w-50">Ajouter une carte</button>
+                        <button className="btn btn-info mb-5 mr-3 w-50" onClick={(e) =>this.showModal()}>Ajouter une carte</button>
                         </div>
+                        <PayModal show={this.state.show} dataToParent={this.updateState} />
                 </div>
             )
         }

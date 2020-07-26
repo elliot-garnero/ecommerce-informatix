@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\DeliveryAddress;
-use App\Entity\Users;
-use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\DeliveryAddressRepository;

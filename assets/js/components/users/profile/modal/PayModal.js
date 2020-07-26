@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class AddressModal extends Component {
+export default class PayModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       update:'',
       firstname: '',
       lastname: '',
-      address: '',
-      cp: '',
-      city: '',
-      countries: '',
+      payCb: '',
+      payCvv: '',
+      payExpiration: '',
       checked: false
     }
     this.onSubmit = this.onSubmit.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
     this.checkChange = this.checkChange.bind(this);
+    this.onPayChange = this.onPayChange.bind(this);
   }
 
   checkChange(event) {
@@ -31,9 +31,8 @@ export default class AddressModal extends Component {
   onSubmit(e) {
     e.preventDefault();
     const data = this.state;
-
     axios
-      .post(`http://localhost:8000/api/addAddress/1`, data)
+      .post(`http://localhost:8000/api/addCb/1`, data)
       .then((res) => {
         if (res) {
           console.log(res)
@@ -46,6 +45,14 @@ export default class AddressModal extends Component {
   }
   onTextChange(e) {
     this.setState({ ...this.state, [e.target.name]: e.target.value });
+  };
+
+  onPayChange(e) {
+
+    let date = e.target.value;
+    date = date.split('-');
+    date = date[1]+'-'+date[0]+'-30';
+    this.setState({ payExpiration: date });
   };
 
   sendToParent() {
@@ -70,27 +77,23 @@ export default class AddressModal extends Component {
           <input type="text" className="form-control" id="lastname" name="lastname" onChange={(e) => this.onTextChange(e)} required />
         </div>
         <div className="form-group">
-          <label htmlFor="address">Adresse</label>
-          <input type="text" className="form-control" id="address" name="address" onChange={(e) => this.onTextChange(e)} required />
+          <label htmlFor="payCb">N° carte (16 chiffres)</label>
+          <input type="text" className="form-control" id="payCb" name="payCb" onChange={(e) => this.onTextChange(e)} required />
         </div>
 
         <div className="form-group">
-          <label htmlFor="cp">Code Postal</label>
-          <input type="text" className="form-control" id="cp" name="cp" onChange={(e) => this.onTextChange(e)} required />
+          <label htmlFor="payCvv">CVV (3 chiffres)</label>
+          <input type="text" className="form-control" id="payCvv" name="payCvv" onChange={(e) => this.onTextChange(e)} required />
         </div>
         <div className="form-group">
-          <label htmlFor="city">Ville</label>
-          <input type="text" className="form-control" id="city" name="city" onChange={(e) => this.onTextChange(e)} required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="countries">Pays</label>
-          <input type="text" className="form-control" id="countries" name="countries" onChange={(e) => this.onTextChange(e)} required />
+          <label htmlFor="payEpiration">Date d'expiration (MM-YYYY)</label>
+          <input type="text" className="form-control" id="payExpiration" name="payExpiration" onChange={(e) => this.onPayChange(e)} required />
         </div>
         <input
           name="checked" type="checkbox"
           checked={this.state.checked}
           onChange={this.checkChange} />&nbsp;
-        <label htmlFor="checked">Enregistrer en tant qu'adresse préférée</label><br/>
+        <label htmlFor="checked">Enregistrer en tant que carte de paiement préférée</label><br/>
         <div className="form-group">
           <button className="form-control btn btn-primary" type="submit">
             Enregistrer
