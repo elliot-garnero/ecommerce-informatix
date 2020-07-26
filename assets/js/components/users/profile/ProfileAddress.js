@@ -9,10 +9,12 @@ class ProfileAddress extends Component {
             updatedatas: [],
             isLoaded: false,
             addresses: null,
-            show:false
+            show:false,
+            alert:null
         }
         this.updateState = this.updateState.bind(this);
         this.showModal = this.showModal.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     updateState(value) {
@@ -23,7 +25,8 @@ class ProfileAddress extends Component {
                 this.setState({
                     isLoaded: true,
                     addresses: json,
-                    show:false
+                    show:false,
+                    alert:null
                 })
             });
         }
@@ -35,8 +38,12 @@ class ProfileAddress extends Component {
         });
       };
 
-    componentDidMount() {
-        fetch('http://localhost:8000/api/address/1')
+    delete(id) {
+        fetch('http://localhost:8000/api/delete_address/'+id)
+        .then(res => res.json())
+        .then(res => {console.log(res)
+            this.setState({alert: res.message});
+            fetch('http://localhost:8000/api/address/1')
             .then(res => res.json())
             .then(json => {
                 this.setState({
@@ -45,12 +52,27 @@ class ProfileAddress extends Component {
                     show:false
                 })
             });
+        });
+    }
+    
+
+    componentDidMount() {
+        fetch('http://localhost:8000/api/address/1')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({
+                    isLoaded: true,
+                    addresses: json,
+                    show:false,
+                    alert:null
+                })
+            });
     }
 
    
     render() {
         const addressStyle = { 'width': '18rem' }
-        const { updatedatas, addresses, isLoaded, show } = this.state;
+        const { updatedatas, addresses, isLoaded, show, alert } = this.state;
         if (!isLoaded) {
             return <div>Chargement...</div>
         }
@@ -71,21 +93,28 @@ class ProfileAddress extends Component {
                                         <div className="card-body" >
                                             <h5 className="card-title">{address.delLastname} {address.delFirstname}</h5>
                                             <p className="card-text">{address.delAddress}</p>
-                                            <p className="card-text">{address.delCp} {address.delCity}</p>
-                                            <p className="card-text">{address.delCountry}</p>
+                                            <p className="card-text">{address.delCp} {address.delCity} /{address.delCountries}</p>
+                                            
+                                        </div>
+                                        <div className="d-flex flex-row-reverse">
+                                        <button className="btn btn-warning mb-2 mr-3 w-50" onClick={(e) =>this.delete(address.idDeliv)}>Supprimer</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         )}
                     </div>
+                    {alert !== null && <div className="text-center alert alert-danger ">
+                        {alert}
+                    </div>}
                     <div className="text-center">
                     <button className="btn btn-info mb-5 mr-3 w-50" onClick={(e) =>this.showModal()}>Ajouter une adresse</button>
-
+                   
                    <AddressModal show={this.state.show} dataToParent={this.updateState} />
                         </div>
                 </div>}
                 </div>
+                
             )
         }
     }

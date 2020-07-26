@@ -9,6 +9,7 @@ use App\Repository\DeliveryAddressRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DeliveryAddressController extends AbstractController
 {
@@ -71,5 +72,19 @@ class DeliveryAddressController extends AbstractController
         $em->flush();
 
         return new Response('Saved new product with id '.$new_address->getIdDeliv());
+    }
+
+    /**
+     * @Route("/api/delete_address/{id}", name="delete_address")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAdresses($id ): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $address = $entityManager->getRepository(DeliveryAddress::class)->find($id);
+        $entityManager->remove($address);
+        $entityManager->flush();
+        
+        return new JsonResponse(['message' =>'Adresse supprimée !!!']);
     }
 }
