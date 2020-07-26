@@ -30,6 +30,7 @@ class ProfileCommands extends Component {
     render(){
         const {updatedatas, commands, isLoaded} = this.state;
         const commandStyle = { 'width': '100%' };
+        const options = {  year: 'numeric', month: 'short', day: 'numeric' };
         if (!isLoaded) {
             return <div>Chargement...</div>
         }
@@ -55,9 +56,12 @@ class ProfileCommands extends Component {
                     <div className="col-sm-6">
                         <div className="card-body">
                             <h5 className="card-title">Statut de la commande : {command.ordStatus}</h5>
-                            <p className="card-text">Passée le : {command.ordDate}</p>
+                            <p className="card-text">Passée le : {new Date(command.ordDate.substr(0,10)).toLocaleDateString('fr-FR', options)}</p>
                             <p className="card-text">Mode d'expédition : {command.ordMode}</p>
                             <p className="card-text">Prix total : {command.ordTotal}€</p>
+                        </div>
+                        <div className="d-flex flex-row-reverse">
+                        <button className="btn btn-info mb-2 mr-3 w-25">Détails</button>
                         </div>
                     </div>
                 </div>

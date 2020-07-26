@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AddressModal  from './modal/AddressModal';
+
 
 class ProfileAddress extends Component {
     constructor(props) {
@@ -6,15 +8,27 @@ class ProfileAddress extends Component {
         this.state = {
             updatedatas: [],
             isLoaded: false,
-            addresses: null
+            addresses: null,
+            show:false
         }
         this.updateState = this.updateState.bind(this);
     }
 
     updateState(value) {
-        this.setState({ updatedatas: value.update })
-
+        if(value.update =='refresh'){
+            fetch('http://localhost:8000/api/address/1')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({
+                    isLoaded: true,
+                    addresses: json,
+                    show:false
+                })
+            });
+        }
     }
+
+    
 
     componentDidMount() {
         fetch('http://localhost:8000/api/address/1')
@@ -23,14 +37,15 @@ class ProfileAddress extends Component {
                 this.setState({
                     isLoaded: true,
                     addresses: json,
-
+                    show:false
                 })
             });
     }
 
+   
     render() {
         const addressStyle = { 'width': '18rem' }
-        const { updatedatas, addresses, isLoaded } = this.state;
+        const { updatedatas, addresses, isLoaded, show } = this.state;
         if (!isLoaded) {
             return <div>Chargement...</div>
         }
@@ -59,6 +74,11 @@ class ProfileAddress extends Component {
                             </div>
                         )}
                     </div>
+                    <div className="text-center">
+                    <button className="btn btn-info mb-5 mr-3 w-50" onClick={(e) =>this.showModal()}>Ajouter une adresse</button>
+
+                   <AddressModal show={this.state.show} dataToParent={this.updateState} />
+                        </div>
                 </div>}
                 </div>
             )

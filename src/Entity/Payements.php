@@ -70,6 +70,13 @@ class Payements
      */
     private $payExpiration;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean", nullable=false)
+     */
+    private $active;
+
     public function getIdPay(): ?int
     {
         return $this->idPay;
@@ -159,5 +166,15 @@ class Payements
         return $this;
     }
 
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
 
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
 }

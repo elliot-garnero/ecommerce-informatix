@@ -76,7 +76,7 @@ class AsideProfile extends Component {
 
     render(){
         const updatedatas = this.state;
-       
+       console.log(updatedatas)
         return(
             
             <div className="container">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import { CountryDropdown} from 'react-country-region-selector';
 
 
 class ProfileUpdate extends Component {
@@ -8,6 +8,7 @@ class ProfileUpdate extends Component {
         this.state = {
         updatedatas: [],
         country: '',
+        idUser:1
       } 
       this.updateState = this.updateState.bind(this);
       
@@ -24,7 +25,7 @@ class ProfileUpdate extends Component {
    
 
     render(){
-        const { updatedatas,country } = this.state;
+        const { updatedatas,country, idUser } = this.state;console.log(country)
         return(
 
 <div className="card">
@@ -38,94 +39,95 @@ class ProfileUpdate extends Component {
     </div>
     <div className="row">
       <div className="col-md-12">
-        <form>
+        <form action="api/update/firstname/1" method="POST">
           <div className="form-group row">
             <label htmlFor="name" className="col-4 col-form-label">Prénom</label> 
             <div className="col-6">
-              <input id="name" name="name" placeholder="Prénom" className="form-control here" type="text" />
+              <input id="name" name="firstname" placeholder="Prénom" className="form-control here" type="text" />
             </div>
             <div className="col-2">
-              <button name="submit" type="submit" className="btn btn-primary">Enregistrer</button>
+              <button  type="submit" className="btn btn-primary">Enregistrer</button>
             </div>
           </div>
           </form>
-          <form>
+          <form action="api/update/lastname/1" method="POST">
           <div className="form-group row">
             <label htmlFor="lastname" className="col-4 col-form-label">Nom</label> 
             <div className="col-6">
               <input id="lastname" name="lastname" placeholder="Nom" className="form-control here" type="text" />
             </div>
             <div className="col-2">
-              <button name="submit" type="submit" className="btn btn-primary">Enregistrer</button>
+              <button  type="submit" className="btn btn-primary">Enregistrer</button>
             </div>
           </div>
           </form>
-          <form>
+          <form action="api/update/email/1" method="POST">
           <div className="form-group row">
             <label htmlFor="email" className="col-4 col-form-label">Email</label> 
             <div className="col-6">
               <input id="email" name="email" placeholder="Email" className="form-control here" type="text" />
             </div>
             <div className="col-2">
-              <button name="submit" type="submit" className="btn btn-primary">Enregistrer</button>
+              <button  type="submit" className="btn btn-primary">Enregistrer</button>
             </div>
           </div>
           </form>
-          <form>
+          <form action="api/update/address/1" method="POST">
           <div className="form-group row">
-            <label htmlFor="adress" className="col-4 col-form-label">Adresse</label> 
+            <label htmlFor="address" className="col-4 col-form-label">Adresse</label> 
             <div className="col-6">
-              <input id="adress" name="adress" placeholder="Adresse" className="form-control here" type="text" />
+              <input id="address" name="address" placeholder="Adresse" className="form-control here" type="text" />
             </div>
             <div className="col-2">
-              <button name="submit" type="submit" className="btn btn-primary">Enregistrer</button>
+              <button  type="submit" className="btn btn-primary">Enregistrer</button>
             </div>
           </div>
           </form>
-          <form>
+          <form action="api/update/cp/1" method="POST">
           <div className="form-group row">
             <label htmlFor="cp" className="col-4 col-form-label">Code postal</label> 
             <div className="col-6">
               <input id="cp" name="cp" placeholder="Code Postal" className="form-control here" type="text" />
             </div>
             <div className="col-2">
-              <button name="submit" type="submit" className="btn btn-primary">Enregistrer</button>
+              <button  type="submit" className="btn btn-primary">Enregistrer</button>
             </div>
           </div>
           </form>
-          <form>
+          <form action="api/update/city/1" method="POST">
           <div className="form-group row">
             <label htmlFor="city" className="col-4 col-form-label">Ville</label> 
             <div className="col-6">
               <input id="city" name="city" placeholder="Ville"  className="form-control here" type="text" />
             </div>
             <div className="col-2">
-              <button name="submit" type="submit" className="btn btn-primary">Enregistrer</button>
+              <button  type="submit" className="btn btn-primary">Enregistrer</button>
             </div>
           </div>
           </form>
-          <form>
+          <form action="api/update/countries/1" method="POST">
           <div className="form-group row">
-            <label htmlFor="city" className="col-4 col-form-label">Pays</label> 
+            <label htmlFor="countries" className="col-4 col-form-label">Pays</label> 
             <div className="col-6">
             <CountryDropdown
               value={country}
               onChange={(val) => this.selectCountry(val)}
+              name="countries"
             />
             </div>
             <div className="col-2">
-              <button name="submit" type="submit" className="btn btn-primary">Enregistrer</button>
+              <button  type="submit" className="btn btn-primary">Enregistrer</button>
             </div>
           </div>
           </form>
-          <form>
+          <form action="api/update/password/1" method="POST">
           <div className="form-group row">
-            <label htmlFor="newpass" className="col-4 col-form-label">Nouveau mot de passe</label> 
+            <label htmlFor="password" className="col-4 col-form-label">Nouveau mot de passe</label> 
             <div className="col-6">
-              <input id="newpass" name="newpass" placeholder="Nouveau mot de passe" className="form-control here" type="text" />
+              <input id="password" name="password" placeholder="Nouveau mot de passe" className="form-control here" type="text" />
             </div>
             <div className="col-2">
-              <button name="submit" type="submit" className="btn btn-primary">Enregistrer</button>
+              <button  type="submit" className="btn btn-primary">Enregistrer</button>
             </div>
           </div>
           </form>
