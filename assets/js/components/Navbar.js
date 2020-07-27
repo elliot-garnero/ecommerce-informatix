@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logoSmall from '../../images/logoSmall.png';
-import { Redirect } from 'react-router-dom';
+
 
 
 class Navbar extends Component {

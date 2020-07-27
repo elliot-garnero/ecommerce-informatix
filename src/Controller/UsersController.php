@@ -29,48 +29,56 @@ class UsersController extends AbstractController
      */
     public function showOne($id , UsersRepository $repository): Response
     {
-        $user = $repository->find($id);
+        $key = $repository->find($id);
         $serializedEntity = $this->container
         ->get('serializer')
-        ->serialize($user, 'json');
+        ->serialize($key, 'json');
         return new Response($serializedEntity);
     }
 
     /**
-     * @Route("/api/update/{field}/{id}", name="change_firstname")
+     * @Route("/api/update/{id}", name="change_firstname")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function updateData($field, $id , UsersRepository $repository, Request $request)
+    public function updateData( $id , UsersRepository $repository, Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $newData = $request->request->get($field);
+        $data = $request->getContent();
+        $newData = json_decode($data, true);
         $user = $repository->find($id);
-        switch ($field) {
-            case 'firstname':
-                $user->setFirstname($newData);
-                break;
-            case 'lastname':
-                $user->setLastname($newData);
-                break;
-            case 'address':
-                $user->setAddress($newData);
-                break;
-            case 'cp':
-                $user->setCp($newData);
-                break;
-            case 'city':
-                $user->setCity($newData);
-                break;
-            case 'countries':
-                $user->setCountries($newData);
-                break;
-            case 'email':
-                $user->setEmail($newData);
-                break;
-            case 'password':
-                $user->setPassword($newData);
-                break;
+        foreach($newData as $key => $val){
+            if($newData[$key] !== ''){
+            switch ($key) {
+                case 'username':
+                    $user->setUsername($newData[$key]);
+                    break;
+                case 'firstname':
+                    $user->setFirstname($newData[$key]);
+                    break;
+                case 'lastname':
+                    $user->setLastname($newData[$key]);
+                    break;
+                case 'address':
+                    $user->setAddress($newData[$key]);
+                    break;
+                case 'cp':
+                    $user->setCp($newData[$key]);
+                    break;
+                case 'city':
+                    $user->setCity($newData[$key]);
+                    break;
+                case 'countries':
+                    $user->setCountries($newData[$key]);
+                    break;
+                case 'email':
+                    $user->setEmail($newData[$key]);
+                    break;
+                case 'password':
+                    $user->setPassword($newData[$key]);
+                    break;
+            }
         }
+    }
         $entityManager->flush();
         return $this->redirectToRoute('user', [
             // 'id' => $user->getIdUser()

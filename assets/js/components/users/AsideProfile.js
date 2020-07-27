@@ -17,7 +17,7 @@ class AsideProfile extends Component {
         update: false,
         pay: false,
         commands: true,
-        address:false 
+        address:false, 
       } 
       this.updateState = this.updateState.bind(this);
       this.addCommands = this.addCommands.bind(this);
@@ -27,9 +27,21 @@ class AsideProfile extends Component {
     }
 
     updateState(value) {
+      // recup les state de profileUpdate
+      if(value.refresh =='refresh'){console.log (value.refresh)
         this.setState({updatedatas:value})
-        
+        this.sendToParent();
+      }
+        else{// recup les states des autres enfants
+          this.setState({updatedatas:value})
+        } 
     }
+
+    sendToParent() {
+      const dataToParent = this.state;
+      this.props.dataToParent(dataToParent);
+  }
+
     addCommands(){
         this.setState({
           ...this.state,
@@ -87,7 +99,7 @@ class AsideProfile extends Component {
             {this.state.isEmptyState && <AddPayButton addPay={this.addPay} />}
             {this.state.address && <ProfileAddress />}
             {this.state.commands && <ProfileCommands />}
-            {this.state.update && <ProfileUpdate />}
+            {this.state.update && <ProfileUpdate dataToParent={this.updateState}/>}
             {this.state.pay && <ProfilePay />}
           </div>   
             

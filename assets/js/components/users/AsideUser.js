@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class AsideUser extends Component {
     constructor(props) {
         super(props);
@@ -7,41 +8,64 @@ class AsideUser extends Component {
         update: '',
         user:null,
         isLoaded: false,
+        updatedatas:this.props.dataFromParent,
+        flag:true
       } 
       this.updateState = this.updateState.bind(this);
-     
+      this.refresh = this.refresh.bind(this);
     }
 
-    updateState(value) {
-        this.setState({updatedatas:value.update})
-    
-    }
-    
-    componentDidMount() {
+    refresh(){
+        
         fetch('http://localhost:8000/api/user/1')
           .then(res => res.json())
           .then(json => {
               this.setState({
                 user: json,
-                isLoaded:true
+                isLoaded:true,
+                flag:false
               })
         });
     }
 
+    updateState(value) {
+        this.setState({updatedatas:value.update})
+       
+    }
+    
+    componentDidMount() {
+        
+        fetch('http://localhost:8000/api/user/1')
+          .then(res => res.json())
+          .then(json => {
+              this.setState({
+                user: json,
+                isLoaded:true,
+                flag:true
+              })
+        });
+        
+    }
+
     render(){
-        const {updatedatas, user, isLoaded} = this.state;
+        const {updatedatas, user, isLoaded, flag} = this.state;
        
         if (!isLoaded){
             return <div>Chargement...</div>
         }
         else{
+            if(!flag){this.state.flag=true}
+            if(flag  && this.props.dataFromParent.updatedatas == 'refresh')
+                {  
+                    this.refresh();
+                }
             const options = {  year: 'numeric', month: 'short', day: 'numeric' };
             let date =new Date(user.createdAt.substr(0,10));
             date = date.toLocaleDateString('fr-FR', options);
             return(
                 <div className="card-group mb-5">
                     <div className="card">
-                        <div className="card-header">{user.firstname} {user.lastname}</div>
+                        <div className="card-header">{user.firstname} {user.lastname} </div>
                         
                         <div className="card-body">
                             <p className="card-title">{user.address}</p>

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * DeliveryAddress
  *
  * @ORM\Table(name="delivery_address")
- * @ORM\Entity(repositoryClass="App\Repository\DeliveryAddressRepository")
+ * @ORM\Entity
  */
 class DeliveryAddress
 {
@@ -71,11 +71,11 @@ class DeliveryAddress
     private $delCountries;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="active", type="boolean", nullable=false)
      */
-    private $active;
+    private $active = '0';
 
     public function getIdDeliv(): ?int
     {
@@ -177,5 +177,6 @@ class DeliveryAddress
 
         return $this;
     }
+
 
 }
