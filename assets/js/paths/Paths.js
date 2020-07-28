@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom
 import Navbar from '../components/Navbar';
 import MainCatalog from '../components/products/MainCatalog';
 import MainAdd from '../components/products/MainAdd';
+import MainProfile from '../components/customers/MainProfile';
 import Footer from '../components/Footer';
 import Login from "../components/login/container/Login";
 import Register from "../components/login/container/Register";
@@ -20,6 +21,7 @@ class Paths extends Component {
             <Route exact path="/add" component={MainAdd} />
             <Route exact path="/login" component={Login}/>
             <Route exact path="/register" component={Register}/>
+            <Route path="/user" component={MainProfile} />
             <Route path="/modifProduct:id" component={ModifProduct} />
         </Switch>
         <Footer/>
