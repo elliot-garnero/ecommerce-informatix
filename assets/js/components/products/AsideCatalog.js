@@ -20,8 +20,7 @@ class AsideCatalog extends Component{
           .then(json => {
               this.setState({
                 isLoaded: true,
-                items: json,
-               
+                items: json,    
               })
           });
     }
@@ -45,7 +44,6 @@ class AsideCatalog extends Component{
             return <div>Chargement...</div>
         }
         else{
-
             return(
                 <div id="div_catalog">
                     <div className="title_lign">
@@ -71,13 +69,14 @@ class AsideCatalog extends Component{
                                     <h2>{item.price} €</h2>
                                     <h4>{item.stock} en stock</h4>
                                     <button type="button" className="btn btn-success">AJOUTER AU PANIER</button>
+                                    <a href={`/modifProduct${item.idProduct}`}>
+                                        <button type="button" className="mt-2 btn btn-secondary">Modifier le produit</button>
+                                    </a>
                                 </div>
                                 <hr></hr>
-                            </div>
-                            
+                            </div>                         
                         ))}
                     </div>
-                    
                 </div>
             )
         }
