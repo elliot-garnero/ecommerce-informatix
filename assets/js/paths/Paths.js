@@ -15,15 +15,9 @@ class Paths extends Component {
         <Navbar />
         <Switch>
           <Redirect exact from="/" to="/catalog" />
-<<<<<<< HEAD
           <Route exact path="/catalog" component={MainCatalog} />
           <Route exact path="/add" component={MainAdd} />
           <Route path="/modifProduct:id" component={ModifProduct} />
-=======
-          <Route path="/catalog" component={MainCatalog} />
-          <Route path="/add" component={MainAdd} />
-          <Route path="/user" component={MainProfile} />
->>>>>>> dev
         </Switch>
         <Footer/>
       </div>
