@@ -21,6 +21,9 @@ class Navbar extends Component {
           <div className="col 2 d-flex justify-content-around ">
             <a className="text-decoration-none" href="/login"> 
               <span className="m-2 txt-white">Se connecter</span>
+              </a>
+            <a className="text-decoration-none" href="/user"> 
+              <span className="m-2 txt-white">Mon Compte</span>
               <i className="fas fa-user bg-warning p-3 rounded-circle"></i>
             </a>
             <a className="text-decoration-none" href="/panier">
