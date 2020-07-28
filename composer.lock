@@ -4968,7 +4968,6 @@
                 }
             ],
             "time": "2020-07-12T12:58:00+00:00"
-<<<<<<< HEAD
         },
         {
             "name": "symfony/orm-pack",
@@ -5011,8 +5010,6 @@
                 }
             ],
             "time": "2020-07-14T14:34:28+00:00"
-=======
->>>>>>> dev
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -6404,7 +6401,6 @@
                 }
             ],
             "time": "2020-07-23T08:36:24+00:00"
-<<<<<<< HEAD
         },
         {
             "name": "symfony/serializer-pack",
@@ -6449,8 +6445,6 @@
                 }
             ],
             "time": "2020-03-28T16:26:24+00:00"
-=======
->>>>>>> dev
         },
         {
             "name": "symfony/service-contracts",
@@ -8392,7 +8386,6 @@
                 }
             ],
             "time": "2020-07-23T09:26:24+00:00"
-<<<<<<< HEAD
         },
         {
             "name": "symfony/profiler-pack",
@@ -8449,8 +8442,6 @@
             ],
             "description": "A pack for functional and end-to-end testing within a Symfony app",
             "time": "2019-06-21T06:27:32+00:00"
-=======
->>>>>>> dev
         },
         {
             "name": "symfony/web-profiler-bundle",
