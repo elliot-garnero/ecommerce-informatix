@@ -16,7 +16,7 @@ class AsideUser extends Component {
     }
 
     refresh(){
-        
+
         fetch('http://localhost:8000/api/user/1')
           .then(res => res.json())
           .then(json => {
@@ -37,6 +37,7 @@ class AsideUser extends Component {
         
         fetch('http://localhost:8000/api/user/1')
           .then(res => res.json())
+          .then(console.log(res))
           .then(json => {
               this.setState({
                 user: json,
