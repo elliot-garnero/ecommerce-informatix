@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Products
  *
- * @ORM\Table(name="products")
- * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
+ * @ORM\Table(name="products", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
+ * @ORM\Entity
  */
 class Products
 {
@@ -113,18 +113,18 @@ class Products
     private $weight;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="color", type="string", length=255, nullable=false)
+     * @ORM\Column(name="color", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $color;
+    private $color = 'NULL';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="size", type="string", length=255, nullable=false)
+     * @ORM\Column(name="size", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $size;
+    private $size = 'NULL';
 
     /**
      * @var \DateTime
@@ -299,7 +299,7 @@ class Products
         return $this->color;
     }
 
-    public function setColor(string $color): self
+    public function setColor(?string $color): self
     {
         $this->color = $color;
 
@@ -311,7 +311,7 @@ class Products
         return $this->size;
     }
 
-    public function setSize(string $size): self
+    public function setSize(?string $size): self
     {
         $this->size = $size;
 

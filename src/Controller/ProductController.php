@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\Validator\Constraints\DateTimeInterface;
 
 class ProductController extends AbstractController
 {
@@ -182,9 +181,8 @@ class ProductController extends AbstractController
         $data = json_decode($data, true);
         $cat = $data['name'];
         $category = $repoCat->findOneBy(['catName'=> $cat]);
-        $id= $category['idCat'];
-       
-        $product = $repository->find($id);
+        $id= $category->getIdCat();
+        $product = $repository->findBy(['idCat' => $id]);
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($product, 'json');

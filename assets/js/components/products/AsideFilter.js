@@ -60,7 +60,6 @@ class AsideFilter extends Component{
         headers: {'Content-Type': 'application/json'}
         })
         .then( (response) => {
-            console.log(response);
             this.setState({update:response});
             this.sendToParent()
         })
@@ -95,7 +94,7 @@ class AsideFilter extends Component{
     
     byName(event) {
         event.preventDefault();
-        console.log(this.state.search);
+        // console.log(this.state.search);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByName',
@@ -114,7 +113,7 @@ class AsideFilter extends Component{
 
     byCategorie(event) {
         event.preventDefault();
-        console.log(this.state.search);
+        // console.log(this.state.search);
         axios({
         method: 'post',
         url: 'http://localhost:8000/api/searchByCategorie',

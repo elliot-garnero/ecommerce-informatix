@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logoSmall from '../../images/logoSmall.png';
-import { Redirect } from 'react-router-dom';
+
 
 
 class Navbar extends Component {
@@ -38,7 +38,7 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
               <li className="nav-item active">
-                <a className="nav-link" href="/add">ajouter un produit <span class="sr-only">(current)</span></a>
+                <a className="nav-link" href="/add">ajouter un produit <span className="sr-only">(current)</span></a>
               </li>
             </ul>
           </div>
