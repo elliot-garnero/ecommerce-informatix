@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import Login from "../components/users/container/Login";
 import Register from "../components/users/container/Register";
 import ModifProduct from '../components/products/MainModifsProduct';
+import MainProfile from '../components/products/MainModifsProduct';
 
 class Paths extends Component {
   render() {
