@@ -51,7 +51,7 @@ class AsideUser extends Component {
         const {updatedatas, user, isLoaded, flag} = this.state;
        
         if (!isLoaded){
-            return <div>Chargement...</div>
+            return <div>Chargement....</div>
         }
         else{
             if(!flag){this.state.flag=true}
