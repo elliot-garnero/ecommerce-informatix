@@ -5,8 +5,8 @@ import Navbar from '../components/Navbar';
 import MainCatalog from '../components/products/MainCatalog';
 import MainAdd from '../components/products/MainAdd';
 import Footer from '../components/Footer';
-import Login from "../components/users/container/Login";
-import Register from "../components/users/container/Register";
+import Login from "../components/login/container/Login";
+import Register from "../components/login/container/Register";
 import ModifProduct from '../components/products/MainModifsProduct';
 import MainProfile from '../components/products/MainModifsProduct';
 
