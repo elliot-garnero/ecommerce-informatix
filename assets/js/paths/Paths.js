@@ -7,6 +7,7 @@ import MainAdd from '../components/products/MainAdd';
 import Footer from '../components/Footer';
 import Login from "../components/users/container/Login";
 import Register from "../components/users/container/Register";
+import ModifProduct from '../components/products/MainModifsProduct';
 
 class Paths extends Component {
   render() {
@@ -19,6 +20,8 @@ class Paths extends Component {
             <Route exact path="/add" component={MainAdd} />
             <Route exact path="/login" component={Login}/>
             <Route exact path="/register" component={Register}/>
+            <Route exact path="/user" component={MainProfile} />
+            <Route path="/modifProduct:id" component={ModifProduct} />
         </Switch>
         <Footer/>
       </div>
