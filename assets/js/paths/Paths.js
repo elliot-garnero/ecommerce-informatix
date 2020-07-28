@@ -6,6 +6,7 @@ import MainCatalog from '../components/products/MainCatalog';
 import MainAdd from '../components/products/MainAdd';
 import MainProfile from '../components/users/MainProfile';
 import Footer from '../components/Footer';
+import ModifProduct from '../components/products/MainModifsProduct';
 
 class Paths extends Component {
   render() {
@@ -14,9 +15,11 @@ class Paths extends Component {
         <Navbar />
         <Switch>
           <Redirect exact from="/" to="/catalog" />
-          <Route path="/catalog" component={MainCatalog} />
-          <Route path="/add" component={MainAdd} />
-          <Route path="/user" component={MainProfile} />
+          <Route exact path="/catalog" component={MainCatalog} />
+          <Route exact path="/add" component={MainAdd} />
+          <Route exact path="/user" component={MainProfile} />
+
+          <Route path="/modifProduct:id" component={ModifProduct} />
         </Switch>
         <Footer/>
       </div>

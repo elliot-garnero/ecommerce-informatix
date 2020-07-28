@@ -13,7 +13,6 @@ class MainCatalog extends Component {
 
     updateState(value) {
         this.setState({updatedatas:value.update})
-    
     }
     
     render(){
