@@ -3,5 +3,6 @@
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
   "build/vendors~app.js": "/build/vendors~app.js",
-  "build/images/logoSmall.png": "/build/images/logoSmall.d22d5b86.png"
+  "build/images/logoSmall.png": "/build/images/logoSmall.d22d5b86.png",
+  "build/images/cb.jpg": "/build/images/cb.e22dbfd1.jpg"
 }
