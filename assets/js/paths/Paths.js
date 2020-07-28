@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
 import Navbar from '../components/Navbar';
 import MainCatalog from '../components/products/MainCatalog';
 import MainAdd from '../components/products/MainAdd';
-import MainProfile from '../components/users/MainProfile';
 import Footer from '../components/Footer';
+import Login from "../components/users/container/Login";
+import Register from "../components/users/container/Register";
 
 class Paths extends Component {
   render() {
@@ -13,10 +14,11 @@ class Paths extends Component {
       <div>
         <Navbar />
         <Switch>
-          <Redirect exact from="/" to="/catalog" />
-          <Route path="/catalog" component={MainCatalog} />
-          <Route path="/add" component={MainAdd} />
-          <Route path="/user" component={MainProfile} />
+            <Redirect exact from="/" to="/catalog" />
+            <Route exact path="/catalog" component={MainCatalog} />
+            <Route exact path="/add" component={MainAdd} />
+            <Route exact path="/login" component={Login}/>
+            <Route exact path="/register" component={Register}/>
         </Switch>
         <Footer/>
       </div>

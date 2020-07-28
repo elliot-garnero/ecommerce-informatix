@@ -70,13 +70,6 @@ class DeliveryAddress
      */
     private $delCountries;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="active", type="boolean", nullable=false)
-     */
-    private $active = '0';
-
     public function getIdDeliv(): ?int
     {
         return $this->idDeliv;
@@ -162,18 +155,6 @@ class DeliveryAddress
     public function setDelCountries(string $delCountries): self
     {
         $this->delCountries = $delCountries;
-
-        return $this;
-    }
-
-    public function getActive(): ?bool
-    {
-        return $this->active;
-    }
-
-    public function setActive(bool $active): self
-    {
-        $this->active = $active;
 
         return $this;
     }
