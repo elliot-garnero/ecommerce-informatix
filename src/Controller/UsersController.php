@@ -79,6 +79,7 @@ class UsersController extends AbstractController
             }
         }
     }
+        $entityManager->persist($user);
         $entityManager->flush();
         return $this->redirectToRoute('user', [
             // 'id' => $user->getIdUser()
