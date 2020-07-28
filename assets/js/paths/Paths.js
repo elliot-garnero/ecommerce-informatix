@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import MainCatalog from '../components/products/MainCatalog';
 import MainAdd from '../components/products/MainAdd';
-import MainProfile from '../components/users/MainProfile';
+import MainProfile from '../components/customers/MainProfile';
 import Footer from '../components/Footer';
 import ModifProduct from '../components/products/MainModifsProduct';
 
