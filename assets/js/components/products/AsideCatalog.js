@@ -7,9 +7,16 @@ class AsideCatalog extends Component{
         this.state = {
           isLoaded: false,
           items: this.props.dataFromParent.updatedatas,
+<<<<<<< HEAD
         };
+=======
+        }
+        this.productClick = this.productClick.bind(this);
+>>>>>>> dev
     }
    
+    
+    
     componentDidMount() {
         fetch('http://localhost:8000/api/products')
           .then(res => res.json())
@@ -20,16 +27,21 @@ class AsideCatalog extends Component{
               })
           });
     }
-    
+
+    productClick(event, $id) {
+        event.preventDefault();
+        console.log($id);
+        //this.props.history.push('/login');
+    }
     
     render(){
+        
         if(this.props.dataFromParent.updatedatas.data !== this.state.items && this.props.dataFromParent.updatedatas.data !== undefined)
         {  
             this.setState({items: this.props.dataFromParent.updatedatas.data});
         }
         var{ isLoaded, items } = this.state;
         var count = Object.keys(items).length;
-
         if (!isLoaded){
             return <div>Chargement...</div>
         }
@@ -46,9 +58,17 @@ class AsideCatalog extends Component{
                             <div className="product_lign" key={i} id={item.idProduct}>
                                 <img src={item.picture1} alt="product" width="250px"></img>
                                 <div className="product_info">
+<<<<<<< HEAD
                                     <h2>{item.name}</h2>
                                     <p>{item.description}</p>
                                     <p>{item.characteristics}</p>
+=======
+                                    <a href="#" onClick={(event) => this.productClick(event, item.idProduct)}>
+                                        <h2>{item.name}</h2>
+                                        <p>{item.description}</p>
+                                        <p>{item.characteristics}</p>
+                                    </a>
+>>>>>>> dev
                                     <div>
                                         <p>N avis</p>
                                     </div>
@@ -68,7 +88,6 @@ class AsideCatalog extends Component{
                 </div>
             )
         }
-
     }
 }
 

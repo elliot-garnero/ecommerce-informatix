@@ -71,6 +71,15 @@ class ProductsRepository extends ServiceEntityRepository
           return $query->execute();
       }
 
+      public function findAllBrand(): array
+      {
+         
+          return $this->createQueryBuilder('p')
+              ->groupBy('p.brand')
+              ->getQuery()
+              ->getResult();
+      }
+
     // /**
     //  * @return Products[] Returns an array of Products objects
     //  */

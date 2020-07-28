@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import MainCatalog from '../components/products/MainCatalog';
 import MainAdd from '../components/products/MainAdd';
+import MainProfile from '../components/users/MainProfile';
 import Footer from '../components/Footer';
 import ModifProduct from '../components/products/MainModifsProduct';
 
@@ -14,9 +15,15 @@ class Paths extends Component {
         <Navbar />
         <Switch>
           <Redirect exact from="/" to="/catalog" />
+<<<<<<< HEAD
           <Route exact path="/catalog" component={MainCatalog} />
           <Route exact path="/add" component={MainAdd} />
           <Route path="/modifProduct:id" component={ModifProduct} />
+=======
+          <Route path="/catalog" component={MainCatalog} />
+          <Route path="/add" component={MainAdd} />
+          <Route path="/user" component={MainProfile} />
+>>>>>>> dev
         </Switch>
         <Footer/>
       </div>
