@@ -8,11 +8,17 @@ body {
 .bg-grey{
   background-color: rgb(175, 175, 175);
 }
-.txt-color {
-  color: #f69509;
+.bg-orange{
+  background-color: #f69509;
+}
+.txt-blue{
+  color: #0c3e75;
 }
 .txt-white{
   color: white;
+}
+.txt-orange {
+  color: #f69509;
 }
 
 /** Page AsideCatalog **/

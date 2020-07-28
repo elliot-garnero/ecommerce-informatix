@@ -4,7 +4,6 @@ import axios from 'axios';
 class MainAdd extends Component {
   constructor() {
     super();
-
     this.state = { categories: [], loading: true };
   }
 
