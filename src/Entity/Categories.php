@@ -31,7 +31,7 @@ class Categories
     /**
      * @var string|null
      *
-     * @ORM\Column(name="cat_picture", type="string", length=255, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="cat_picture", type="blob", length=65535, nullable=true, options={"default"="NULL"})
      */
     private $catPicture = 'NULL';
 
@@ -52,12 +52,12 @@ class Categories
         return $this;
     }
 
-    public function getCatPicture(): ?string
+    public function getCatPicture()
     {
         return $this->catPicture;
     }
 
-    public function setCatPicture(?string $catPicture): self
+    public function setCatPicture($catPicture): self
     {
         $this->catPicture = $catPicture;
 

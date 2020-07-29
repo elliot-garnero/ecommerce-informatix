@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class UsersController extends AbstractController
@@ -14,7 +14,7 @@ class UsersController extends AbstractController
      * @Route("/api/user", name="user")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showUsers(UsersRepository $repository): Response
+    public function showUsers(UserRepository $repository): Response
     {
         $users = $repository->findAll();
         $serializedEntity = $this->container
@@ -27,7 +27,7 @@ class UsersController extends AbstractController
      * @Route("/api/user/{id}", name="show_user")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showOne($id , UsersRepository $repository): Response
+    public function showOne($id , UserRepository $repository): Response
     {
         $key = $repository->find($id);
         $serializedEntity = $this->container
@@ -40,7 +40,7 @@ class UsersController extends AbstractController
      * @Route("/api/update/{id}", name="change_firstname")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function updateData( $id , UsersRepository $repository, Request $request)
+    public function updateData( $id , UserRepository $repository, Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $data = $request->getContent();
