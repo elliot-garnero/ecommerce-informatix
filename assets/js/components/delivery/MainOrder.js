@@ -3,18 +3,116 @@ import React from 'react';
 class MainOrder extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
-      // products: {...localStorage},
-      products: [
-        { id: 1, name: 'CPU Ryzen 3700x', price: 449.99 },
-        { id: 2, name: 'RAM Corsair 16go', price: 154 },
-        { id: 3, name: 'NVIDIA GTX 1660', price: 350 },
-      ],
+      products: JSON.parse(localStorage.getItem('products')),
+      total: 0,
+      delivery: 'classic',
+      packaging: false,
+      location: 'FR',
+      deliveryPrice: 0,
     };
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
-  //   Besoin de la data des produits pour le total (poids, prix, frais de livraison)
+  componentDidMount() {
+    this.calculateTotal();
+  }
+
+  deleteItem(id) {
+    this.setState(
+      (state) => {
+        const products = state.products.filter((item) => item.id !== id);
+        localStorage.setItem('products', JSON.stringify(products));
+        return {
+          products,
+        };
+      },
+      () => this.calculateTotal()
+    );
+  }
+
+  // Get total price products
+  calculateTotal() {
+    // Add products prices
+    let totalArr = [];
+    for (let i = 0; i < this.state.products.length; i++) {
+      totalArr[i] =
+        this.state.products[i].price * this.state.products[i].amount;
+    }
+
+    let total = totalArr.reduce((a, b) => a + b, 0);
+    let totalProducts = total;
+    let deliveryPrice = 0;
+
+    // Add the delivery price
+    if (this.state.delivery == 'classic') {
+      deliveryPrice = total * 0.05;
+    } else {
+      deliveryPrice = total * 0.2;
+    }
+
+    // Add the destination price
+    switch (this.state.location) {
+      case 'FR':
+        deliveryPrice += deliveryPrice * 0.1;
+        break;
+      case 'EU':
+        deliveryPrice += deliveryPrice * 0.15;
+        break;
+      case 'MO':
+        deliveryPrice += deliveryPrice * 0.3;
+        break;
+    }
+
+    if (
+      this.state.delivery == 'classic' &&
+      this.state.location == 'FR' &&
+      totalProducts >= 400
+    ) {
+      deliveryPrice = 0;
+    }
+
+    total += deliveryPrice;
+
+    this.setState({
+      total: total.toFixed(2),
+      deliveryPrice: deliveryPrice.toFixed(2),
+    });
+  }
+
+  changeDelivery(event) {
+    // this.state.delivery = event.target.value;
+    // this.calculateTotal();
+    this.setState(
+      {
+        delivery: event.target.value,
+      },
+      () => this.calculateTotal()
+    );
+  }
+
+  changeLocation(event) {
+    // this.state.location = event.target.value;
+    // this.calculateTotal();
+    this.setState(
+      {
+        location: event.target.value,
+      },
+      () => this.calculateTotal()
+    );
+  }
+
+  changePackaging() {
+    // this.state.packaging = !this.state.packaging;
+    this.setState(
+      {
+        packaging: !this.state.packaging,
+      },
+      () => this.calculateTotal()
+    );
+  }
+
+  // Calcul selon poids
 
   render() {
     let { products } = this.state;
@@ -29,32 +127,65 @@ class MainOrder extends React.Component {
               </span>
             </h4>
             <ul className="list-group mb-3">
-              {products.map((product, id) => (
+              {products.map((product) => (
                 <li
-                  key={id}
+                  key={product.id}
                   className="list-group-item d-flex justify-content-between lh-condensed"
                 >
+                  <button
+                    type="button"
+                    onClick={() => this.deleteItem(product.id)}
+                    className="close text-danger"
+                  >
+                    &times;
+                  </button>
+                  <p className="pt-2 text-secondary">{product.amount}</p>
                   <div>
                     <h6 className="my-0">{product.name}</h6>
-                    <small className="text-muted">Petite description</small>
+                    <small>
+                      <a href="#">Fiche produit</a>
+                    </small>
                   </div>
                   <span className="text-muted">{product.price} €</span>
                 </li>
               ))}
               <li className="list-group-item d-flex justify-content-between bg-light">
                 <div>
-                  <h6 className="my-0">Frais de port</h6>
-                  <small>Description tarif</small>
+                  <h6 className="my-0">Livraison</h6>
+                  <select
+                    className="form-control"
+                    id="delivery"
+                    onChange={this.changeDelivery.bind(this)}
+                  >
+                    <option value="classic">Classique</option>
+                    <option value="express">Express</option>
+                  </select>
                 </div>
-                <span>5 €</span>
+                <span>{this.state.deliveryPrice} €</span>
               </li>
               <li className="list-group-item d-flex justify-content-between">
                 <span>Total (EUR)</span>
-                <strong>20 €</strong>
+                <strong>{this.state.total} €</strong>
               </li>
+              {this.state.total > 400 && (
+                <li className="list-group-item d-flex justify-content-between">
+                  <div className=" form-check">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="packaging"
+                      name="packaging"
+                      onChange={this.changePackaging.bind(this)}
+                    />
+                    <label htmlFor="packaging" className="form-check-label">
+                      Emballage des produits
+                    </label>
+                  </div>
+                </li>
+              )}
             </ul>
 
-            <form className="card p-2">
+            {/* <form className="card p-2">
               <div className="input-group">
                 <input
                   type="text"
@@ -67,11 +198,22 @@ class MainOrder extends React.Component {
                   </button>
                 </div>
               </div>
-            </form>
+            </form> */}
           </div>
           <div className="col-md-8 order-md-1">
             <h4 className="mb-3 txt-color">Adresse personnelle</h4>
-            <form className="needs-validation">
+            <form method="POST" action="/api/order">
+              <input type="hidden" name="total" value={this.state.total} />
+              <input
+                type="hidden"
+                name="delivery"
+                value={this.state.delivery}
+              />
+              <input
+                type="hidden"
+                name="packaging"
+                value={this.state.packaging}
+              />
               <div className="row">
                 <div className="col-md-6 mb-3">
                   <label htmlFor="firstName">Nom</label>
@@ -79,6 +221,7 @@ class MainOrder extends React.Component {
                     type="text"
                     className="form-control"
                     id="firstName"
+                    name="firstName"
                     required
                   />
                 </div>
@@ -88,6 +231,7 @@ class MainOrder extends React.Component {
                     type="text"
                     className="form-control"
                     id="lastName"
+                    name="lastName"
                     required
                   />
                 </div>
@@ -95,7 +239,13 @@ class MainOrder extends React.Component {
 
               <div className="mb-3">
                 <label htmlFor="email">Email</label>
-                <input type="email" className="form-control" id="email" />
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  required
+                />
               </div>
 
               <div className="mb-3">
@@ -104,21 +254,29 @@ class MainOrder extends React.Component {
                   type="text"
                   className="form-control"
                   id="address"
+                  name="address"
                   required
                 />
               </div>
 
               <div className="mb-3">
                 <label htmlFor="address2">Complément d'addresse</label>
-                <input type="text" className="form-control" id="address2" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="address2"
+                  name="address2"
+                />
               </div>
 
               <div className="row">
                 <div className="col-md-6 mb-3">
-                  <label htmlFor="country">Country</label>
+                  <label htmlFor="country">Region</label>
                   <select
                     className="custom-select d-block w-100"
                     id="country"
+                    name="country"
+                    onChange={this.changeLocation.bind(this)}
                     required
                   >
                     <option value="FR">France</option>
@@ -132,10 +290,12 @@ class MainOrder extends React.Component {
                     type="text"
                     className="form-control"
                     id="zip"
+                    name="zip"
                     required
                   />
                 </div>
               </div>
+              {/*
               <hr className="mb-4" />
               <div className="custom-control custom-checkbox">
                 <input
@@ -148,7 +308,7 @@ class MainOrder extends React.Component {
                   facturation
                 </label>
               </div>
-              <div className="custom-control custom-checkbox">
+               <div className="custom-control custom-checkbox">
                 <input
                   type="checkbox"
                   className="custom-control-input"
@@ -157,7 +317,7 @@ class MainOrder extends React.Component {
                 <label className="custom-control-label" htmlFor="save-info">
                   Garder ces informations pour plus tard
                 </label>
-              </div>
+              </div> */}
               <hr className="mb-4" />
 
               <h4 className="mb-3 txt-color">Paiement</h4>
@@ -168,6 +328,7 @@ class MainOrder extends React.Component {
                     type="text"
                     className="form-control"
                     id="cc-name"
+                    name="cc-name"
                     required
                   />
                 </div>
@@ -177,6 +338,7 @@ class MainOrder extends React.Component {
                     type="text"
                     className="form-control"
                     id="cc-number"
+                    name="cc-number"
                     required
                   />
                 </div>
@@ -188,6 +350,7 @@ class MainOrder extends React.Component {
                     type="text"
                     className="form-control"
                     id="cc-expiration"
+                    name="cc-expiration"
                     required
                   />
                 </div>
@@ -197,6 +360,7 @@ class MainOrder extends React.Component {
                     type="text"
                     className="form-control"
                     id="cc-cvv"
+                    name="cc-cvv"
                     required
                   />
                 </div>
