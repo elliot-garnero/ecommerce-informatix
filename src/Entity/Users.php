@@ -45,16 +45,6 @@ class Users implements UserInterface, \JsonSerializable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $roles;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $countries;
 
     /**
