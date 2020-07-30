@@ -4,7 +4,6 @@ import axios from 'axios';
 class MainAdd extends Component {
   constructor() {
     super();
-
     this.state = { categories: [], loading: true };
   }
 
@@ -13,7 +12,8 @@ class MainAdd extends Component {
   }
 
   getCategories() {
-    axios.get(`http://localhost:8000/api/getcategories`).then((res) => {
+    axios.get(`http://localhost:8000/api/getcategories`)
+    .then((res) => {
       const categories = res.data;
       this.setState({ categories, loading: false });
     });

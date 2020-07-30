@@ -1,15 +1,5 @@
 import React from 'react';
 
-localStorage.clear();
-// localStorage.setItem(
-//   'products',
-//   JSON.stringify([
-//     { id: 3, name: 'CPU Ryzen 3700x', price: 200, weight: 200, amount: 5 },
-//     { id: 1, name: 'RAM Corsair 16go', price: 100, weight: 500, amount: 3 },
-//     { id: 2, name: 'NVIDIA GTX 1660', price: 500, weight: 700, amount: 1 },
-//   ])
-// );
-
 class MainModal extends React.Component {
   constructor(props) {
     super(props);
@@ -29,7 +19,7 @@ class MainModal extends React.Component {
     let totalArr = [];
     for (let i = 0; i < this.state.products.length; i++) {
       totalArr[i] =
-        this.state.products[i].price * this.state.products[i].amount;
+        parseInt(this.state.products[i].price) * this.state.products[i].amount;
     }
 
     let total = totalArr.reduce((a, b) => a + b, 0);
@@ -42,7 +32,8 @@ class MainModal extends React.Component {
   deleteItem(id) {
     this.setState(
       (state) => {
-        const products = state.products.filter((item) => item.id !== id);
+        const products = state.products.filter((item) => item.idProduct !== id);
+        // console.log(item);
         localStorage.setItem('products', JSON.stringify(products));
         return {
           products,
@@ -58,7 +49,7 @@ class MainModal extends React.Component {
       (state) => {
         const products = state.products.map((item, key) => {
           if (key === id) {
-            item.amount = e.target.value;
+            item.amount = parseInt(e.target.value);
             return item;
           } else {
             return item;
@@ -78,14 +69,22 @@ class MainModal extends React.Component {
     if (this.state.products.length > 0) {
       return (
         <div className="container d-flex justify-content-center mt-100">
-          <button
+          {/* <button
             type="button"
             className="btn btn-outline-info btn-rounded waves-effect"
             data-toggle="modal"
             data-target="#modal1"
           >
             Panier
-          </button>
+          </button> */}
+          <a
+            className="text-decoration-none"
+            data-toggle="modal"
+            data-target="#modal1"
+          >
+            <span className="m-2 txt-white">Mon panier</span>
+            <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
+          </a>
           <div className="modal fade" id="modal1">
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
@@ -105,7 +104,7 @@ class MainModal extends React.Component {
                   <p className="text-center">Total : {this.state.total} €</p>
                   <div className="container">
                     {this.state.products.map((product, num) => (
-                      <div key={product.id}>
+                      <div key={product.idProduct}>
                         <div className="row">
                           <div className="col">
                             <img
@@ -134,7 +133,7 @@ class MainModal extends React.Component {
                           </div>
                           <button
                             type="button"
-                            onClick={() => this.deleteItem(product.id)}
+                            onClick={() => this.deleteItem(product.idProduct)}
                             className="close"
                           >
                             &times;

@@ -24,11 +24,8 @@ class ProductsRepository extends ServiceEntityRepository
       */
     
       public function findByPrice($min, $max)
-      {
-         
+      {  
         return $this->createQueryBuilder('p')
-        
-        
         ->orderBy('p.price', 'ASC')
         ->andWhere('p.price > :min')
         ->andWhere('p.price < :max')
@@ -39,14 +36,23 @@ class ProductsRepository extends ServiceEntityRepository
     ;
       }
       
+      public function findByBrand($brand)
+      {  
+        return $this->createQueryBuilder('p')
+        ->orderBy('p.brand', 'ASC')
+        ->andWhere('p.brand LIKE :brand')
+        ->setParameter('brand', $brand)
+        ->getQuery()
+        ->getResult()
+    ;
+      }
+
       public function findAllGreaterThanPrice($price): array
       {
-         
           $qb = $this->createQueryBuilder('p')
               ->where('p.price > :price')
               ->setParameter('price', $price)
               ->orderBy('p.price', 'ASC');
-      
           $query = $qb->getQuery();
       
           return $query->execute();
@@ -63,6 +69,15 @@ class ProductsRepository extends ServiceEntityRepository
           $query = $qb->getQuery();
       
           return $query->execute();
+      }
+
+      public function findAllBrand(): array
+      {
+         
+          return $this->createQueryBuilder('p')
+              ->groupBy('p.brand')
+              ->getQuery()
+              ->getResult();
       }
 
     // /**

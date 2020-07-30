@@ -21,7 +21,7 @@ class MainOrder extends React.Component {
   deleteItem(id) {
     this.setState(
       (state) => {
-        const products = state.products.filter((item) => item.id !== id);
+        const products = state.products.filter((item) => item.idProduct !== id);
         localStorage.setItem('products', JSON.stringify(products));
         return {
           products,

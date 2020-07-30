@@ -22,7 +22,7 @@ class CategoriesController extends AbstractController
 
     /**
      * @Route("/api/getcategories", name="getcategories")
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getCategories(): Response
     {
