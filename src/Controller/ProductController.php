@@ -28,11 +28,10 @@ class ProductController extends AbstractController
      * @Route("/api/products", name="products")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showProducts(): Response
+    public function showProducts(ProductsRepository $repository): Response
     {
-        // fetch entityManager grace à $this->getDoctrine()
-        $repository = $this->getDoctrine()->getRepository(Products::class);
-        $products = $repository->findAll();
+        //$repository = $this->getDoctrine()->getRepository(Products::class);
+        $products = $repository->findAllDesc();
         // Si pas d'article
         if (!$products) {
             throw $this->createNotFoundException(
@@ -49,20 +48,15 @@ class ProductController extends AbstractController
      * @Route("/api/products/{id}", name="show_product")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showOne($id ): Response
+    public function showOne($id): Response
     {
-        // fetch entityManager grace à $this->getDoctrine()
         $repository = $this->getDoctrine()->getRepository(Products::class);
         $product = $repository->find($id);
-        // Si pas d'article
-        
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($product, 'json');
         return new Response($serializedEntity);
     }
-
-
 
      /**
      * @Route("/api/createproduct", name="createproduct")

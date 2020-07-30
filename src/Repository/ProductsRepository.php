@@ -19,12 +19,12 @@ class ProductsRepository extends ServiceEntityRepository
         parent::__construct($registry, Products::class);
     }
 
-     /**
-      * @return Products[] Returns an array of Products objects
-      */
+    /**
+    * @return Products[] Returns an array of Products objects
+    */
     
-      public function findByPrice($min, $max)
-      {  
+    public function findByPrice($min, $max)
+    {  
         return $this->createQueryBuilder('p')
         ->orderBy('p.price', 'ASC')
         ->andWhere('p.price > :min')
@@ -32,53 +32,58 @@ class ProductsRepository extends ServiceEntityRepository
         ->setParameter('min', $min)
         ->setParameter('max', $max)
         ->getQuery()
-        ->getResult()
-    ;
-      }
+        ->getResult();
+    }
       
-      public function findByBrand($brand)
-      {  
+    public function findByBrand($brand)
+    {  
         return $this->createQueryBuilder('p')
         ->orderBy('p.brand', 'ASC')
         ->andWhere('p.brand LIKE :brand')
         ->setParameter('brand', $brand)
         ->getQuery()
-        ->getResult()
-    ;
-      }
+        ->getResult();
+    }
 
-      public function findAllGreaterThanPrice($price): array
-      {
-          $qb = $this->createQueryBuilder('p')
+    public function findAllGreaterThanPrice($price): array
+    {
+        $qb = $this->createQueryBuilder('p')
               ->where('p.price > :price')
               ->setParameter('price', $price)
               ->orderBy('p.price', 'ASC');
-          $query = $qb->getQuery();
+        $query = $qb->getQuery();
       
-          return $query->execute();
-      }
+        return $query->execute();
+    }
   
-      public function findAllLowerThanPrice($price): array
-      {
-         
-          $qb = $this->createQueryBuilder('p')
+    public function findAllLowerThanPrice($price): array
+    {
+        $qb = $this->createQueryBuilder('p')
               ->where('p.price < :price')
               ->setParameter('price', $price)
               ->orderBy('p.price', 'ASC');
       
-          $query = $qb->getQuery();
+        $query = $qb->getQuery();
       
-          return $query->execute();
-      }
+        return $query->execute();
+    }
 
-      public function findAllBrand(): array
-      {
-         
-          return $this->createQueryBuilder('p')
+    public function findAllBrand(): array
+    {
+        return $this->createQueryBuilder('p')
               ->groupBy('p.brand')
               ->getQuery()
               ->getResult();
-      }
+    }
+
+    public function findAllDesc(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.addeddate', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // /**
     //  * @return Products[] Returns an array of Products objects

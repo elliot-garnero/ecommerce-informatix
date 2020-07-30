@@ -6,7 +6,7 @@ class AsideFilter extends Component{
         super(props);
         this.state = {
           price_min: '',
-          price_max: '',
+          price_max: 500,
           brand:[],
           nameProduct: [],
           categorie: [],
@@ -40,7 +40,7 @@ class AsideFilter extends Component{
             .then(res => res.json())
             .then(json => {
                 this.setState({ categorie: json });
-                console.log(this.state.categorie);
+                //console.log(this.state.categorie);
             });
     }
 

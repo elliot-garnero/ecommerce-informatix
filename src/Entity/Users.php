@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Users
  *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="id_user", columns={"id_user", "id_deliv"})})
+ * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D649F85E0677", columns={"username"}), @ORM\UniqueConstraint(name="UNIQ_8D93D649E7927C74", columns={"email"})})
  * @ORM\Entity
  */
 class Users
@@ -15,18 +15,39 @@ class Users
     /**
      * @var int
      *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idUser;
+    private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="id_deliv", type="integer", nullable=false)
+     * @ORM\Column(name="username", type="string", length=180, nullable=false)
      */
-    private $idDeliv;
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="roles", type="text", length=0, nullable=false)
+     */
+    private $roles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
 
     /**
      * @var string
@@ -45,9 +66,9 @@ class Users
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     * @ORM\Column(name="countries", type="string", length=255, nullable=false)
      */
-    private $address;
+    private $countries;
 
     /**
      * @var string
@@ -59,9 +80,9 @@ class Users
     /**
      * @var string
      *
-     * @ORM\Column(name="countries", type="string", length=255, nullable=false)
+     * @ORM\Column(name="address", type="string", length=255, nullable=false)
      */
-    private $countries;
+    private $address;
 
     /**
      * @var int
@@ -69,20 +90,6 @@ class Users
      * @ORM\Column(name="cp", type="integer", nullable=false)
      */
     private $cp;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
-     */
-    private $password;
 
     /**
      * @var bool|null
@@ -94,23 +101,59 @@ class Users
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="date", nullable=false, options={"default"="current_timestamp()"})
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $createdAt = 'current_timestamp()';
+    private $createdAt;
 
-    public function getIdUser(): ?int
+    public function getId(): ?int
     {
-        return $this->idUser;
+        return $this->id;
     }
 
-    public function getIdDeliv(): ?int
+    public function getUsername(): ?string
     {
-        return $this->idDeliv;
+        return $this->username;
     }
 
-    public function setIdDeliv(int $idDeliv): self
+    public function setUsername(string $username): self
     {
-        $this->idDeliv = $idDeliv;
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
@@ -139,14 +182,14 @@ class Users
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getCountries(): ?string
     {
-        return $this->address;
+        return $this->countries;
     }
 
-    public function setAddress(string $address): self
+    public function setCountries(string $countries): self
     {
-        $this->address = $address;
+        $this->countries = $countries;
 
         return $this;
     }
@@ -163,14 +206,14 @@ class Users
         return $this;
     }
 
-    public function getCountries(): ?string
+    public function getAddress(): ?string
     {
-        return $this->countries;
+        return $this->address;
     }
 
-    public function setCountries(string $countries): self
+    public function setAddress(string $address): self
     {
-        $this->countries = $countries;
+        $this->address = $address;
 
         return $this;
     }
@@ -183,30 +226,6 @@ class Users
     public function setCp(int $cp): self
     {
         $this->cp = $cp;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }
