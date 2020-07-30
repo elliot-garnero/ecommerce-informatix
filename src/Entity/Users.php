@@ -45,22 +45,19 @@ class Users implements UserInterface, \JsonSerializable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastname;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $firstname;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $countries;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $city;
+    private $lastname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
+     */
+    private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -70,7 +67,7 @@ class Users implements UserInterface, \JsonSerializable
     /**
      * @ORM\Column(type="integer")
      */
-    private $cp;
+    private $city;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)

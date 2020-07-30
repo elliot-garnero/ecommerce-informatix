@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Payements
  *
- * @ORM\Table(name="payements", uniqueConstraints={@ORM\UniqueConstraint(name="pay_cvv", columns={"pay_cvv"}), @ORM\UniqueConstraint(name="pay_email", columns={"pay_email"}), @ORM\UniqueConstraint(name="pay_cb", columns={"pay_cb"})})
+ * @ORM\Table(name="payements", uniqueConstraints={@ORM\UniqueConstraint(name="pay_email", columns={"pay_email"})})
  * @ORM\Entity
  */
 class Payements
@@ -69,6 +69,13 @@ class Payements
      * @ORM\Column(name="pay_expiration", type="date", nullable=false)
      */
     private $payExpiration;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="active", type="boolean", nullable=false)
+     */
+    private $active = '0';
 
     public function getIdPay(): ?int
     {
@@ -155,6 +162,18 @@ class Payements
     public function setPayExpiration(\DateTimeInterface $payExpiration): self
     {
         $this->payExpiration = $payExpiration;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

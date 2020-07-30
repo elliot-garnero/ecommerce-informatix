@@ -35,9 +35,6 @@ body {
   display: inline-flex;
   border: 1px solid rgb(143, 143, 143);
 }
-.product_info li{
-  color: rgb(82, 82, 82);
-}
 .product_info a{
   text-decoration: none;
   color: black;
@@ -52,8 +49,8 @@ body {
 .product_price h2{
   color: #f69509;
 }
-.product_price h4{
-  color: #37dc8a;
+.noStock{
+  color: #7c7c7c;
 }
 
 
@@ -64,4 +61,9 @@ body {
 }
 #aside_blue h5{
   border-top: 1px solid white;
+}
+
+/** Reviews star **/
+.checked {
+  color: orange;
 }
