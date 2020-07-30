@@ -35,7 +35,6 @@ class AsideCatalog extends Component{
             return <div>Chargement...</div>
         }
         else{
-
             return(
                 <div id="div_catalog">
                     <div className="title_lign">
@@ -73,14 +72,16 @@ class AsideCatalog extends Component{
                                         <div>
                                             <h5 className="text-success">{item.stock} en stock</h5><br></br><br></br>
                                             <button type="button" className="btn btn-success"><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
+                                            <a href={`/modifProduct${item.idProduct}`}>
+                                                <button type="button" className="mt-2 btn btn-secondary">Modifier le produit</button>
+                                            </a>
                                         </div>
                                     }
                                 </div>
                                 <hr></hr>
-                            </div>
+                            </div>                         
                         ))}
                     </div>
-                    
                 </div>
             )
         }
