@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 
 class AsideCatalog extends Component{
     constructor(props) {
         super(props);
      
         this.state = {
+          products: JSON.parse(localStorage.getItem('products')) || [],
           isLoaded: false,
           items: this.props.dataFromParent.updatedatas,
         }
@@ -19,6 +20,23 @@ class AsideCatalog extends Component{
                 items: json,
               })
           });
+    }
+
+    //    Add 1 if already in cart
+    addProduct(item) {
+        this.setState((state) => {
+        let products = state.products;
+        if (products.includes(item)) {
+            item.amount++;
+        } else {
+            item.amount = 1;
+            products.push(item);
+        }
+        localStorage.setItem('products', JSON.stringify(products));
+        return {
+            products,
+        };
+        });
     }
 
 
@@ -71,7 +89,7 @@ class AsideCatalog extends Component{
                                     {item.stock >= 1 && 
                                         <div>
                                             <h5 className="text-success">{item.stock} en stock</h5><br></br><br></br>
-                                            <button type="button" className="btn btn-success"><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
+                                            <button type="button" className="btn btn-success" onClick={() => this.addProduct(item)}><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
                                             <a href={`/modifProduct${item.idProduct}`}>
                                                 <button type="button" className="mt-2 btn btn-secondary">Modifier le produit</button>
                                             </a>
@@ -82,7 +100,7 @@ class AsideCatalog extends Component{
                             </div>                         
                         ))}
                     </div>
-                </div>
+                </div> 
             )
         }
     }
