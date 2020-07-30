@@ -34,7 +34,7 @@ export default function Register() {
                 if (res.data.success)
                     setSuccess(true);
                 else
-                    setError(false);
+                    setError('Erreur informations incorrectes ou adresse e-mail existant');
             })
             .catch(e => setError(false));
 
