@@ -4,10 +4,13 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import MainCatalog from '../components/products/MainCatalog';
 import MainAdd from '../components/products/MainAdd';
+import MainOrder from '../components/delivery/MainOrder';
+import MainTracking from '../components/delivery/MainTracking';
+
 import MainProfile from '../components/users/MainProfile';
 import Footer from '../components/Footer';
-import Login from "../components/login/container/Login";
-import Register from "../components/login/container/Register";
+import Login from '../components/login/container/Login';
+import Register from '../components/login/container/Register';
 import ModifProduct from '../components/products/MainModifsProduct';
 
 class Paths extends Component {
@@ -20,11 +23,13 @@ class Paths extends Component {
           <Route exact path="/catalog" component={MainCatalog} />
           <Route exact path="/add" component={MainAdd} />
           <Route exact path="/user" component={MainProfile} />
-          <Route exact path="/login" component={Login}/>
-          <Route exact path="/register" component={Register}/>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route path="/modifProduct:id" component={ModifProduct} />
+          <Route path="/order" component={MainOrder} />
+          <Route path="/tracking" component={MainTracking} />
         </Switch>
-        <Footer/>
+        <Footer />
       </div>
     );
   }
