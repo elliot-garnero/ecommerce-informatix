@@ -45,6 +45,7 @@ class AsideCatalog extends Component{
         }
         else{
             return(
+                
                 <div id="div_catalog">
                     <div className="title_lign">
                         <h1>CATALOGUE</h1>
@@ -53,9 +54,11 @@ class AsideCatalog extends Component{
                     
                     <div className="div_all_product">
                         {items.map((item, i) => (
-                            <div className="product_lign" key={i} id={item.idProduct}>
+                            <div className="row product_lign" key={i} id={item.idProduct}>
+                                <div className="col-3">
                                 <img src={item.picture1} alt="product" width="250px"></img>
-                                <div className="product_info">
+                                </div>
+                                <div className="col-6 product_info">
                                     <a href="#" onClick={(event) => this.productClick(event, item.idProduct)}>
                                         <h2>{item.name}</h2>
                                         <p>{item.description}</p>
@@ -65,7 +68,7 @@ class AsideCatalog extends Component{
                                         <p>N avis</p>
                                     </div>
                                 </div>
-                                <div className="product_price">
+                                <div className=" col-3 product_price">
                                     <h2>{item.price} €</h2>
                                     <h4>{item.stock} en stock</h4>
                                     <button type="button" className="btn btn-success">AJOUTER AU PANIER</button>
