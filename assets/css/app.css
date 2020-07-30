@@ -8,11 +8,17 @@ body {
 .bg-grey{
   background-color: rgb(175, 175, 175);
 }
-.txt-color {
-  color: #f69509;
+.bg-orange{
+  background-color: #f69509;
+}
+.txt-blue{
+  color: #0c3e75;
 }
 .txt-white{
   color: white;
+}
+.txt-orange {
+  color: #f69509;
 }
 
 /** Page AsideCatalog **/
@@ -32,6 +38,14 @@ body {
 .product_info li{
   color: rgb(82, 82, 82);
 }
+.product_info a{
+  text-decoration: none;
+  color: black;
+}
+.product_info a:hover{
+  text-decoration: none;
+  color:#0f5aaa;
+}
 .product_price{
   right: 0;
 }
@@ -41,6 +55,7 @@ body {
 .product_price h4{
   color: #37dc8a;
 }
+
 
 /** Page AsideFilter **/
 #aside_blue{

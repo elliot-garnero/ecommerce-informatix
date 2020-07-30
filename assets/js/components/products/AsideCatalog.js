@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-//import './../../../css/app.css';
+import { Redirect } from "react-router-dom";
+import React, { Component, useEffect } from 'react';
 
 class AsideCatalog extends Component{
     constructor(props) {
@@ -7,24 +7,36 @@ class AsideCatalog extends Component{
      
         this.state = {
           isLoaded: false,
-          items: [],
-        };
+          items: this.props.dataFromParent.updatedatas,
+        }
+        this.productClick = this.productClick.bind(this);
     }
-     
+   
+    
+    
     componentDidMount() {
         fetch('http://localhost:8000/api/products')
           .then(res => res.json())
           .then(json => {
               this.setState({
                 isLoaded: true,
-                items: json,
+                items: json,    
               })
           });
     }
-    
+
+    productClick(event, $id) {
+        event.preventDefault();
+        console.log($id);
+        //this.props.history.push('/login');
+    }
     
     render(){
-
+        
+        if(this.props.dataFromParent.updatedatas.data !== this.state.items && this.props.dataFromParent.updatedatas.data !== undefined)
+        {  
+            this.setState({items: this.props.dataFromParent.updatedatas.data});
+        }
         var{ isLoaded, items } = this.state;
         var count = Object.keys(items).length;
 
@@ -32,7 +44,6 @@ class AsideCatalog extends Component{
             return <div>Chargement...</div>
         }
         else{
-
             return(
                 <div id="div_catalog">
                     <div className="title_lign">
@@ -41,14 +52,15 @@ class AsideCatalog extends Component{
                     </div>
                     
                     <div className="div_all_product">
-                        {items.map(item => (
-                            <div className="product_lign" key={item.id_product}>
-                                <img src="https://media.materiel.net/r550/products/MN0005048928_1.jpg" alt="product" width="250px"></img>
+                        {items.map((item, i) => (
+                            <div className="product_lign" key={i} id={item.idProduct}>
+                                <img src={item.picture1} alt="product" width="250px"></img>
                                 <div className="product_info">
-                                    <h2>{item.name}</h2>
-                                    <p>{item.description}</p>
-                                    <p>{item.characteristics}</p>
-
+                                    <a href="#" onClick={(event) => this.productClick(event, item.idProduct)}>
+                                        <h2>{item.name}</h2>
+                                        <p>{item.description}</p>
+                                        <p>{item.characteristics}</p>
+                                    </a>
                                     <div>
                                         <p>N avis</p>
                                     </div>
@@ -57,17 +69,17 @@ class AsideCatalog extends Component{
                                     <h2>{item.price} €</h2>
                                     <h4>{item.stock} en stock</h4>
                                     <button type="button" className="btn btn-success">AJOUTER AU PANIER</button>
+                                    <a href={`/modifProduct${item.idProduct}`}>
+                                        <button type="button" className="mt-2 btn btn-secondary">Modifier le produit</button>
+                                    </a>
                                 </div>
                                 <hr></hr>
-                            </div>
-                            
+                            </div>                         
                         ))}
                     </div>
-                    
                 </div>
             )
         }
-
     }
 }
 
