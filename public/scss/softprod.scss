@@ -1,0 +1,256 @@
+/* footer social icons */
+.social-icons {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+
+  li {
+    display: inline-block;
+    margin-bottom: 4px;
+
+    &.title {
+      margin-right: 15px;
+      text-transform: uppercase;
+      color: #96a2b2;
+      font-weight: 700;
+      font-size: 13px;
+    }
+  }
+
+  a {
+    background-color: #eceeef;
+    color: #818a91;
+    font-size: 16px;
+    display: inline-block;
+    line-height: 44px;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    margin-right: 8px;
+    border-radius: 100%;
+    -webkit-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    transition: all 0.2s linear;
+
+    &:active, &:focus, &:hover {
+      color: #fff;
+      background-color: #29aafe;
+    }
+  }
+
+  &.size-sm a {
+    line-height: 34px;
+    height: 34px;
+    width: 34px;
+    font-size: 14px;
+  }
+
+  a {
+    &.facebook:hover {
+      background-color: #3b5998;
+    }
+
+    &.twitter:hover {
+      background-color: #00aced;
+    }
+
+    &.linkedin:hover {
+      background-color: #007bb6;
+    }
+
+    &.github:hover {
+      background-color: #24292e;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .social-icons li.title {
+    display: block;
+    margin-right: 0;
+    font-weight: 600;
+  }
+}
+
+/* login */
+.login-container {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.login-form-1 {
+  padding: 5%;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+
+  h3 {
+    text-align: center;
+    color: #333;
+  }
+}
+
+.login-container form {
+  padding: 5%;
+}
+
+.btnSubmit {
+  width: 50%;
+  border-radius: 1rem;
+  padding: 1.5%;
+  border: none;
+}
+
+.login-form-1 .btnSubmit {
+  font-weight: 600;
+  color: #fff;
+  background-color: #0062cc;
+}
+
+.login-form-1 .no-registered {
+  color: #0062cc;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+footer {
+  position: fixed;
+  height: 100px;
+  bottom: 0;
+  width: 100%;
+}
+
+.base {
+  display: grid;
+  grid-template-rows: max-content auto;
+  grid-gap: 10px;
+  height: 100%;
+  padding: 5px;
+}
+
+.board {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-rows: max-content auto;
+}
+
+.board-lists {
+  display: grid;
+  grid-auto-columns: 272px;
+  grid-auto-flow: column;
+  grid-gap: 8px;
+  overflow: scroll;
+}
+
+.column-area {
+  height: 100%;
+}
+
+.board-list {
+  background-color: rgb(235, 236, 240);
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.board-lists {
+  display: grid;
+  grid-auto-columns: 272px;
+  grid-auto-flow: column;
+  grid-gap: 8px;
+  overflow: scroll;
+}
+
+.board-list, .list-body {
+  background-color: rgb(235, 236, 240);
+  border-radius: 3px;
+  display: grid;
+  grid-auto-rows: max-content;
+  grid-gap: 10px;
+  height: max-content;
+  padding: 10px;
+}
+
+.list-title {
+  font-weight: bold;
+}
+
+.card {
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(9,30,66,.25);
+  padding: 10px;
+  cursor: pointer;
+}
+
+.add-card {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.btn-secondary {
+  background-color: #ebecf0;
+  color: black;
+  border: none;
+  &:hover,:focus {
+    background-color: #c4c5c9;
+    color: black;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+#wrapper {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  height: 79vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+  overflow: scroll;
+  width: 23rem;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 18rem;
+  padding: 1rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0 ;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -24rem;
+  }
+}
+
+.bg-image-table {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}

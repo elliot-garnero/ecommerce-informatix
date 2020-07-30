@@ -2,115 +2,172 @@
 
 namespace App\Entity;
 
+use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Users
- *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="id_user", columns={"id_user", "id_deliv"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=UsersRepository::class)
  */
-class Users
+class Users implements UserInterface, \JsonSerializable
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
-    private $idUser;
+    private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_deliv", type="integer", nullable=false)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $idDeliv;
+    private $username;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
+     * @ORM\Column(type="json")
      */
-    private $lastname;
+    private $roles = [];
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
-     */
-    private $firstname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
-     */
-    private $address;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=255, nullable=false)
-     */
-    private $city;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="countries", type="string", length=255, nullable=false)
-     */
-    private $countries;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="cp", type="integer", nullable=false)
-     */
-    private $cp;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
     private $password;
 
     /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="deleted", type="boolean", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $deleted = 'NULL';
+    private $email;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="date", nullable=false, options={"default"="current_timestamp()"})
+     * @ORM\Column(type="string", length=255)
      */
-    private $createdAt = 'current_timestamp()';
+    private $lastname;
 
-    public function getIdUser(): ?int
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $countries;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $cp;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deleted;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    public function getId(): ?int
     {
-        return $this->idUser;
+        return $this->id;
     }
 
-    public function getIdDeliv(): ?int
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->idDeliv;
+        return (string) $this->username;
     }
 
-    public function setIdDeliv(int $idDeliv): self
+    public function setUsername(string $username): self
     {
-        $this->idDeliv = $idDeliv;
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "username"=>$this->getUsername()
+        ];
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
@@ -139,14 +196,14 @@ class Users
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getCountries(): ?string
     {
-        return $this->address;
+        return $this->countries;
     }
 
-    public function setAddress(string $address): self
+    public function setCountries(string $countries): self
     {
-        $this->address = $address;
+        $this->countries = $countries;
 
         return $this;
     }
@@ -163,14 +220,14 @@ class Users
         return $this;
     }
 
-    public function getCountries(): ?string
+    public function getAddress(): ?string
     {
-        return $this->countries;
+        return $this->address;
     }
 
-    public function setCountries(string $countries): self
+    public function setAddress(string $address): self
     {
-        $this->countries = $countries;
+        $this->address = $address;
 
         return $this;
     }
@@ -183,30 +240,6 @@ class Users
     public function setCp(int $cp): self
     {
         $this->cp = $cp;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }
@@ -225,15 +258,13 @@ class Users
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
 
         return $this;
     }
-
-
 }

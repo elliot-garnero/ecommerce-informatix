@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\Validator\Constraints\DateTimeInterface;
 
 class ProductController extends AbstractController
 {
@@ -20,7 +19,7 @@ class ProductController extends AbstractController
     public function index()
     {
         return $this->render('product/index.html.twig', [
-            'controller_name' => 'ProductController',
+            'controller_name' => 'ProdctController',
         ]);
     }
     
@@ -61,7 +60,6 @@ class ProductController extends AbstractController
         ->serialize($product, 'json');
         return new Response($serializedEntity);
     }
-
 
 
      /**
@@ -108,6 +106,104 @@ class ProductController extends AbstractController
 
         return new Response('Saved new product with id '. $product->getIdProduct() . "<br><a href=\"/\">Back</a>");
     }
+
+
+
+
+
+
+
+
+
+
+    
+     /**
+     * @Route("/api/deleteproduct", name="deleteproduct")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteProduct(ProductsRepository $repository): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $product = $repository->find($_POST["idProduct"]);
+
+        // tell Doctrine you want to (eventually) save the Product (no queries yet)
+        $entityManager->remove($product);
+        // actually executes the queries (i.e. the INSERT query)
+        $entityManager->flush();
+
+        return new Response('Product deleted with id '. $product->getIdProduct() . "<br><a href=\"/\">Back</a>");
+    }
+
+
+
+
+
+     /**
+     * @Route("/api/modifproduct", name="modifproduct")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function modifProduct(ProductsRepository $repository): Response
+    {
+        if(isset($_POST['new'])) {
+            $new = true;
+        } else {
+            $new = false;
+        }
+        if(isset($_POST['promo'])) {
+            $promo = true;
+        } else {
+            $promo = false;
+        }
+
+        $date = new \DateTime();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $product = $repository->find($_POST["idProduct"]);
+        $product->setName($_POST['name']);
+        $product->setDescription($_POST['description']);
+        $product->setBrand($_POST['brand']);
+        $product->setStock($_POST['stock']);
+        $product->setNew($new);
+        $product->setPromo($promo);
+        $product->setPicture1($_POST['picture1']);
+        $product->setPicture2($_POST['picture2']);
+        $product->setPicture3($_POST['picture3']);
+        $product->setCharacteristics($_POST['characteristics']);
+        $product->setPrice($_POST['price']);
+        $product->setWeight($_POST['weight']);
+        $product->setColor($_POST['color']);
+        $product->setSize($_POST['size']);
+        $product->setAddedDate($date);
+
+        // tell Doctrine you want to (eventually) save the Product (no queries yet)
+        $entityManager->persist($product);
+        // actually executes the queries (i.e. the INSERT query)
+        $entityManager->flush();
+
+        return new Response('Saved modif product with id '. $product->getIdProduct() . "<br><a href=\"/\">Back</a>");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * @Route("/api/searchByPrice", name="show_products_byPrice")
@@ -182,9 +278,8 @@ class ProductController extends AbstractController
         $data = json_decode($data, true);
         $cat = $data['name'];
         $category = $repoCat->findOneBy(['catName'=> $cat]);
-        $id= $category['idCat'];
-       
-        $product = $repository->find($id);
+        $id= $category->getIdCat();
+        $product = $repository->findBy(['idCat' => $id]);
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($product, 'json');
@@ -220,5 +315,6 @@ class ProductController extends AbstractController
         ->serialize($products, 'json');
         return new Response($serializedEntity);
     }
+
 
 }
