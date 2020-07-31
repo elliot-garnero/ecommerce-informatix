@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Orders
  *
- * @ORM\Table(name="orders", uniqueConstraints={@ORM\UniqueConstraint(name="ord_email", columns={"ord_email"})})
+ * @ORM\Table(name="orders")
  * @ORM\Entity
  */
 class Orders
@@ -27,6 +27,13 @@ class Orders
      * @ORM\Column(name="id_user", type="integer", nullable=false)
      */
     private $idUser;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ord_products", type="string", length=255, nullable=false)
+     */
+    private $ordProducts;
 
     /**
      * @var string
@@ -104,6 +111,18 @@ class Orders
     public function setIdUser(int $idUser): self
     {
         $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    public function getOrdProducts(): ?string
+    {
+        return $this->ordProducts;
+    }
+
+    public function setOrdProducts(string $ordProducts): self
+    {
+        $this->ordProducts = $ordProducts;
 
         return $this;
     }

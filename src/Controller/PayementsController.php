@@ -9,6 +9,7 @@ use App\Repository\PayementsRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PayementsController extends AbstractController
 {
@@ -61,5 +62,45 @@ class PayementsController extends AbstractController
         $em->flush();
 
         return new Response('Saved new cb with id '.$new_cb->getIdPay());
+    }
+
+     /**
+     * @Route("/api/active_pay", name="active_pay")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function activePay( Request $request ): JsonResponse
+    {
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+        $idPay = $data['idPay'];
+        $idUser = $data['idUser'];
+        $entityManager = $this->getDoctrine()->getManager();
+        $inactive = $entityManager->getRepository(Payements::class)->findBy(['idUser' => $idUser]);
+        foreach ($inactive as $key => $value) {
+            $value->setActive(0);
+            $entityManager->persist($value);
+            $entityManager->flush();
+        }
+        $active = $entityManager->getRepository(Payements::class)->find($idPay);
+        $active->SetActive(1);
+        $entityManager->persist($active);
+        $entityManager->flush();
+        
+        
+        return new JsonResponse(['message' =>'Action enregistrée !!!']);
+    }
+
+    /**
+     * @Route("/api/delete_pay/{id}", name="delete_pay")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function deletePay($id ): JsonResponse
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $pay = $entityManager->getRepository(Payements::class)->find($id);
+        $entityManager->remove($pay);
+        $entityManager->flush();
+        
+        return new JsonResponse(['message' =>'CB supprimée !!!']);
     }
 }

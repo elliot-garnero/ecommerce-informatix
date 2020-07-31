@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import Login from "../components/login/container/Login";
 import Register from "../components/login/container/Register";
 import ModifProduct from '../components/products/MainModifsProduct';
+import MainListUsers from "../components/admin/MainListUsers";
 
 class Paths extends Component {
   render() {
@@ -17,6 +18,7 @@ class Paths extends Component {
         <Navbar />
         <Switch>
           <Redirect exact from="/" to="/catalog" />
+          <Route path="/listUsers" component={MainListUsers} />
           <Route exact path="/catalog" component={MainCatalog} />
           <Route exact path="/add" component={MainAdd} />
           <Route exact path="/user" component={MainProfile} />

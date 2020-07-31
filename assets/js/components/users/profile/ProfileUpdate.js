@@ -38,7 +38,7 @@ class ProfileUpdate extends Component {
 
   onSubmitUpdate(e) {
     e.preventDefault();    
-      const data = this.state;console.log(data)
+      const data = this.state;
       axios
         .post(`http://localhost:8000/api/update/1`, data)
         .then((res) => {

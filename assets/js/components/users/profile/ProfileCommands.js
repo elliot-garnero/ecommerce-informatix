@@ -20,6 +20,7 @@ class ProfileCommands extends Component {
         fetch('http://localhost:8000/api/command/1')
             .then(res => res.json())
             .then(json => {
+                json =='' ? json = null : json;
                 this.setState({
                     isLoaded: true,
                     commands: json
