@@ -103,14 +103,6 @@ class ProductController extends AbstractController
     }
 
 
-
-
-
-
-
-
-
-
     
      /**
      * @Route("/api/deleteproduct", name="deleteproduct")
@@ -129,9 +121,6 @@ class ProductController extends AbstractController
 
         return new Response('Product deleted with id '. $product->getIdProduct() . "<br><a href=\"/\">Back</a>");
     }
-
-
-
 
 
      /**
@@ -178,26 +167,6 @@ class ProductController extends AbstractController
 
         return new Response('Saved modif product with id '. $product->getIdProduct() . "<br><a href=\"/\">Back</a>");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**

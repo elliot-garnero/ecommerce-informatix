@@ -7,6 +7,7 @@ import MainDetailsProduct from '../components/products/MainDetailsProduct';
 import MainAdd from '../components/products/MainAdd';
 import MainOrder from '../components/delivery/MainOrder';
 import MainTracking from '../components/delivery/MainTracking';
+import MainDeliveryList from '../components/delivery/MainDeliveryList';
 
 import MainProfile from '../components/users/MainProfile';
 import Footer from '../components/Footer';
@@ -30,6 +31,7 @@ class Paths extends Component {
           <Route path="/modifProduct:id" component={ModifProduct} />
           <Route path="/order" component={MainOrder} />
           <Route path="/tracking" component={MainTracking} />
+          <Route exact path="/deliveryList" component={MainDeliveryList} />
         </Switch>
         <Footer />
       </div>

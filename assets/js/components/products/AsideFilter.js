@@ -19,8 +19,7 @@ class AsideFilter extends Component{
         this.byName = this.byName.bind(this);
         this.byCategorie = this.byCategorie.bind(this);
         this.inputChange =this.inputChange.bind(this);
-        
-        
+          
     }
 
     componentDidMount() {
@@ -174,9 +173,11 @@ class AsideFilter extends Component{
       }, this);
 
     return (
-      <div id="aside_blue">
-        <h5>Affiner votre recherche :</h5>
-        <h5>Par prix :</h5>
+      <div className="p-2 aside_blue">
+        <div className="row pl-3">
+          <h5 className="pb-3 pt-3">Affiner votre recherche :</h5>
+        </div>
+        <h6 className="pt-3">Par prix :</h6>
         <form onSubmit={this.byPrice} method="post">
           <div className="form-row align-items-center">
             <div className="form-group col-md-5">
@@ -186,11 +187,9 @@ class AsideFilter extends Component{
                 onChange={this.byPriceChange}
                 name="price_min"
                 id="price_min"
-                className="form-control"
+                className="form-control mb-3"
               >
-                <option value="0" defaultValue>
-                  0
-                </option>
+                <option value="0" defaultValue>0</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
                 <option value="200">200</option>
@@ -233,13 +232,13 @@ class AsideFilter extends Component{
             </div>
           </div>
           <div className="col">
-            <button type="submit" className="btn btn-secondary mb-2">
+            <button type="submit" className="btn btn-secondary mb-3">
               valider
             </button>
           </div>
         </form>
 
-        <h5>Par marque :</h5>
+        <h6 className="pt-3 pb-2">Par marque :</h6>
         <form onSubmit={this.byBrand} method="post">
           <div className="form-row align-items-center">
             <div className="form-group col-md-10">
@@ -255,13 +254,13 @@ class AsideFilter extends Component{
             </div>
           </div>
           <div className="col">
-            <button type="submit" className="btn btn-secondary mb-2">
+            <button type="submit" className="btn btn-secondary mb-3">
               valider
             </button>
           </div>
         </form>
 
-        <h5>Par nom :</h5>
+        <h6 className="pt-3 pb-2">Par nom :</h6>
         <form onSubmit={this.byName} method="post">
           <div className="form-row align-items-center">
             <div className="form-group col-md-10">
@@ -277,13 +276,13 @@ class AsideFilter extends Component{
             </div>
           </div>
           <div className="col">
-            <button type="submit" className="btn btn-secondary mb-2">
+            <button type="submit" className="btn btn-secondary mb-3">
               valider
             </button>
           </div>
         </form>
 
-        <h5>Par catégorie :</h5>
+        <h6 className="pt-3 pb-2">Par catégorie :</h6>
         <form onSubmit={this.byCategorie} method="post">
           <div className="form-row align-items-center">
             <div className="form-group col-md-10">
@@ -299,7 +298,7 @@ class AsideFilter extends Component{
             </div>
           </div>
           <div className="col">
-            <button type="submit" className="btn btn-secondary mb-2">
+            <button type="submit" className="btn btn-secondary mb-3">
               valider
             </button>
           </div>

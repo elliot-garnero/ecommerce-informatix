@@ -11,6 +11,7 @@ class MainDetailsProduct extends Component {
             idUserReview: '',
             idUserOne:'',
             users: [],
+            products: JSON.parse(localStorage.getItem('products')) || [],
         }
     }
 
@@ -50,6 +51,23 @@ class MainDetailsProduct extends Component {
                    
                 });
             });
+        });
+    }
+
+     // Add 1 if already in cart
+     addProduct(item) {
+        this.setState((state) => {
+        let products = state.products;
+        if (products.includes(item)) {
+            item.amount++;
+        } else {
+            item.amount = 1;
+            products.push(item);
+        }
+        localStorage.setItem('products', JSON.stringify(products));
+        return {
+            products,
+        };
         });
     }
     
@@ -104,13 +122,7 @@ class MainDetailsProduct extends Component {
                                     {data.promo == false && <p></p>}
                                     <strong><h3 className="text-warning">Prix : {data.price} €</h3></strong><br></br>
                                 </div>
-                                <div className="form-group">
-                                    <label>Quantité</label>
-                                    <input type="quantiy" placeholder="1" className="form-control quantity"/>
-                                </div>
-                                <p>
-                                    <button className="btn btn-round btn-success" type="button"><i className="fa fa-shopping-cart"></i> Ajouter au panier</button>
-                                </p>
+                                <button className="btn btn-round btn-success btn-lg" type="button" onClick={() => this.addProduct(data)}><i className="fa fa-shopping-cart"></i> Ajouter au panier</button>
                             </div>}
                             {data.stock == 0 &&
                             <div>

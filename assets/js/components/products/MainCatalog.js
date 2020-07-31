@@ -19,22 +19,17 @@ class MainCatalog extends Component {
         const updatedatas = this.state;
         
         return(
-            <>
         
             <div className="container">
-                
                 <div className="row">
-                    
                     <div className="col-3">
-                   
-                        <AsideFilter dataToParent={this.updateState} />
+                    <AsideFilter dataToParent={this.updateState} />
                     </div>
                     <div className="col-9">
-                        <AsideCatalog dataFromParent={updatedatas}/>
+                    <AsideCatalog dataFromParent={updatedatas}/>
                     </div>
                 </div>
             </div>
-            </>
         )
     }
 }

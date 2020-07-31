@@ -91,6 +91,13 @@ class Orders
      */
     private $packaging = 'NULL';
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ord_products", type="string", length=255, nullable=false)
+     */
+    private $ordProducts;
+
     public function getIdOrder(): ?int
     {
         return $this->idOrder;
@@ -212,6 +219,18 @@ class Orders
     public function setPackaging(?bool $packaging): self
     {
         $this->packaging = $packaging;
+
+        return $this;
+    }
+
+    public function getOrdProducts(): ?string
+    {
+        return $this->ordProducts;
+    }
+
+    public function setOrdProducts(string $ordProducts): self
+    {
+        $this->ordProducts = $ordProducts;
 
         return $this;
     }

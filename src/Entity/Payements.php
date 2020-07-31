@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Payements
  *
- * @ORM\Table(name="payements", uniqueConstraints={@ORM\UniqueConstraint(name="pay_email", columns={"pay_email"})})
+ * @ORM\Table(name="payements", uniqueConstraints={@ORM\UniqueConstraint(name="pay_cb", columns={"pay_cb"})})
  * @ORM\Entity
  */
 class Payements
@@ -50,9 +50,9 @@ class Payements
     private $payEmail;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="pay_cb", type="integer", nullable=false)
+     * @ORM\Column(name="pay_cb", type="string", length=16, nullable=false)
      */
     private $payCb;
 
@@ -75,7 +75,7 @@ class Payements
      *
      * @ORM\Column(name="active", type="boolean", nullable=false)
      */
-    private $active = '0';
+    private $active;
 
     public function getIdPay(): ?int
     {
@@ -130,12 +130,12 @@ class Payements
         return $this;
     }
 
-    public function getPayCb(): ?int
+    public function getPayCb(): ?string
     {
         return $this->payCb;
     }
 
-    public function setPayCb(int $payCb): self
+    public function setPayCb(string $payCb): self
     {
         $this->payCb = $payCb;
 
