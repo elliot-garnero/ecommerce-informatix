@@ -29,7 +29,7 @@ class Navbar extends Component {
             </a>
           </div>
         </nav>
-
+        {/* BARRE ADMIN */}
         <nav className="bg-grey navbar navbar-expand-lg navbar-light">
           <a className="navbar-brand" href="/catalog">Espace Admin : </a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,12 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
               <li className="nav-item active">
-                <a className="nav-link" href="/add">ajouter un produit <span className="sr-only">(current)</span></a>
+                <a className="nav-link" href="/add">Ajouter un produit <span className="sr-only">(current)</span></a>
+              </li>
+            </ul>
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                <a className="nav-link" href="/bundles">Gestionnaire de lots<span className="sr-only">(current)</span></a>
               </li>
             </ul>
           </div>

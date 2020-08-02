@@ -9,6 +9,8 @@ import Footer from '../components/Footer';
 import Login from "../components/login/container/Login";
 import Register from "../components/login/container/Register";
 import ModifProduct from '../components/products/MainModifsProduct';
+import MainBundles from '../components/admin/MainBundles';
+
 
 class Paths extends Component {
   render() {
@@ -23,6 +25,7 @@ class Paths extends Component {
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
           <Route path="/modifProduct:id" component={ModifProduct} />
+          <Route path="/bundles" component={MainBundles} />
         </Switch>
         <Footer/>
       </div>
