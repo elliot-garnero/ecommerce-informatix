@@ -31,6 +31,7 @@ class MainOrder extends React.Component {
     );
   }
 
+  // Get total price products
   calculateTotal() {
     // Add products prices
     let totalArr = [];
@@ -80,6 +81,8 @@ class MainOrder extends React.Component {
   }
 
   changeDelivery(event) {
+    // this.state.delivery = event.target.value;
+    // this.calculateTotal();
     this.setState(
       {
         delivery: event.target.value,
@@ -89,6 +92,8 @@ class MainOrder extends React.Component {
   }
 
   changeLocation(event) {
+    // this.state.location = event.target.value;
+    // this.calculateTotal();
     this.setState(
       {
         location: event.target.value,
@@ -98,6 +103,7 @@ class MainOrder extends React.Component {
   }
 
   changePackaging() {
+    // this.state.packaging = !this.state.packaging;
     this.setState(
       {
         packaging: !this.state.packaging,
@@ -123,12 +129,13 @@ class MainOrder extends React.Component {
             <ul className="list-group mb-3">
               {products.map((product) => (
                 <li
-                  key={product.idProduct}
+                  key={product.id}
+                  // id changed from idProduct
                   className="list-group-item d-flex justify-content-between lh-condensed"
                 >
                   <button
                     type="button"
-                    onClick={() => this.deleteItem(product.idProduct)}
+                    onClick={() => this.deleteItem(product.id)}
                     className="close text-danger"
                   >
                     &times;
@@ -178,6 +185,21 @@ class MainOrder extends React.Component {
                 </li>
               )}
             </ul>
+
+            {/* <form className="card p-2">
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Code promo"
+                />
+                <div className="input-group-append">
+                  <button type="submit" className="btn bg-blue txt-white">
+                    Valider
+                  </button>
+                </div>
+              </div>
+            </form> */}
           </div>
           <div className="col-md-8 order-md-1">
             <h4 className="mb-3 txt-color">Adresse personnelle</h4>
@@ -274,6 +296,29 @@ class MainOrder extends React.Component {
                   />
                 </div>
               </div>
+              {/*
+              <hr className="mb-4" />
+              <div className="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  className="custom-control-input"
+                  id="same-address"
+                />
+                <label className="custom-control-label" htmlFor="same-address">
+                  L'adresse de livraison est la même que l'adresse de
+                  facturation
+                </label>
+              </div>
+               <div className="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  className="custom-control-input"
+                  id="save-info"
+                />
+                <label className="custom-control-label" htmlFor="save-info">
+                  Garder ces informations pour plus tard
+                </label>
+              </div> */}
               <hr className="mb-4" />
 
               <h4 className="mb-3 txt-color">Paiement</h4>

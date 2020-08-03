@@ -80,8 +80,7 @@ class DeliveryController extends AbstractController
         ->get('serializer')
         ->serialize($order, 'json');
 
-       
-
         return new Response($serializedEntity);
     }
+
 }

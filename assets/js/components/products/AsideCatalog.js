@@ -1,4 +1,5 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
+import MainModal from '../delivery/MainModal';
 
 class AsideCatalog extends Component {
   constructor(props) {
@@ -9,11 +10,10 @@ class AsideCatalog extends Component {
       isLoaded: false,
       items: this.props.dataFromParent.updatedatas,
     };
-    this.productClick = this.productClick.bind(this);
   }
 
   componentDidMount() {
-    fetch('http://localhost:8000/api/products')
+    fetch('http://localhost:8000/api/products/')
       .then((res) => res.json())
       .then((json) => {
         this.setState({
@@ -23,18 +23,12 @@ class AsideCatalog extends Component {
       });
   }
 
-  productClick(event, id) {}
-
+  //    Add 1 if already in cart
   addProduct(item) {
     this.setState((state) => {
       let products = state.products;
-      if (products.length > 0) {
-        if (products.some((product) => product.name == item.name)) {
-          item.amount++;
-        } else {
-          item.amount = 1;
-          products.push(item);
-        }
+      if (products.includes(item)) {
+        item.amount++;
       } else {
         item.amount = 1;
         products.push(item);
@@ -65,46 +59,94 @@ class AsideCatalog extends Component {
             <h1>CATALOGUE</h1>
             <p>{count} produits</p>
           </div>
-
-          <div className="div_all_product">
-            {items.map((item, i) => (
-              <div className="product_lign" key={i} id={item.idProduct}>
-                <img src={item.picture1} alt="product" width="250px"></img>
-                <div className="product_info">
-                  <a
-                    href="#"
-                    onClick={(event) =>
-                      this.productClick(event, item.idProduct)
-                    }
-                  >
+          {items.map((item, i) => (
+            <div
+              className="w-100 border border-secondary p-3 mb-2 rounded"
+              key={i}
+              id={item.idProduct}
+            >
+              <div className="row">
+                <img
+                  className="col-md-3 p-0"
+                  src={item.picture1}
+                  alt="product"
+                  width="250px"
+                ></img>
+                <div className="col-md-6 pl-0 product_info">
+                  <a href={`/detailsProduct${item.idProduct}`}>
                     <h2>{item.name}</h2>
+                    {item.new == true && (
+                      <h4>
+                        <span className="badge badge-warning">
+                          <em>New !!!</em>
+                        </span>
+                      </h4>
+                    )}
+                    {item.new == false && <p></p>}
                     <p>{item.description}</p>
                     <p>{item.characteristics}</p>
                   </a>
-                  <div>
-                    <p>N avis</p>
+                </div>
+                <div className="col-md-3 pr-0 pl-0 product_price">
+                  <div className="row">
+                    <h2 className="p-3">{item.price} €</h2>
+                    {item.promo == true && (
+                      <h5>
+                        <span className="p-2 mt-3 badge badge-danger">
+                          EN PROMO
+                        </span>
+                      </h5>
+                    )}
+                    {item.promo == false && <p></p>}
                   </div>
+                  {item.stock == 0 && (
+                    <div>
+                      <h5 className="text-danger">
+                        <em>Indisponible</em>
+                      </h5>
+                      <br></br>
+                      <br></br>
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        disabled
+                      >
+                        <i className="fa fa-shopping-cart"></i> AJOUTER AU
+                        PANIER
+                      </button>
+                    </div>
+                  )}
+                  {item.stock >= 1 && (
+                    <div>
+                      <h5 className="text-success">{item.stock} en stock</h5>
+                      <br></br>
+                      <br></br>
+                      <button
+                        type="button"
+                        className="btn btn-success"
+                        onClick={() => this.addProduct(item)}
+                      >
+                        <i className="fa fa-shopping-cart"></i> AJOUTER AU
+                        PANIER
+                      </button>
+                      <a href={`/modifProduct${item.idProduct}`}>
+                        <button
+                          type="button"
+                          className="mt-2 btn btn-secondary"
+                        >
+                          <i
+                            className="fa fa-pencil-square-o"
+                            aria-hidden="true"
+                          ></i>{' '}
+                          Modifier le produit
+                        </button>
+                      </a>
+                    </div>
+                  )}
                 </div>
-                <div className="product_price">
-                  <h2>{item.price} €</h2>
-                  <h4>{item.stock} en stock</h4>
-                  <button
-                    type="button"
-                    className="btn btn-success"
-                    onClick={() => this.addProduct(item)}
-                  >
-                    AJOUTER AU PANIER
-                  </button>
-                  <a href={`/modifProduct${item.idProduct}`}>
-                    <button type="button" className="mt-2 btn btn-secondary">
-                      Modifier le produit
-                    </button>
-                  </a>
-                </div>
-                <hr></hr>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       );
     }

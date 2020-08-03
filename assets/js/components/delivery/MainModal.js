@@ -33,6 +33,7 @@ class MainModal extends React.Component {
     this.setState(
       (state) => {
         const products = state.products.filter((item) => item.idProduct !== id);
+        // console.log(item);
         localStorage.setItem('products', JSON.stringify(products));
         return {
           products,
@@ -68,6 +69,14 @@ class MainModal extends React.Component {
     if (this.state.products.length > 0) {
       return (
         <div className="container d-flex justify-content-center mt-100">
+          {/* <button
+            type="button"
+            className="btn btn-outline-info btn-rounded waves-effect"
+            data-toggle="modal"
+            data-target="#modal1"
+          >
+            Panier
+          </button> */}
           <a
             className="text-decoration-none"
             data-toggle="modal"
@@ -95,13 +104,11 @@ class MainModal extends React.Component {
                   <p className="text-center">Total : {this.state.total} €</p>
                   <div className="container">
                     {this.state.products.map((product, num) => (
-                      <div key={product.idProduct}>
+                      <div key={num} id={product.idProduct}>
+                        {/* key changed from idProduct to num */}
                         <div className="row">
                           <div className="col">
-                            <img
-                              className="img-fluid"
-                              src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"
-                            />
+                            <img className="img-fluid" src={product.picture1} />
                           </div>
                           <div className="col pt-5">
                             <ul type="none">
@@ -114,8 +121,8 @@ class MainModal extends React.Component {
                                 value={this.state.products[num].amount}
                                 onChange={(e) => this.itemNumberChange(e, num)}
                               >
-                                {selectNumber.map((number) => (
-                                  <option key={number} value={number}>
+                                {selectNumber.map((number, i) => (
+                                  <option key={i} value={number}>
                                     {number}
                                   </option>
                                 ))}
@@ -142,18 +149,15 @@ class MainModal extends React.Component {
       );
     } else {
       return (
-        <div
-          className="container d-flex justify-content-center mt-100"
-          style={{ cursor: 'pointer' }}
-        >
-          <a
-            className="text-decoration-none"
+        <div className="container d-flex justify-content-center mt-100">
+          <button
+            type="button"
+            className="btn btn-outline-info btn-rounded waves-effect"
             data-toggle="modal"
             data-target="#modal1"
           >
-            <span className="m-2 txt-white">Mon panier</span>
-            <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
-          </a>
+            Panier
+          </button>
           <div className="modal fade" id="modal1">
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
