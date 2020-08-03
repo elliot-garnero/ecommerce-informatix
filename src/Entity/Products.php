@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Products
  *
- * @ORM\Table(name="products")
- * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
+ * @ORM\Table(name="products", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
+ * @ORM\Entity
  */
 class Products
 {
@@ -38,7 +38,7 @@ class Products
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @ORM\Column(name="description", type="string", length=1500, nullable=false)
      */
     private $description;
 
@@ -57,18 +57,25 @@ class Products
     private $stock;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=0, nullable=false)
+     */
+    private $price;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="promo", type="integer", nullable=true, options={"default"="NULL"})
+     */
+    private $promo = 'NULL';
+
+    /**
      * @var bool|null
      *
      * @ORM\Column(name="new", type="boolean", nullable=true, options={"default"="NULL"})
      */
     private $new = 'NULL';
-
-    /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="promo", type="boolean", nullable=true, options={"default"="NULL"})
-     */
-    private $promo = 'NULL';
 
     /**
      * @var string|null
@@ -99,13 +106,6 @@ class Products
     private $characteristics;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=0, nullable=false)
-     */
-    private $price;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="weight", type="integer", nullable=false)
@@ -113,18 +113,18 @@ class Products
     private $weight;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="color", type="string", length=255, nullable=false)
+     * @ORM\Column(name="color", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $color;
+    private $color = 'NULL';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="size", type="string", length=255, nullable=false)
+     * @ORM\Column(name="size", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $size;
+    private $size = 'NULL';
 
     /**
      * @var \DateTime
@@ -198,6 +198,30 @@ class Products
         return $this;
     }
 
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getPromo(): ?int
+    {
+        return $this->promo;
+    }
+
+    public function setPromo(?int $promo): self
+    {
+        $this->promo = $promo;
+
+        return $this;
+    }
+
     public function getNew(): ?bool
     {
         return $this->new;
@@ -206,18 +230,6 @@ class Products
     public function setNew(?bool $new): self
     {
         $this->new = $new;
-
-        return $this;
-    }
-
-    public function getPromo(): ?bool
-    {
-        return $this->promo;
-    }
-
-    public function setPromo(?bool $promo): self
-    {
-        $this->promo = $promo;
 
         return $this;
     }
@@ -270,18 +282,6 @@ class Products
         return $this;
     }
 
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     public function getWeight(): ?int
     {
         return $this->weight;
@@ -299,7 +299,7 @@ class Products
         return $this->color;
     }
 
-    public function setColor(string $color): self
+    public function setColor(?string $color): self
     {
         $this->color = $color;
 
@@ -311,7 +311,7 @@ class Products
         return $this->size;
     }
 
-    public function setSize(string $size): self
+    public function setSize(?string $size): self
     {
         $this->size = $size;
 

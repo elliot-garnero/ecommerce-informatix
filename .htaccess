@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Password Protected Area"
+AuthUserFile "C:\Users\Webacademie\Desktop\projet\ecommerce-informatix\assets\js\components\admin\.passwd"
+Require valid-user

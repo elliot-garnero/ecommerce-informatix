@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="App\Entity\Payements" table="payements">
+    <unique-constraints>
+      <unique-constraint name="pay_cb" columns="pay_cb"/>
+    </unique-constraints>
+    <id name="idPay" type="integer" column="id_pay">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="idUser" type="integer" column="id_user" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="payLastname" type="string" column="pay_lastname" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="payFirstname" type="string" column="pay_firstname" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="payEmail" type="string" column="pay_email" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="payCb" type="string" column="pay_cb" length="16" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="payCvv" type="integer" column="pay_cvv" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="payExpiration" type="date" column="pay_expiration" nullable="false"/>
+    <field name="active" type="boolean" column="active" nullable="false"/>
+  </entity>
+</doctrine-mapping>
