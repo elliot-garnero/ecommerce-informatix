@@ -14,16 +14,59 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class PayementsController extends AbstractController
 {
     /**
-     * @Route("/api/pay/{idPay}", name="show_pay")
+     * @Route("/api/payments/{idUser}", name="show_payments")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showOne($idPay , PayementsRepository $repository): Response
+    public function showOne($idUser , PayementsRepository $repository): Response
     {
-        $pay = $repository->findAll($idPay);
+        $pay = $repository->findAll($idUser);
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($pay, 'json');
         return new Response($serializedEntity);
+    }
+
+    /**
+     * @Route("/api/admin/pay/{idUser}", name="show_pay")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showAdminPay($idUser , PayementsRepository $repository): Response
+    {
+        $pay = $repository->findBy(['idUser' => $idUser]);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($pay, 'json');
+        return new Response($serializedEntity);
+    }
+
+    /**
+     * @Route("/api/admin/blockCb/{idPay}", name="block_pay")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function blockPay($idPay , PayementsRepository $repository): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $blocked = $entityManager->getRepository(Payements::class)->find($idPay);
+        $blocked->SetActive(2);
+        $entityManager->persist($blocked);
+        $entityManager->flush();
+        return new JsonResponse(['message' =>'Action enregistrée !!!']);
+
+    }
+
+    /**
+     * @Route("/api/admin/deBlockCb/{idPay}", name="deBlock_pay")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deBlockPay($idPay , PayementsRepository $repository): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $deBlocked = $entityManager->getRepository(Payements::class)->find($idPay);
+        $deBlocked->SetActive(0);
+        $entityManager->persist($deBlocked);
+        $entityManager->flush();
+        return new JsonResponse(['message' =>'Action enregistrée !!!']);
+
     }
 
         /**

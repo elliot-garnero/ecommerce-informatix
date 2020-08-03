@@ -71,7 +71,7 @@ class AsideUser extends Component {
                         <p className="card-text"><small className="text-muted">{user.email}</small></p>
                             <p className="card-title">{user.address}</p>
                             <p className="card-text">{user.cp} {user.city} / {user.countries}</p>
-                            <p className="card-text"><small className="text-muted">Remise accordée : {user.discount} €</small></p>    
+                            <p className="card-text"><small className="text-muted">Cagnotte : {user.discount} €</small></p>    
                             
                         </div>
                         

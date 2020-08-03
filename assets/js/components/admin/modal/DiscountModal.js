@@ -6,7 +6,6 @@ export default class DiscountModal extends Component {
     super(props);
     this.state = {
       update:'',
-      rabais:'',
       id:'',
       nom:'',
       prenom:''
@@ -46,14 +45,15 @@ export default class DiscountModal extends Component {
 
 
   render() {
+    
     if (!this.props.show) {
       return null;
     }
     
     return (
       <div className="container w-50 justify-center" id="discount_form">
-        <div className="alert alert-success">Remise actuelle accordé à <b className="h4">{this.props.prenom} {this.props.nom}</b> (id: {this.props.id}) : <b>{this.props.discount ? (this.props.discount) : (0)} €</b></div>
-      <form onSubmit={this.onSubmit} method="POST" >
+        <div className="alert alert-success">Remise actuelle accordé à <b className="h4">{this.props.prenom} {this.props.nom}</b> (id: {this.props.id}) : <br/><b>{this.props.discount ? (this.props.discount) : (0)} €</b></div>
+      <form onSubmit={this.onSubmit} >
         <div className="form-group">
           <label htmlFor="discount">Montant:</label>
           <input type="text" className="form-control" id="discount" name="discount" onChange={(e) => this.onTextChange(e)} required />

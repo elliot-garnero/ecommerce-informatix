@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DiscountModal from './modal/DiscountModal';
+import BlockCbModal from './modal/BlockCbModal';
 import Table from 'react-bootstrap/Table';
 
 class ListUsers extends Component {
@@ -11,13 +12,16 @@ class ListUsers extends Component {
             users: '',
             dates:[],
             show:false,
+            showBlock: false,
             id:'', 
             nom:'',
             prenom:'',
-            discount:''
+            discount:'',
+            payment:{}
         }
         this.updateState = this.updateState.bind(this);
         this.showModal = this.showModal.bind(this);
+        this.showBlockModal = this.showBlockModal.bind(this);
     }
 
     updateState(value) {
@@ -34,7 +38,7 @@ class ListUsers extends Component {
             this.setState({
                 isLoaded: true,
                 users:  json,
-                show:false
+                show:false,
             })
         })
     }
@@ -46,10 +50,25 @@ class ListUsers extends Component {
           prenom:prenom,
           discount: discount,
           show: true,
-        });
+          showBlock: false,
+        });console.log(this.state.show)
       };
 
-
+    showBlockModal(id, nom, prenom) {
+        fetch('http://localhost:8000/api/admin/pay/'+id)
+        .then(res => res.json())
+        .then(json => {
+            json == '' ? json = null : json;
+            this.setState({
+                payment: json,
+                id: id,
+                nom: nom,
+                prenom:prenom,
+                show:false,
+                showBlock: true,
+            })
+        });
+    }
 
     componentDidMount() {
         fetch('http://localhost:8000/api/admin/listUsers')
@@ -107,7 +126,7 @@ class ListUsers extends Component {
                             <td>{user.countries}</td>
                             <td>{new Date(user.createdAt.substr(0,10)).toLocaleDateString('fr-FR', options)}</td>
                             <td><button onClick={(e) =>this.showModal(user.id, user.lastname, user.firstname,user.discount)} className="btn btn-warning sm">Ajouter</button></td>
-                            <td><button className="btn btn-warning sm">Restreindre</button></td>
+                            <td><button onClick={(e) =>this.showBlockModal(user.id, user.lastname, user.firstname)} className="btn btn-warning sm">Restreindre</button></td>
                         </tr>
                         
                         ))}
@@ -115,6 +134,15 @@ class ListUsers extends Component {
                     </tbody>
                    
                 </Table>
+                <div className="col-12 text-center">
+                    <BlockCbModal  
+                    payment= {this.state.payment}
+                    showBlock={this.state.showBlock} 
+                    nom={this.state.nom} 
+                    prenom={this.state.prenom} 
+                    id={this.state.id}  
+                    dataToParent={this.updateState} />
+                </div>
                   <div className="col-12 text-center">
                     <DiscountModal  
                     show={this.state.show} 
@@ -124,6 +152,7 @@ class ListUsers extends Component {
                     discount = {this.state.discount} 
                     dataToParent={this.updateState} />
                 </div>
+                
                 </>
             )
         }

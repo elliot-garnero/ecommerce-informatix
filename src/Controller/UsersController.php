@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsersController extends AbstractController
 {
@@ -40,11 +42,14 @@ class UsersController extends AbstractController
      * @Route("/api/update/{id}", name="change_firstname")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function updateData( $id , UserRepository $repository, Request $request)
+    public function updateData( $id , UserRepository $repository, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $userPass = new Users();
+        $repoPass = $this->getDoctrine()->getRepository(Users::class);
         $entityManager = $this->getDoctrine()->getManager();
         $data = $request->getContent();
         $newData = json_decode($data, true);
+        $userPass = $repoPass->find($id);
         $user = $repository->find($id);
         foreach($newData as $key => $val){
             if($newData[$key] !== ''){
@@ -74,7 +79,13 @@ class UsersController extends AbstractController
                     $user->setEmail($newData[$key]);
                     break;
                 case 'password':
-                    $user->setPassword($newData[$key]);
+                    // $user->setPassword($newData[$key]);
+                    $userPass->setPassword(
+                        $passwordEncoder->encodePassword(
+                            $userPass,
+                            $newData[$key]
+                        )
+                    );
                     break;
                 case 'setActive':
                     $user->setPassword($newData[$key]);
@@ -83,6 +94,8 @@ class UsersController extends AbstractController
         }
     }
         $entityManager->persist($user);
+        $entityManager->flush();
+        $entityManager->persist($userPass);
         $entityManager->flush();
         return new Response('information mise à jour :'. $user->getId() . ' '.$user->getLastname().' '.$user->getFirstname());
 

@@ -7,7 +7,7 @@ class ProfileUpdate extends Component {
     super(props);
     this.state = {
       update: '',
-      id: 1,
+      id: '',
       username:'',
       firstname: '',
       lastname: '',
@@ -40,18 +40,19 @@ class ProfileUpdate extends Component {
     e.preventDefault();    
       const data = this.state;
       axios
-        .post(`http://localhost:8000/api/update/1`, data)
+        .post(`http://localhost:8000/api/update/2`, data)
         .then((res) => {
           console.log(res)
           this.setState({
-            refresh: 'refresh',
             username:'',
             firstname: '',
             lastname: '',
             email: '',
             address: '',
             cp: '',
-            countries: ''
+            countries: '',
+            password:'',
+            refresh: 'refresh',
            });
         })
         .then((res) => {
