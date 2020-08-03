@@ -33,7 +33,6 @@ class MainModal extends React.Component {
     this.setState(
       (state) => {
         const products = state.products.filter((item) => item.idProduct !== id);
-        // console.log(item);
         localStorage.setItem('products', JSON.stringify(products));
         return {
           products,
@@ -69,14 +68,6 @@ class MainModal extends React.Component {
     if (this.state.products.length > 0) {
       return (
         <div className="container d-flex justify-content-center mt-100">
-          {/* <button
-            type="button"
-            className="btn btn-outline-info btn-rounded waves-effect"
-            data-toggle="modal"
-            data-target="#modal1"
-          >
-            Panier
-          </button> */}
           <a
             className="text-decoration-none"
             data-toggle="modal"
@@ -151,15 +142,18 @@ class MainModal extends React.Component {
       );
     } else {
       return (
-        <div className="container d-flex justify-content-center mt-100">
-          <button
-            type="button"
-            className="btn btn-outline-info btn-rounded waves-effect"
+        <div
+          className="container d-flex justify-content-center mt-100"
+          style={{ cursor: 'pointer' }}
+        >
+          <a
+            className="text-decoration-none"
             data-toggle="modal"
             data-target="#modal1"
           >
-            Panier
-          </button>
+            <span className="m-2 txt-white">Mon panier</span>
+            <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
+          </a>
           <div className="modal fade" id="modal1">
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">

@@ -23,18 +23,18 @@ class AsideCatalog extends Component {
       });
   }
 
-  productClick(event, $id) {
-    event.preventDefault();
-    console.log($id);
-    //this.props.history.push('/login');
-  }
+  productClick(event, id) {}
 
-  //    Add 1 if already in cart
   addProduct(item) {
     this.setState((state) => {
       let products = state.products;
-      if (products.includes(item)) {
-        item.amount++;
+      if (products.length > 0) {
+        if (products.some((product) => product.name == item.name)) {
+          item.amount++;
+        } else {
+          item.amount = 1;
+          products.push(item);
+        }
       } else {
         item.amount = 1;
         products.push(item);
