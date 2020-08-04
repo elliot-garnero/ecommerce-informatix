@@ -57,6 +57,22 @@ class ProductController extends AbstractController
         return new Response($serializedEntity);
     }
 
+
+    /**
+     * @Route("/api/productsRandom", name="productsRandom")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function RandomProducts( ProductsRepository $repository): Response
+    {
+        $products = $repository->findAll();
+        shuffle($products);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($products, 'json');
+        return new Response($serializedEntity);
+    }
+
+
      /**
      * @Route("/api/createproduct", name="createproduct")
      * @return \Symfony\Component\HttpFoundation\Response
