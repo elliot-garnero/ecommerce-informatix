@@ -17,7 +17,7 @@ class ProfileCommands extends Component {
     }
     
     componentDidMount() {
-        fetch('http://localhost:8000/api/command/1')
+        fetch('http://localhost:8000/api/command')
             .then(res => res.json())
             .then(json => {
                 json =='' ? json = null : json;

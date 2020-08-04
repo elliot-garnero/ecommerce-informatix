@@ -8,7 +8,7 @@ class MainProfile extends Component {
         super(props);
         this.state = {
         updatedatas: this.props.dataFromParent,
-        
+        address: false
       } 
       this.updateState = this.updateState.bind(this);
     }
@@ -16,14 +16,14 @@ class MainProfile extends Component {
     updateState(value) {
         this.setState({
             updatedatas:value.updatedatas.refresh,
-            
+            address: value.address
         })
         
     }
     
     render(){
         const updatedatas = this.state;
-        console.log(updatedatas.updatedatas)
+        
         return(
         
             <div className="container">
@@ -36,7 +36,7 @@ class MainProfile extends Component {
                     </div>
                     <div className="col-9">
                     
-                        <AsideProfile dataToParent={this.updateState} />
+                        <AsideProfile dataToParent={this.updateState}dataFromParent={updatedatas} />
                     </div>
                 </div>
             </div>
