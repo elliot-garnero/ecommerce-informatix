@@ -68,20 +68,8 @@ class MainModal extends React.Component {
     const selectNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     if (this.state.products.length > 0) {
       return (
-        <div className="container d-flex justify-content-center mt-100">
-          {/* <button
-            type="button"
-            className="btn btn-outline-info btn-rounded waves-effect"
-            data-toggle="modal"
-            data-target="#modal1"
-          >
-            Panier
-          </button> */}
-          <a
-            className="text-decoration-none"
-            data-toggle="modal"
-            data-target="#modal1"
-          >
+        <div>
+          <a className="text-decoration-none" data-toggle="modal" data-target="#modal1" >
             <span className="m-2 txt-white">Mon panier</span>
             <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
           </a>
@@ -151,14 +139,11 @@ class MainModal extends React.Component {
       );
     } else {
       return (
-        <div className="container d-flex justify-content-center mt-100">
-          <button
-            type="button"
-            className="btn btn-outline-info btn-rounded waves-effect"
-            data-toggle="modal"
-            data-target="#modal1">
-            Panier
-          </button>
+        <div>
+          <a className="text-decoration-none" data-toggle="modal" data-target="#modal1" >
+            <span className="m-2 txt-white">Mon panier</span>
+            <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
+          </a>
           <div className="modal fade" id="modal1">
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
@@ -169,7 +154,7 @@ class MainModal extends React.Component {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <h6>Aucun objet pour le moment</h6>
+                  <h6>Votre panier est vide</h6>
                 </div>
               </div>
             </div>

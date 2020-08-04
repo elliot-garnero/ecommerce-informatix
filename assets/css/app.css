@@ -42,9 +42,6 @@ body {
   text-decoration: none;
   color:#0f5aaa;
 }
-.product_price h2{
-  color: #f69509;
-}
 
 /** Page AsideFilter **/
 .aside_blue{
@@ -58,4 +55,9 @@ body {
 /** Reviews star **/
 .checked {
   color: orange;
+}
+
+.text-decoration-none{
+  text-decoration: none !important;
+  color: black;
 }

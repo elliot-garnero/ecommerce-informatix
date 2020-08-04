@@ -98,15 +98,14 @@ class MainDeliveryList extends React.Component {
                   <td>
                     <form method="post" action="/api/editDeliveryStatus">
                       <select name="ordStatus" className="form-control form-control-sm">
-                        <option ></option>
+                        <option></option>
                         <option value="expédié">expédié</option>
                         <option value="livré">livré</option>
                         <option value="à préparer">à préparer</option>
-                    </select>
-                    <input name="idOrder" type="hidden" value={data.idOrder}></input>
-                    <button type="submit" className="btn btn-secondary btn-sm"><i className="fa fa-share-square-o"></i> changer statut</button>
+                      </select>
+                      <input name="idOrder" type="hidden" value={data.idOrder}></input>
+                      <button type="submit" className="btn btn-secondary btn-sm"><i className="fa fa-share-square-o"></i> changer statut</button>
                     </form>
-                    
                   </td>
                 </tr>
 

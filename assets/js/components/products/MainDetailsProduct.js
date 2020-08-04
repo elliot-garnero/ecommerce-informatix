@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import SliderSuggestion from './SliderSuggestion';
 
 class MainDetailsProduct extends Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class MainDetailsProduct extends Component {
             idUserOne:'',
             users: [],
             products: JSON.parse(localStorage.getItem('products')) || [],
+            name: '',
         }
     }
 
@@ -20,8 +22,10 @@ class MainDetailsProduct extends Component {
         axios.get('http://localhost:8000/api/products/'+id)
         .then((res) => {
             this.setState ({
-                data : res.data
+                data : res.data,
+                name: res.data.name
             });
+            //console.log(this.state.name)
         });
 
         axios.post('http://localhost:8000/product/reviews/'+id)
@@ -72,6 +76,7 @@ class MainDetailsProduct extends Component {
     }
     
     render(){
+        const {id} = this.state;
         const data = this.state.data;
         const { reviews } = this.state;
         var count = Object.keys(reviews).length;
@@ -81,11 +86,11 @@ class MainDetailsProduct extends Component {
 
         return(
             <div className="container">
-                <div>
+               
                     <div className="row mt-5 mb-5 mr-5">
                         <div className="col-md-6 text-center">
                             <div className="pro-img-details">
-                                <img src={data.picture1} alt="" width="400"/>
+                                <img className="img-fluid" src={data.picture1} alt="" width="400"/>
                             </div>
                             <div className="pro-img-list">
                                 <a href={data.picture1}>
@@ -109,6 +114,7 @@ class MainDetailsProduct extends Component {
                                 <h5>Caractéristique :</h5>{data.characteristics}<br></br><br></br>
                                 {data.color !== null && <span className="tagged_as"><strong>Couleur :</strong> {data.color}<br></br></span>}
                                 {data.color == null && <span className="tagged_as"></span>}
+
                                 {data.size !== null && <span className="tagged_as"><strong>Taille :</strong> {data.size} cm<br></br></span>}
                                 {data.size == null && <span className="tagged_as"></span>}
                                 <p><strong>Poids :</strong> {data.weight} g<br></br></p>
@@ -138,7 +144,8 @@ class MainDetailsProduct extends Component {
                             </div>}
                         </div>
                     </div>
-                </div>
+                
+                <hr></hr>
                 <div className="container">
                     <h4>{count} Avis</h4>
                     {reviews.length == 0 && <div className="pb-5">Aucun avis n'a été laissé sur ce produit</div>}
@@ -205,6 +212,9 @@ class MainDetailsProduct extends Component {
                             ))}
                         </div>
                     }
+                </div>
+                <div className="row">
+                    <SliderSuggestion />
                 </div>
             </div>
         )

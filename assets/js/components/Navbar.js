@@ -25,10 +25,6 @@ class Navbar extends Component {
               <span className="m-2 txt-white">Se connecter</span>
               <i className="fas fa-user bg-warning p-3 rounded-circle"></i>
             </a>
-            {/* <a className="text-decoration-none" href="/cart">
-              <span className="m-2 txt-white">Mon panier</span>
-              <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
-            </a> */}
             <MainModal />
           </div>
         </nav>
