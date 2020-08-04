@@ -1,27 +1,10 @@
 import React, { Component } from 'react';
 import logoSmall from '../../images/logoSmall.png';
-import { Redirect } from 'react-router-dom';
+
 
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.downloadUsersData = this.downloadUsersData.bind(this);
-	}
   
-  downloadUsersData() {
-    fetch('http://localhost:8000/api/listUsers/download')
-			.then(res => {console.log(res)
-				res.blob().then(blob => {
-					let url = window.URL.createObjectURL(blob);
-					let a = document.createElement('a');
-					a.href = url;
-					a.download = 'listUsers.csv';
-					a.click();
-				});
-				window.location.href = response.url;
-    });
-  }
   render() {
     return (
       <div className="container">
@@ -56,7 +39,6 @@ class Navbar extends Component {
             <ul className="navbar-nav">
               <li className="nav-item active">
                 <a className="nav-link" href="/add">ajouter un produit <span className="sr-only">(current)</span></a>
-                <a href="#" onClick={this.downloadUsersData}>Download</a>
               </li>
             </ul>
           </div>
