@@ -54,8 +54,9 @@ class AsideUser extends Component {
         await axios.get(`http://127.0.0.1:8000/api/user/authenticated`)
         .then((res) => {
             console.log(res);
-          this.setState({ id: res.data.results.id});
+            this.setState({ id: res.data.results.id});
         });
+        console.log(this.state.id);
             await  fetch('http://localhost:8000/api/user/'+this.state.id)
             .then(res => res.json())
             .then(json => {

@@ -19,6 +19,7 @@ class MainCatalog extends Component {
         const updatedatas = this.state;
         
         return(
+            <>
         
             <div className="container">
                 <div className="row">
@@ -30,6 +31,7 @@ class MainCatalog extends Component {
                     </div>
                 </div>
             </div>
+            </>
         )
     }
 }

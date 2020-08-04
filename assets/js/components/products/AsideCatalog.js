@@ -11,6 +11,7 @@ class AsideCatalog extends Component{
           products: JSON.parse(localStorage.getItem('products')) || [],
           isLoaded: false,
           items: this.props.dataFromParent.updatedatas,
+          bundles:[]
         }
     }
     
@@ -24,14 +25,22 @@ class AsideCatalog extends Component{
                 items: json,
               })
           });
+          fetch('http://localhost:8000/api/getBundles/')
+          .then(res => res.json())
+          .then(json => {
+              this.setState({
+              isLoaded: true,
+              bundles: json,
+              })
+          });
         this.getAdmin();
     }
 
     getAdmin() {
-        axios.get(`http://127.0.0.1:8000/api/admin/authenticated`)
-        .then((res) => {
-          this.setState({ admin: res.data.is_admin});
-        });
+            axios.get(`http://127.0.0.1:8000/api/admin/authenticated`)
+            .then((res) => {
+            this.setState({ admin: res.data.is_admin});
+        }); 
     }
 
     //    Add 1 if already in cart
@@ -78,6 +87,8 @@ class AsideCatalog extends Component{
         }
         var{ isLoaded, items } = this.state;
         var count = Object.keys(items).length;
+        var countBundles= Object.keys(this.state.bundles).length
+
 
         if (!isLoaded){
             return <div>Chargement...</div>

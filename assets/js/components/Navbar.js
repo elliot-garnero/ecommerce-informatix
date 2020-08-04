@@ -120,6 +120,12 @@ class Navbar extends Component {
                   <a className="nav-link" href="/add">ajouter un produit <span className="sr-only">(current)</span></a>
                 </li>
                 <li className="nav-item active">
+                  <a className="nav-link" href="/bundles">Gestionnaire de lots<span className="sr-only">(current)</span></a>
+                </li>
+                <li className="nav-item active">
+                  <a className="nav-link" href="/listUsers">Liste des clients<span className="sr-only">(current)</span></a>
+                </li>
+                <li className="nav-item active">
                   <a className="nav-link" href="/deliveryList">Liste des commandes <span className="sr-only">(current)</span></a>
                 </li>
               </ul>

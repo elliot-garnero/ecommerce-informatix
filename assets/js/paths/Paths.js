@@ -14,6 +14,14 @@ import Login from '../components/login/container/Login';
 import Register from '../components/login/container/Register';
 import ModifProduct from '../components/products/MainModifsProduct';
 import MainAdmin from '../components/admin/MainAdmin';
+import MainListUsers from "../components/admin/MainListUsers";
+import MainBundles from '../components/admin/MainBundles';
+import ModifsBundle from '../components/admin/ModifsBundle';
+import AddBundle from '../components/admin/AddBundle';
+import MainCatalogBundles from '../components/products/MainCatalogBundle';
+
+
+
 
 class Paths extends Component {
   render() {
@@ -22,6 +30,7 @@ class Paths extends Component {
         <Navbar />
         <Switch>
           <Redirect exact from="/" to="/catalog" />
+          <Route path="/listUsers" component={MainListUsers} />
           <Route exact path="/catalog" component={MainCatalog} />
           <Route path="/detailsProduct:id" component={MainDetailsProduct} />
           <Route exact path="/add" component={MainAdd} />
@@ -33,6 +42,10 @@ class Paths extends Component {
           <Route path="/tracking" component={MainTracking} />
           <Route exact path="/deliveryList" component={MainDeliveryList} />
           <Route exact path="/admin" component={MainAdmin} />
+          <Route path="/bundles" component={MainBundles} />
+          <Route path="/modifsBundle:id" component={ModifsBundle} />
+          <Route path="/addBundle" component={AddBundle} />
+          <Route path="/catalogBundles" component={MainCatalogBundles} />
         </Switch>
         <Footer />
       </div>
