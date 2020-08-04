@@ -9,7 +9,27 @@ class AsideCatalog extends Component {
       products: JSON.parse(localStorage.getItem('products')) || [],
       isLoaded: false,
       items: this.props.dataFromParent.updatedatas,
+      bundles: [],
     };
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:8000/api/products/')
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({
+          isLoaded: true,
+          items: json,
+        });
+      });
+    fetch('http://localhost:8000/api/getBundles/')
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({
+          isLoaded: true,
+          bundles: json,
+        });
+      });
   }
 
   componentDidMount() {
@@ -49,6 +69,7 @@ class AsideCatalog extends Component {
     }
     var { isLoaded, items } = this.state;
     var count = Object.keys(items).length;
+    var countBundles = Object.keys(this.state.bundles).length;
 
     if (!isLoaded) {
       return <div>Chargement...</div>;
@@ -57,7 +78,12 @@ class AsideCatalog extends Component {
         <div id="div_catalog">
           <div className="title_lign">
             <h1>CATALOGUE</h1>
-            <p>{count} produits</p>
+            <a href="/">
+              <p>{count} produits</p>
+            </a>
+            <a href="catalogBundles">
+              <p>{countBundles} lots</p>
+            </a>
           </div>
           {items.map((item, i) => (
             <div
@@ -66,13 +92,14 @@ class AsideCatalog extends Component {
               id={item.idProduct}
             >
               <div className="row">
-                <img
-                  className="col-md-3 p-0"
-                  src={item.picture1}
-                  alt="product"
-                  width="250px"
-                ></img>
-                <div className="col-md-6 pl-0 product_info">
+                <div className="col-md-3 p-0">
+                  <img
+                    className="img-fluid"
+                    src={item.picture1}
+                    alt={item.name}
+                  />
+                </div>
+                <div className="col-md-6 product_info">
                   <a href={`/detailsProduct${item.idProduct}`}>
                     <h2>{item.name}</h2>
                     {item.new == true && (
@@ -87,23 +114,23 @@ class AsideCatalog extends Component {
                     <p>{item.characteristics}</p>
                   </a>
                 </div>
-                <div className="col-md-3 pr-0 pl-0 product_price">
-                  <div className="row">
-                    <h2 className="p-3">{item.price} €</h2>
-                    {item.promo == true && (
-                      <h5>
-                        <span className="p-2 mt-3 badge badge-danger">
-                          EN PROMO
-                        </span>
-                      </h5>
-                    )}
-                    {item.promo == false && <p></p>}
-                  </div>
+
+                <div className="col-md-3 text-center pr-0 pl-0">
+                  <h2 className="txt-orange">{item.price} €</h2>
+                  {item.promo == true && (
+                    <h5>
+                      <span className="p-2 mt-2 badge badge-danger">
+                        EN PROMO
+                      </span>
+                    </h5>
+                  )}
+                  {item.promo == false && <p></p>}
+
                   {item.stock == 0 && (
-                    <div>
-                      <h5 className="text-danger">
+                    <p>
+                      <h6 className="text-danger">
                         <em>Indisponible</em>
-                      </h5>
+                      </h6>
                       <br></br>
                       <br></br>
                       <button
@@ -114,11 +141,23 @@ class AsideCatalog extends Component {
                         <i className="fa fa-shopping-cart"></i> AJOUTER AU
                         PANIER
                       </button>
-                    </div>
+                      <a href={`/modifProduct${item.idProduct}`}>
+                        <button
+                          type="button"
+                          className="mt-2 btn btn-secondary"
+                        >
+                          <i
+                            className="fa fa-pencil-square-o"
+                            aria-hidden="true"
+                          ></i>{' '}
+                          Modifier le produit
+                        </button>
+                      </a>
+                    </p>
                   )}
                   {item.stock >= 1 && (
-                    <div>
-                      <h5 className="text-success">{item.stock} en stock</h5>
+                    <p>
+                      <h6 className="text-success">{item.stock} en stock</h6>
                       <br></br>
                       <br></br>
                       <button
@@ -141,7 +180,7 @@ class AsideCatalog extends Component {
                           Modifier le produit
                         </button>
                       </a>
-                    </div>
+                    </p>
                   )}
                 </div>
               </div>

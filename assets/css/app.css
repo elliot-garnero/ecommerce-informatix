@@ -3,7 +3,7 @@ body {
   background-color: lightgray;
 }
 .bg-blue{
-  background-color: #0c3e75;
+  background-color: #0c3e75 !important;
 }
 .bg-grey{
   background-color: rgb(175, 175, 175);
@@ -19,6 +19,9 @@ body {
 }
 .txt-orange {
   color: #f69509;
+}
+.desactived:hover{
+  cursor:not-allowed;
 }
 
 /** Page AsideCatalog **/
@@ -39,9 +42,6 @@ body {
   text-decoration: none;
   color:#0f5aaa;
 }
-.product_price h2{
-  color: #f69509;
-}
 
 /** Page AsideFilter **/
 .aside_blue{
@@ -55,4 +55,9 @@ body {
 /** Reviews star **/
 .checked {
   color: orange;
+}
+
+.text-decoration-none{
+  text-decoration: none !important;
+  color: black;
 }

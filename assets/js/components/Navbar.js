@@ -25,14 +25,10 @@ class Navbar extends Component {
               <span className="m-2 txt-white">Se connecter</span>
               <i className="fas fa-user bg-warning p-3 rounded-circle"></i>
             </a>
-            {/* <a className="text-decoration-none" href="/cart">
-              <span className="m-2 txt-white">Mon panier</span>
-              <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
-            </a> */}
             <MainModal />
           </div>
         </nav>
-
+        {/* BARRE ADMIN */}
         <nav className="bg-grey navbar navbar-expand-lg navbar-light">
           <a className="navbar-brand" href="/catalog">
             Espace Admin :{' '}
@@ -52,12 +48,22 @@ class Navbar extends Component {
             <ul className="navbar-nav">
               <li className="nav-item active">
                 <a className="nav-link" href="/add">
-                  ajouter un produit <span className="sr-only">(current)</span>
+                  Ajouter un produit <span className="sr-only">(current)</span>
+                </a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/bundles">
+                  Gestionnaire de lots<span className="sr-only">(current)</span>
                 </a>
               </li>
               <li className="nav-item active">
                 <a className="nav-link" href="/deliveryList">
-                  Liste des commandes <span className="sr-only">(current)</span>
+                  Liste des commandes<span className="sr-only">(current)</span>
+                </a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/listUsers">
+                  Liste des clients<span className="sr-only">(current)</span>
                 </a>
               </li>
             </ul>
