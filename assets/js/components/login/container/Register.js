@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import RegisterForm from "../front/Register";
-import login from "../api/User/login";
-import register from "../api/User/register";
+import login from '../../../paths/api/User/login';
+import register from '../../../paths/api/User/register';
 import LoginForm from "../front/Login";
 
 export default function Register() {
@@ -34,9 +34,9 @@ export default function Register() {
                 if (res.data.success)
                     setSuccess(true);
                 else
-                    setError(false);
+                    setError('Certain informations sont incorrectes. Réessayez');
             })
-            .catch(e => setError(false));
+            .catch(e => setError('Certain informations sont incorrectes. Réessayez'));
 
         sessionStorage.setItem('auth', true)
     }

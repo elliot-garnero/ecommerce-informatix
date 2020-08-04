@@ -30,9 +30,6 @@ export default function MainAdminForm(props) {
                             <div className="form-group text-center">
                                 <button type={"submit"} className={"btn btn-primary"}>Connexion</button>
                             </div>
-                            <div className="form-group text-center">
-                                <Link to={'/register'} className="no-registered">Inscrivez vous  !</Link>
-                            </div>
                         </div>
                     </form>
                 </div>

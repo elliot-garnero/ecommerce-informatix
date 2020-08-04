@@ -26,9 +26,9 @@ export default function MainAdmin() {
                 if (res.data.success)
                     setSuccess(true);
                 else
-                    setError('Erreur de connexion/ Veullez vérifiée vos identifiants de connexion');
+                    setError('Certain informations sont incorrectes. Réessayez');
             })
-            .catch(e => setError('Erreur de connexion/ Veullez vérifiée vos identifiants de connexion'));
+            .catch(e => setError('Certain informations sont incorrectes. Réessayez'));
 
         sessionStorage.setItem('auth', true)
         setSending(false);

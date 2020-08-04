@@ -94,7 +94,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="api_zdmin_logout", methods={"GET"})
+     * @Route("/logout", name="api_admin_logout", methods={"GET"})
      * @throws Exception
      */
     public function logout()
@@ -106,7 +106,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/authenticated", name="api_user_authenticated", methods={"GET"})
+     * @Route("/authenticated", name="api_admin_authenticated", methods={"GET"})
      * @param AdminRepository $userRepository
      * @return JsonResponse
      */
@@ -130,6 +130,7 @@ class AdminController extends AbstractController
                 $response["is_admin"] = true;
 
             return new JsonResponse($response,Response::HTTP_OK);
+            
         }
     }
 }
