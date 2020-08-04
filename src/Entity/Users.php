@@ -2,117 +2,99 @@
 
 namespace App\Entity;
 
+use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Users
- *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_1483A5E9E7927C74", columns={"email"}), @ORM\UniqueConstraint(name="UNIQ_1483A5E9F85E0677", columns={"username"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=UsersRepository::class)
  */
-class Users
+class Users implements UserInterface, \JsonSerializable
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=180, nullable=false)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $username;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="roles", type="text", length=0, nullable=false)
+     * @ORM\Column(type="json")
      */
-    private $roles;
+    private $roles = [];
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
     private $password;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $lastname;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $firstname;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="countries", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $countries;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $city;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $address;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="cp", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
     private $cp;
 
     /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="deleted", type="boolean", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $deleted = 'NULL';
+    private $deleted;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private $created_at;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->username;
+        return (string) $this->username;
     }
 
     public function setUsername(string $username): self
@@ -122,21 +104,31 @@ class Users
         return $this;
     }
 
-    public function getRoles(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setRoles(string $roles): self
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
     {
-        return $this->password;
+        return (string) $this->password;
     }
 
     public function setPassword(string $password): self
@@ -144,6 +136,28 @@ class Users
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "username"=>$this->getUsername()
+        ];
     }
 
     public function getEmail(): ?string
@@ -244,15 +258,13 @@ class Users
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
 
         return $this;
     }
-
-
 }
