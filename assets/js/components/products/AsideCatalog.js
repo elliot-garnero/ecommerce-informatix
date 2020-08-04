@@ -9,6 +9,7 @@ class AsideCatalog extends Component{
           products: JSON.parse(localStorage.getItem('products')) || [],
           isLoaded: false,
           items: this.props.dataFromParent.updatedatas,
+          bundles:[]
         }
     }
     
@@ -21,6 +22,14 @@ class AsideCatalog extends Component{
                 items: json,
               })
           });
+        fetch('http://localhost:8000/api/getBundles/')
+        .then(res => res.json())
+        .then(json => {
+            this.setState({
+            isLoaded: true,
+            bundles: json,
+            })
+        });
     }
 
     //    Add 1 if already in cart
@@ -42,13 +51,14 @@ class AsideCatalog extends Component{
 
 
     render(){
-        
         if(this.props.dataFromParent.updatedatas.data !== this.state.items && this.props.dataFromParent.updatedatas.data !== undefined)
         {  
             this.setState({items: this.props.dataFromParent.updatedatas.data});
         }
         var{ isLoaded, items } = this.state;
         var count = Object.keys(items).length;
+        var countBundles= Object.keys(this.state.bundles).length
+
 
         if (!isLoaded){
             return <div>Chargement...</div>
@@ -58,7 +68,12 @@ class AsideCatalog extends Component{
                 <div id="div_catalog">
                     <div className="title_lign">
                         <h1>CATALOGUE</h1>
-                        <p>{count} produits</p>
+                        <a href="/">
+                            <p>{count} produits</p>
+                        </a>
+                        <a href="catalogBundles">
+                            <p>{countBundles} lots</p>
+                        </a>
                     </div>
                     {items.map((item, i) => (
                         <div className="w-100 border border-secondary p-3 mb-2 rounded" key={i} id={item.idProduct}>
@@ -80,19 +95,19 @@ class AsideCatalog extends Component{
                                         {item.promo == false && <p></p>}
                                     </div>
                                     {item.stock == 0 &&
-                                        <div>
-                                            <h5 className="text-danger"><em>Indisponible</em></h5><br></br><br></br>
-                                            <button type="button" className="btn btn-secondary" disabled><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
-                                        </div>
+                                    <div>
+                                        <h5 className="text-danger"><em>Indisponible</em></h5><br></br><br></br>
+                                        <button type="button" className="btn btn-secondary" disabled><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
+                                    </div>
                                     }
                                     {item.stock >= 1 && 
-                                        <div>
-                                            <h5 className="text-success">{item.stock} en stock</h5><br></br><br></br>
-                                            <button type="button" className="btn btn-success" onClick={() => this.addProduct(item) }><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
-                                            <a href={`/modifProduct${item.idProduct}`}>
-                                                <button type="button" className="mt-2 btn btn-secondary"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
-                                            </a>
-                                        </div>
+                                    <div>
+                                        <h5 className="text-success">{item.stock} en stock</h5><br></br><br></br>
+                                        <button type="button" className="btn btn-success" onClick={() => this.addProduct(item) }><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
+                                        <a href={`/modifProduct${item.idProduct}`}>
+                                            <button type="button" className="mt-2 btn btn-secondary"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
+                                        </a>
+                                    </div>
                                     }
                                 </div>
                             </div>

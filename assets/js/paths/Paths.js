@@ -8,13 +8,17 @@ import MainAdd from '../components/products/MainAdd';
 import MainOrder from '../components/delivery/MainOrder';
 import MainTracking from '../components/delivery/MainTracking';
 import MainDeliveryList from '../components/delivery/MainDeliveryList';
-
 import MainProfile from '../components/users/MainProfile';
 import Footer from '../components/Footer';
 import Login from '../components/login/container/Login';
 import Register from '../components/login/container/Register';
 import ModifProduct from '../components/products/MainModifsProduct';
 import MainBundles from '../components/admin/MainBundles';
+import ModifsBundle from '../components/admin/ModifsBundle';
+import AddBundle from '../components/admin/AddBundle';
+import MainCatalogBundles from '../components/products/MainCatalogBundle';
+
+
 
 
 class Paths extends Component {
@@ -35,6 +39,9 @@ class Paths extends Component {
           <Route path="/tracking" component={MainTracking} />
           <Route exact path="/deliveryList" component={MainDeliveryList} />
           <Route path="/bundles" component={MainBundles} />
+          <Route path="/modifsBundle:id" component={ModifsBundle} />
+          <Route path="/addBundle" component={AddBundle} />
+          <Route path="/catalogBundles" component={MainCatalogBundles} />
         </Switch>
         <Footer />
       </div>
