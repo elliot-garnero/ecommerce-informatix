@@ -50,6 +50,7 @@ class DeliveryAddressController extends AbstractController
         $cp = $data['cp'];
         $city = $data['city'];
         $countries = $data['countries'];
+        $default = $data['active'];
         // if ($data['checked'] == true){
         //     $default = 1;
         //     // passer tous les active de cet id a 0
@@ -57,7 +58,7 @@ class DeliveryAddressController extends AbstractController
         // else{
         //     $default = 0;
         // }
-        $default = $data['active'];
+        
         $em = $this->getDoctrine()->getManager();
         $new_address = new DeliveryAddress();
         $new_address->setDelFirstname($firstname);

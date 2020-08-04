@@ -83,14 +83,11 @@ class PayementsController extends AbstractController
         $payCvv = $data['payCvv'];
         $payExpiration = $data['payExpiration'];
         $payEmail = 'nav@gmail.com';
-        // if ($data['checked'] == true){
-        //     $default = 1;
-        //     // passer tous les active de cet id a 0
-        // }
-        // else{
-        //     $default = 0;
-        // }
         $default = $data['checked']== true ? 1 : 0;
+        if ($data['checked'] == true){
+            
+            // passer tous les active de cet id a 0
+        }        
         $em = $this->getDoctrine()->getManager();
         $new_cb = new Payements();
         $new_cb->setPayFirstname($payFirstname);

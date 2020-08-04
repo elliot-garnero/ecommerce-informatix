@@ -65,16 +65,15 @@ class AsideUser extends Component {
             return(
                 <div className="card-group mb-5">
                     <div className="card">
-            <div className="card-header h5">{user.firstname} {user.lastname} </div>
-            <p className="card-header"><small className="text-muted">pseudo : {user.username}</small></p>
+                        <div className="card-header">{user.firstname} {user.lastname} </div>
+                        
                         <div className="card-body">
-                        <p className="card-text"><small className="text-muted">{user.email}</small></p>
                             <p className="card-title">{user.address}</p>
                             <p className="card-text">{user.cp} {user.city} / {user.countries}</p>
-                            <p className="card-text"><small className="text-muted">Cagnotte : {user.discount} €</small></p>    
                             
+                            <p className="card-text"><small className="text-muted">{user.email}</small></p>
                         </div>
-                        
+                        <div className="card-footer">Cagnotte : {user.discount} €</div>
                         <div className="card-footer">inscription le : {date}</div>
                     </div>
                     </div>
