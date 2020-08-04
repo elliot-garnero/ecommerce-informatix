@@ -98,6 +98,7 @@ class Orders
      */
     private $packaging = 'NULL';
 
+
     public function getIdOrder(): ?int
     {
         return $this->idOrder;
@@ -234,6 +235,5 @@ class Orders
 
         return $this;
     }
-
 
 }

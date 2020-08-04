@@ -27,11 +27,10 @@ class ProductController extends AbstractController
      * @Route("/api/products", name="products")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showProducts(): Response
+    public function showProducts(ProductsRepository $repository): Response
     {
-        // fetch entityManager grace à $this->getDoctrine()
-        $repository = $this->getDoctrine()->getRepository(Products::class);
-        $products = $repository->findAll();
+        //$repository = $this->getDoctrine()->getRepository(Products::class);
+        $products = $repository->findAllDesc();
         // Si pas d'article
         if (!$products) {
             throw $this->createNotFoundException(
@@ -48,16 +47,28 @@ class ProductController extends AbstractController
      * @Route("/api/products/{id}", name="show_product")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showOne($id ): Response
+    public function showOne($id): Response
     {
-        // fetch entityManager grace à $this->getDoctrine()
         $repository = $this->getDoctrine()->getRepository(Products::class);
         $product = $repository->find($id);
-        // Si pas d'article
-        
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($product, 'json');
+        return new Response($serializedEntity);
+    }
+
+
+    /**
+     * @Route("/api/productsRandom", name="productsRandom")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function RandomProducts( ProductsRepository $repository): Response
+    {
+        $products = $repository->findAll();
+        shuffle($products);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($products, 'json');
         return new Response($serializedEntity);
     }
 
@@ -108,14 +119,6 @@ class ProductController extends AbstractController
     }
 
 
-
-
-
-
-
-
-
-
     
      /**
      * @Route("/api/deleteproduct", name="deleteproduct")
@@ -134,9 +137,6 @@ class ProductController extends AbstractController
 
         return new Response('Product deleted with id '. $product->getIdProduct() . "<br><a href=\"/\">Back</a>");
     }
-
-
-
 
 
      /**
@@ -183,26 +183,6 @@ class ProductController extends AbstractController
 
         return new Response('Saved modif product with id '. $product->getIdProduct() . "<br><a href=\"/\">Back</a>");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**

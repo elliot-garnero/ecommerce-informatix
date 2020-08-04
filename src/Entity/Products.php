@@ -38,7 +38,7 @@ class Products
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @ORM\Column(name="description", type="string", length=1500, nullable=false)
      */
     private $description;
 
@@ -57,18 +57,25 @@ class Products
     private $stock;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=0, nullable=false)
+     */
+    private $price;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="promo", type="integer", nullable=true, options={"default"="NULL"})
+     */
+    private $promo = 'NULL';
+
+    /**
      * @var bool|null
      *
      * @ORM\Column(name="new", type="boolean", nullable=true, options={"default"="NULL"})
      */
     private $new = 'NULL';
-
-    /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="promo", type="boolean", nullable=true, options={"default"="NULL"})
-     */
-    private $promo = 'NULL';
 
     /**
      * @var string|null
@@ -97,13 +104,6 @@ class Products
      * @ORM\Column(name="characteristics", type="string", length=1000, nullable=false)
      */
     private $characteristics;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=0, nullable=false)
-     */
-    private $price;
 
     /**
      * @var int
@@ -198,6 +198,30 @@ class Products
         return $this;
     }
 
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getPromo(): ?int
+    {
+        return $this->promo;
+    }
+
+    public function setPromo(?int $promo): self
+    {
+        $this->promo = $promo;
+
+        return $this;
+    }
+
     public function getNew(): ?bool
     {
         return $this->new;
@@ -206,18 +230,6 @@ class Products
     public function setNew(?bool $new): self
     {
         $this->new = $new;
-
-        return $this;
-    }
-
-    public function getPromo(): ?bool
-    {
-        return $this->promo;
-    }
-
-    public function setPromo(?bool $promo): self
-    {
-        $this->promo = $promo;
 
         return $this;
     }
@@ -266,18 +278,6 @@ class Products
     public function setCharacteristics(string $characteristics): self
     {
         $this->characteristics = $characteristics;
-
-        return $this;
-    }
-
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): self
-    {
-        $this->price = $price;
 
         return $this;
     }
