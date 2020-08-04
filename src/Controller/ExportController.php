@@ -28,7 +28,9 @@ class ExportController extends AbstractController
             $handle = fopen('php://output', 'w+');
             fputs($handle, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
             $users = $this->connection->query("SELECT id,username,firstname,lastname,email,discount FROM users");
+            fputcsv($handle, array(''));
             fputcsv($handle, array('################################# CLIENTS #######################################'));
+            fputcsv($handle, array(''));
             //Add the header of the CSV file
             fputcsv($handle, array('ID', 'PSEUDO', 'PRENOM', 'NOM', 'EMAIL', 'REMISE'),';');
             fputcsv(
@@ -49,11 +51,13 @@ class ExportController extends AbstractController
                 
                 array_push($id_array, $row['id']);
             }
+            fputcsv($handle, array(''));
             fputcsv(
                 $handle, // The file pointer
                 array('################################### COMMANDES ################################'), // The fields
                 ';' // The delimiter
             );
+            fputcsv($handle, array(''));
             $prod_array =[];
             $order_array = [];
             $ord_total =[];
@@ -68,7 +72,7 @@ class ExportController extends AbstractController
         }
         fputcsv(
             $handle, // The file pointer
-            array('', ''), // The fields
+            array(''), // The fields
             ';' // The delimiter
         );
            $keys =[];
