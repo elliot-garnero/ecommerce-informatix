@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Orders;
+use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,8 +22,15 @@ class DeliveryController extends AbstractController
     public function registerOrder(): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
+
+        // Get user ID if connected else null
+        $userID;
+        if($this->getUser() == null) {
+            $userID = 0;
+        } else {
+            $userID = $this->getUser()->getId();
+        }
         
-        $userID = 1;                    // CHANGE USER ID WITH SESSION
         $lastname = $_POST['lastName'];
         $firstname = $_POST['firstName'];
         $email = $_POST['email'];
@@ -37,6 +45,7 @@ class DeliveryController extends AbstractController
         $deliveryMode = $_POST['delivery'];
         $status = "registered";
         $packaging = $_POST['packaging'];
+        $products = $_POST['products'];
         
         $date = new \DateTime();
         $order = new Orders();
@@ -50,6 +59,7 @@ class DeliveryController extends AbstractController
         $order->setOrdStatus($status);
         $order->setOrdDate($date);
         $order->setPackaging($packaging);
+        $order->setOrdProducts($products);
 
 
 
@@ -82,5 +92,4 @@ class DeliveryController extends AbstractController
 
         return new Response($serializedEntity);
     }
-
 }

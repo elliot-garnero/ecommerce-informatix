@@ -15,13 +15,11 @@ import Register from '../components/login/container/Register';
 import ModifProduct from '../components/products/MainModifsProduct';
 import MainAdmin from '../components/admin/MainAdmin';
 import MainListUsers from "../components/admin/MainListUsers";
+import MainCommandDetail from '../components/users/MainCommandDetail';
 import MainBundles from '../components/admin/MainBundles';
 import ModifsBundle from '../components/admin/ModifsBundle';
 import AddBundle from '../components/admin/AddBundle';
 import MainCatalogBundles from '../components/products/MainCatalogBundle';
-
-
-
 
 class Paths extends Component {
   render() {
@@ -42,6 +40,7 @@ class Paths extends Component {
           <Route path="/tracking" component={MainTracking} />
           <Route exact path="/deliveryList" component={MainDeliveryList} />
           <Route exact path="/admin" component={MainAdmin} />
+          <Route path="/commandDetail:id" component={MainCommandDetail} />
           <Route path="/bundles" component={MainBundles} />
           <Route path="/modifsBundle:id" component={ModifsBundle} />
           <Route path="/addBundle" component={AddBundle} />

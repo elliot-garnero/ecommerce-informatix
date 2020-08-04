@@ -1,10 +1,12 @@
 import React from 'react';
+import { element } from 'prop-types';
 
 class MainOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       products: JSON.parse(localStorage.getItem('products')),
+      productsString: '',
       total: 0,
       delivery: 'classic',
       packaging: false,
@@ -74,15 +76,30 @@ class MainOrder extends React.Component {
 
     total += deliveryPrice;
 
+    // Get a string of all products
+    let productsString = '';
+
+    this.state.products.forEach((element) => {
+      let amountString = '';
+
+      if (element.amount > 1) {
+        for (let index = 0; index < element.amount; index++) {
+          amountString = amountString.concat(element.idProduct + ';');
+        }
+        productsString = productsString.concat(amountString);
+      } else {
+        productsString = productsString.concat(element.idProduct + ';');
+      }
+    });
+
     this.setState({
       total: total.toFixed(2),
       deliveryPrice: deliveryPrice.toFixed(2),
+      productsString,
     });
   }
 
   changeDelivery(event) {
-    // this.state.delivery = event.target.value;
-    // this.calculateTotal();
     this.setState(
       {
         delivery: event.target.value,
@@ -92,8 +109,6 @@ class MainOrder extends React.Component {
   }
 
   changeLocation(event) {
-    // this.state.location = event.target.value;
-    // this.calculateTotal();
     this.setState(
       {
         location: event.target.value,
@@ -103,7 +118,6 @@ class MainOrder extends React.Component {
   }
 
   changePackaging() {
-    // this.state.packaging = !this.state.packaging;
     this.setState(
       {
         packaging: !this.state.packaging,
@@ -111,8 +125,6 @@ class MainOrder extends React.Component {
       () => this.calculateTotal()
     );
   }
-
-  // Calcul selon poids
 
   render() {
     let { products } = this.state;
@@ -129,12 +141,12 @@ class MainOrder extends React.Component {
             <ul className="list-group mb-3">
               {products.map((product) => (
                 <li
-                  key={product.id}
+                  key={product.idProduct}
                   className="list-group-item d-flex justify-content-between lh-condensed"
                 >
                   <button
                     type="button"
-                    onClick={() => this.deleteItem(product.id)}
+                    onClick={() => this.deleteItem(product.idProduct)}
                     className="close text-danger"
                   >
                     &times;
@@ -184,21 +196,6 @@ class MainOrder extends React.Component {
                 </li>
               )}
             </ul>
-
-            {/* <form className="card p-2">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Code promo"
-                />
-                <div className="input-group-append">
-                  <button type="submit" className="btn bg-blue txt-white">
-                    Valider
-                  </button>
-                </div>
-              </div>
-            </form> */}
           </div>
           <div className="col-md-8 order-md-1">
             <h4 className="mb-3 txt-color">Adresse personnelle</h4>
@@ -213,6 +210,11 @@ class MainOrder extends React.Component {
                 type="hidden"
                 name="packaging"
                 value={this.state.packaging}
+              />
+              <input
+                type="hidden"
+                name="products"
+                value={this.state.productsString}
               />
               <div className="row">
                 <div className="col-md-6 mb-3">
@@ -295,29 +297,6 @@ class MainOrder extends React.Component {
                   />
                 </div>
               </div>
-              {/*
-              <hr className="mb-4" />
-              <div className="custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  className="custom-control-input"
-                  id="same-address"
-                />
-                <label className="custom-control-label" htmlFor="same-address">
-                  L'adresse de livraison est la même que l'adresse de
-                  facturation
-                </label>
-              </div>
-               <div className="custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  className="custom-control-input"
-                  id="save-info"
-                />
-                <label className="custom-control-label" htmlFor="save-info">
-                  Garder ces informations pour plus tard
-                </label>
-              </div> */}
               <hr className="mb-4" />
 
               <h4 className="mb-3 txt-color">Paiement</h4>
