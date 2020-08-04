@@ -28,8 +28,8 @@ class OrdersController extends AbstractController
      */
     public function showOne( OrdersRepository $repository): Response
     {
-        $user = $this->security->getUser();
-        $orders = $repository->findAll($user);
+        $user = $this->getUser()->getId();
+        $orders = $repository->findBy(['idUser' =>$user]);
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($orders, 'json');

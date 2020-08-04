@@ -29,8 +29,8 @@ class DeliveryAddressController extends AbstractController
      */
     public function showAdresses(DeliveryAddressRepository $repository): Response
     {
-        $user = $this->security->getUser();
-        $addresses = $repository->findAll([$user]);
+        $user = $this->getUser()->getId();
+        $addresses = $repository->findBy(['idUser' =>$user]);
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($addresses, 'json');

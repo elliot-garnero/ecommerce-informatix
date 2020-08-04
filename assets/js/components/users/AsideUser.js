@@ -14,11 +14,12 @@ class AsideUser extends Component {
       } 
       this.updateState = this.updateState.bind(this);
       this.refresh = this.refresh.bind(this);
+      this.refreshAddress = this.refreshAddress.bind(this);
     }
 
     refresh(){
         
-        fetch('http://localhost:8000/api/user/1')
+        fetch('http://localhost:8000/api/user/7')
           .then(res => res.json())
           .then(json => {
               this.setState({
@@ -27,6 +28,9 @@ class AsideUser extends Component {
                 flag:false
               })
         });
+    }
+
+    refreshAddress(){
         fetch('http://localhost:8000/api/address')
             .then(res => res.json())
             .then(json => {
@@ -45,7 +49,7 @@ class AsideUser extends Component {
     
     componentDidMount() {
         
-        fetch('http://localhost:8000/api/user/1')
+        fetch('http://localhost:8000/api/user/7')
           .then(res => res.json())
           .then(json => {
               this.setState({
@@ -79,7 +83,7 @@ class AsideUser extends Component {
                     this.refresh();
                 }
             else if(flag  && this.props.dataFromParent.address == true){
-                this.refresh();
+                this.refreshAddress();
             }
             const options = {  year: 'numeric', month: 'short', day: 'numeric' };
             let date =new Date(user.createdAt.substr(0,10));

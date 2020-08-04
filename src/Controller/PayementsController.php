@@ -29,8 +29,8 @@ class PayementsController extends AbstractController
      */
     public function showOne( PayementsRepository $repository): Response
     {
-        $user = $this->security->getUser();
-        $pay = $repository->findAll($user);
+        $user = $this->getUser()->getId();
+        $pay = $repository->findBy(['idUser' => $user]);
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($pay, 'json');

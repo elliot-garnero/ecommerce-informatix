@@ -32,7 +32,7 @@ class AsideProfile extends Component {
         this.setState({updatedatas:value})
         this.sendToParent();
       }
-        else if(value.address !== ''){// recup les states des autres enfants
+        else if(value.address !== ''){
           this.setState({updatedatas:value});
           this.sendToParent();
         } 

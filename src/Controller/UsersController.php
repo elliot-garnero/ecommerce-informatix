@@ -56,7 +56,7 @@ class UsersController extends AbstractController
      */
     public function updateData( UserRepository $repository, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $userid = $this->security->getUser();
+        $userid = $this->getUser()->getId();
         $entityManager = $this->getDoctrine()->getManager();
         $data = $request->getContent();
         $newData = json_decode($data, true);
@@ -104,7 +104,7 @@ class UsersController extends AbstractController
         $entityManager->flush();
         $entityManager->persist($userPass);
         $entityManager->flush();
-        return new Response('information mise à jour :'. $user->getId() . ' '.$user->getLastname().' '.$user->getFirstname());
+        return new Response('information mise à jour : id:'. $user->getId() . ' '.$user->getLastname().' '.$user->getFirstname());
 
     }
 
