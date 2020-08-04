@@ -26,6 +26,19 @@ class OrdersController extends AbstractController
     }
 
     /**
+     * @Route("/api/detailCommand/{idCommand}", name="detailCommand")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detailCommand($idCommand , OrdersRepository $repository): Response
+    {
+        $orders = $repository->findBy(['idOrder' => $idCommand]);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($orders, 'json');
+        return new Response($serializedEntity);
+    }
+
+    /**
      * @Route("/api/orderList", name="orderList")
      * @return \Symfony\Component\HttpFoundation\Response
      */

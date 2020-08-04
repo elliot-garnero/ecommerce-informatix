@@ -14,6 +14,7 @@ import Footer from '../components/Footer';
 import Login from '../components/login/container/Login';
 import Register from '../components/login/container/Register';
 import ModifProduct from '../components/products/MainModifsProduct';
+import MainCommandDetail from '../components/users/MainCommandDetail';
 
 class Paths extends Component {
   render() {
@@ -32,6 +33,7 @@ class Paths extends Component {
           <Route path="/order" component={MainOrder} />
           <Route path="/tracking" component={MainTracking} />
           <Route exact path="/deliveryList" component={MainDeliveryList} />
+          <Route path="/commandDetail:id" component={MainCommandDetail} />
         </Switch>
         <Footer />
       </div>
