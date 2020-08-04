@@ -108,7 +108,7 @@ class BundlesController extends AbstractController
         // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
 
-        return new Response('Saved new bundle with id '. $bundle->getIdBundle() . "<br><a href=\"/\">Back</a>");
+        return new Response('Saved new bundle with id '. $bundle->getIdBundle() . "<br><a href=\"/bundles\">Back</a>");
     }
 
 

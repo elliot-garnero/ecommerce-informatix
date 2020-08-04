@@ -2,8 +2,8 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="App\Entity\Admin" table="admin">
     <unique-constraints>
-      <unique-constraint name="UNIQ_880E0D76F85E0677" columns="username"/>
       <unique-constraint name="UNIQ_880E0D76E7927C74" columns="email"/>
+      <unique-constraint name="UNIQ_880E0D76F85E0677" columns="username"/>
     </unique-constraints>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>

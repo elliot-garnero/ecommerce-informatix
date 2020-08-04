@@ -62,6 +62,7 @@ export default function RegisterForm(props) {
                             <div className="form-group text-center">
                                 <button type={"submit"} className={"btn btn-primary"}>Envoyer</button>
                             </div>
+                            <br />
                             <div className="form-group text-center">
                                 <Link to={'/login'} className="no-registered">Connectez vous!</Link>
                             </div>

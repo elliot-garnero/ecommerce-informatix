@@ -30,6 +30,7 @@ export default function LoginForm(props) {
                             <div className="form-group text-center">
                                 <button type={"submit"} className={"btn btn-primary"}>Connexion</button>
                             </div>
+                            <br />
                             <div className="form-group text-center">
                                 <Link to={'/register'} className="no-registered">Inscription !</Link>
                             </div>
