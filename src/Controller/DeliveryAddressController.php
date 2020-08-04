@@ -51,6 +51,7 @@ class DeliveryAddressController extends AbstractController
         $city = $data['city'];
         $countries = $data['countries'];
         $default = $data['active'];
+        $user = $this->security->getUser();dd($user);
         // if ($data['checked'] == true){
         //     $default = 1;
         //     // passer tous les active de cet id a 0
