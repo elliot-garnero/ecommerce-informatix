@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
 
 class UsersController extends AbstractController
 {
-    /**
-     * @Route("/api/user", name="user")
+     /**
+     * @Route("/api/admin/listUsers", name="list_users")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showUsers(UserRepository $repository): Response
@@ -40,11 +43,14 @@ class UsersController extends AbstractController
      * @Route("/api/update/{id}", name="change_firstname")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function updateData( $id , UserRepository $repository, Request $request)
+    public function updateData( $id , UserRepository $repository, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $userPass = new Users();
+        $repoPass = $this->getDoctrine()->getRepository(Users::class);
         $entityManager = $this->getDoctrine()->getManager();
         $data = $request->getContent();
         $newData = json_decode($data, true);
+        $userPass = $repoPass->find($id);
         $user = $repository->find($id);
         foreach($newData as $key => $val){
             if($newData[$key] !== ''){
@@ -74,6 +80,15 @@ class UsersController extends AbstractController
                     $user->setEmail($newData[$key]);
                     break;
                 case 'password':
+                    // $user->setPassword($newData[$key]);
+                    $userPass->setPassword(
+                        $passwordEncoder->encodePassword(
+                            $userPass,
+                            $newData[$key]
+                        )
+                    );
+                    break;
+                case 'setActive':
                     $user->setPassword($newData[$key]);
                     break;
             }
@@ -81,8 +96,28 @@ class UsersController extends AbstractController
     }
         $entityManager->persist($user);
         $entityManager->flush();
-        return $this->redirectToRoute('user', [
-            // 'id' => $user->getIdUser()
-        ]);
+        $entityManager->persist($userPass);
+        $entityManager->flush();
+        return new Response('information mise à jour :'. $user->getId() . ' '.$user->getLastname().' '.$user->getFirstname());
+
     }
+
+    /**
+     * @Route("/api/addDiscount/{id}", name="addDiscount")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addDiscount( $id,UserRepository $repository, Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $data = $request->getContent();
+        $newData = json_decode($data, true);
+        $user = $repository->find($id);
+        if($newData['discount'] !== ''){
+            $user->setDiscount($newData['discount']);
+        }
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return new Response('Remise accordée à l\'id '. $user->getId() . ' '.$user->getLastname().' '.$user->getFirstname());
+    }
+
 }
