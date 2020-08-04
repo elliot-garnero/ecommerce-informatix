@@ -25,7 +25,7 @@ class MainAdd extends Component {
     return (
       <form method="POST" action="/api/createproduct" className="container">
         <div className="card">
-          <h2 className="card-header info-color white-text text-center py-4 txt-color">
+          <h2 className="card-header info-color white-text text-center py-4 txt-orange">
             <strong>Administrateur /Ajouter un produit</strong>
           </h2>
           <div className="card-header info-color white-text text-center py-4">
@@ -197,7 +197,7 @@ class MainAdd extends Component {
 
           <input
             type="submit"
-            className="btn btn-primary btn-block"
+            className="btn btn-block mt-4 mb-4 bg-orange txt-white"
             value="Submit"
           />
           <br />

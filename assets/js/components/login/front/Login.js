@@ -19,16 +19,20 @@ export default function LoginForm(props) {
                                 <strong>Connexion</strong>
                             </h3>
                             <div className="card-header info-color white-text text-center py-4">
-                                <input type="text" className="form-control" id={"username"} placeholder="Nom d'utilisateur"/>
+                                <label htmlFor="exampleInputEmail1">Nom d'utilisateur</label>
+                                <input type="text" required className="form-control" id={"username"} placeholder="Nom d'utilisateur"/>
                             </div>
                             <div className="card-header info-color white-text text-center py-4">
-                                <input type="password" className="form-control" id={"password"} placeholder="Mot de passe"/>
+                                <label htmlFor="exampleInputEmail1">Mot de passe</label>
+                                <input type="password" required className="form-control" id={"password"} placeholder="Mot de passe"/>
                             </div>
+                            <br />
                             <div className="form-group text-center">
                                 <button type={"submit"} className={"btn btn-primary"}>Connexion</button>
                             </div>
+                            <br />
                             <div className="form-group text-center">
-                                <Link to={'/register'} className="no-registered">Pas encore inscrit ? Inscription !</Link>
+                                <Link to={'/register'} className="no-registered">Inscription !</Link>
                             </div>
                         </div>
                     </form>
