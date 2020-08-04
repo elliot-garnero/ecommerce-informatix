@@ -13,6 +13,7 @@ import Footer from '../components/Footer';
 import Login from '../components/login/container/Login';
 import Register from '../components/login/container/Register';
 import ModifProduct from '../components/products/MainModifsProduct';
+import MainListUsers from "../components/admin/MainListUsers";
 import MainBundles from '../components/admin/MainBundles';
 import ModifsBundle from '../components/admin/ModifsBundle';
 import AddBundle from '../components/admin/AddBundle';
@@ -28,6 +29,7 @@ class Paths extends Component {
         <Navbar />
         <Switch>
           <Redirect exact from="/" to="/catalog" />
+          <Route path="/listUsers" component={MainListUsers} />
           <Route exact path="/catalog" component={MainCatalog} />
           <Route path="/detailsProduct:id" component={MainDetailsProduct} />
           <Route exact path="/add" component={MainAdd} />

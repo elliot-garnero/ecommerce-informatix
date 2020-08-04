@@ -57,7 +57,7 @@ class DeliveryAddressController extends AbstractController
         // else{
         //     $default = 0;
         // }
-        $default = $data['checked']== true ? 1 : 0;
+        $default = $data['active'];
         $em = $this->getDoctrine()->getManager();
         $new_address = new DeliveryAddress();
         $new_address->setDelFirstname($firstname);
@@ -76,9 +76,9 @@ class DeliveryAddressController extends AbstractController
 
     /**
      * @Route("/api/delete_address/{id}", name="delete_address")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function deleteAdresses($id ): Response
+    public function deleteAdresses($id ): JsonResponse
     {
         $entityManager = $this->getDoctrine()->getManager();
         $address = $entityManager->getRepository(DeliveryAddress::class)->find($id);

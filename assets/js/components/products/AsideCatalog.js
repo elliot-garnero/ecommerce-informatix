@@ -65,6 +65,7 @@ class AsideCatalog extends Component{
         }
         else{
             return(
+                
                 <div id="div_catalog">
                     <div className="title_lign">
                         <h1>CATALOGUE</h1>
