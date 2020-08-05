@@ -28,6 +28,7 @@ class Navbar extends Component {
   getUser() {
     axios.get(`http://127.0.0.1:8000/api/user/authenticated`)
     .then((res) => {
+      console.log(res)
       this.setState({ user: res.data.success});
     });
   }

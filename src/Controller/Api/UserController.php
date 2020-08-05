@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller\Api;
-
 
 use App\Utils\ApiUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -178,14 +176,15 @@ class UserController extends AbstractController
      */
     public function isAuthenticated(UsersRepository $userRepository) : JsonResponse
     {
+        dd($this->getUser());
         if (!$this->getUser()){
             $response = [
                 "success"=>false,
                 "message"=>"Erreur",
             ];
             return new JsonResponse($response,Response::HTTP_OK);
-        } else {
-            $user = $userRepository->findOneBy(['username'=>$this->getUser()->getUsername()]);
+        } else {$user = $userRepository->findOneBy(['username'=>$this->getUser()->getUsername()]);
+            
             $response = [
                 "success"=>true,
                 "message"=>"Erreur session",
