@@ -3,6 +3,8 @@ import logoSmall from '../../images/logoSmall.png';
 import MainModal from './delivery/MainModal';
 import axios from 'axios';
 
+//lol
+
 class Navbar extends Component {
   constructor(props) {
     super(props);
