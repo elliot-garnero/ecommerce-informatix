@@ -19,6 +19,7 @@ import MainBundles from '../components/admin/MainBundles';
 import ModifsBundle from '../components/admin/ModifsBundle';
 import AddBundle from '../components/admin/AddBundle';
 import MainCatalogBundles from '../components/products/MainCatalogBundle';
+import MainCategories from '../components/admin/MainCategories';
 
 class Paths extends Component {
   render() {
@@ -43,6 +44,7 @@ class Paths extends Component {
           <Route path="/modifsBundle:id" component={ModifsBundle} />
           <Route path="/addBundle" component={AddBundle} />
           <Route path="/catalogBundles" component={MainCatalogBundles} />
+          <Route path="/manageCategories" component={MainCategories} />
         </Switch>
         <Footer />
       </div>
