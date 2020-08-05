@@ -268,4 +268,3 @@ class Users implements UserInterface, \JsonSerializable
         return $this;
     }
 }
-

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MainModal from '../delivery/MainModal';
-import axios from 'axios';
 
 class AsideCatalog extends Component {
   constructor(props) {
