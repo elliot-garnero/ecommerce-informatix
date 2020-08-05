@@ -81,11 +81,12 @@ class PayementsController extends AbstractController
     }
 
         /**
-     * @Route("/api/addCb/{id}", name="add_cb")
+     * @Route("/api/addCb", name="add_cb")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addCb($id , Request $request, PayementsRepository $repository): Response
+    public function addCb(Request $request, PayementsRepository $repository): Response
     {
+        $id = $this->getUser()->getId();
         $entityManager = $this->getDoctrine()->getManager();
         $data = $request->getContent();
         $data = json_decode($data, true);

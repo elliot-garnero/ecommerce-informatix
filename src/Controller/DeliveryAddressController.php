@@ -38,11 +38,12 @@ class DeliveryAddressController extends AbstractController
     }
 
      /**
-     * @Route("/api/addAddress/{id}", name="add_address")
+     * @Route("/api/addAddress", name="add_address")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addAdresses($id , Request $request, DeliveryAddressRepository $repository): Response
+    public function addAdresses(Request $request, DeliveryAddressRepository $repository): Response
     {
+        $id= $this->getUser()->getId();
         $data = $request->getContent();
         $data = json_decode($data, true);
         $firstname = $data['firstname'];

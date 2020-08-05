@@ -19,7 +19,7 @@ class ProfileAddress extends Component {
         this.sendToParent = this.sendToParent.bind(this);
     }
 
-    updateState(value) {console.log('rentré')
+    updateState(value) {
         if (value.update == 'refresh') {
             fetch('http://localhost:8000/api/address')
             .then(res => res.json())

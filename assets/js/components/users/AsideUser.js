@@ -110,7 +110,6 @@ class AsideUser extends Component {
                                 {address.delCp} {address.delCity} / {address.delCountries}
                             </small>
                         </div>}
-                        {/* {address.active == 0 && <p>Adresse de livraison préférée : {address.active}</p>} */}
                         </div>
 
                          ) )}

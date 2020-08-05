@@ -33,7 +33,7 @@ export default class AddressModal extends Component {
     const data = this.state;
     console.log(data)
     axios
-      .post(`http://localhost:8000/api/addAddress/1`, data)
+      .post(`http://localhost:8000/api/addAddress`, data)
       .then((res) => {
         if (res) {
           console.log(res)
@@ -60,7 +60,7 @@ export default class AddressModal extends Component {
     }
     return (
 
-      <form onSubmit={this.onSubmit} method="POST" id="pop_form" >
+      <form onSubmit={this.onSubmit} id="pop_form" >
         <div className="form-group">
           <label htmlFor="firstname">Prénom</label>
           <input type="text" className="form-control" id="firstname" name="firstname" onChange={(e) => this.onTextChange(e)} required />

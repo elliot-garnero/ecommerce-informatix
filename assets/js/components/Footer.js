@@ -5,7 +5,7 @@ class Footer extends Component {
     return (
       <div className="container">
         <div className="bg-blue footer-copyright text-center py-3">
-          <h6 className="txt-white">© 2020 Copyright:Team Informatix.com</h6>
+          <h6 className="txt-white">© 2020 Copyright : Team Informatix.com</h6>
         </div>  
       </div>    
     );
