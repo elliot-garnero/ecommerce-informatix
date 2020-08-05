@@ -137,7 +137,7 @@ class MainCommandDetail extends Component {
                               </strong>
                             </p>
                             <p>{product.characteristics}</p>
-                            <a href={`detailsProduct${product.idProduct}`}>
+                            <a href={`productReview${product.idProduct}`}>
                               Laisser un avis sur ce produit
                             </a>
                           </div>

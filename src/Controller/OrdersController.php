@@ -85,5 +85,16 @@ class OrdersController extends AbstractController
         return new Response('Saved modif product with id '. $order->getIdOrder() . "<br><a href=\"/deliveryList\">Back</a>");
     }
 
+    /**
+     * @Route("/api/getUserID", name="getUserID")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getUserID(OrdersRepository $repository): Response
+    {
+        $user = $this->getUser()->getId();
+
+        return new Response($user);
+    }
+
  
 }
