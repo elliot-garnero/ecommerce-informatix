@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logoSmall from '../../images/logoSmall.png';
 import MainModal from './delivery/MainModal';
 
+//lol
+
 class Navbar extends Component {
   render() {
     return (
