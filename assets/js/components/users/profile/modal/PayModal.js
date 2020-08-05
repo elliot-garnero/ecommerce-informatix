@@ -43,6 +43,7 @@ export default class PayModal extends Component {
       })
       .catch(err => console.log(err));
   }
+  
   onTextChange(e) {
     this.setState({ ...this.state, [e.target.name]: e.target.value });
   };

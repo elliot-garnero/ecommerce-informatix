@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import logoSmall from '../../images/logoSmall.png';
 import MainModal from './delivery/MainModal';
+import axios from 'axios';
 
 class Navbar extends Component {
+
   render() {
     return (
       <div className="container">
@@ -17,8 +19,7 @@ class Navbar extends Component {
             </a>
           </div>
           <div className="col 4">
-            <input type="text" placeholder="Rechercher un produit..."></input>
-            <i className="fab fa-sistrix bg-warning m-1 p-2 rounded"></i>
+            
           </div>
           <div className="col 4 d-flex justify-content-around ">
             <a className="text-decoration-none" href="/login">

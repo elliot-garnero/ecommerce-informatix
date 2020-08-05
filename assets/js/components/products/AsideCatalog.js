@@ -9,7 +9,8 @@ class AsideCatalog extends Component{
           products: JSON.parse(localStorage.getItem('products')) || [],
           isLoaded: false,
           items: this.props.dataFromParent.updatedatas,
-          bundles:[]
+          bundles:[],
+          search: false
         }
     }
     
@@ -51,15 +52,22 @@ class AsideCatalog extends Component{
 
 
     render(){
+     
+      if(this.props.dataFromParent.searchBar.results !== this.state.items && this.props.dataFromParent.searchBar.results !== undefined && !this.props.dataFromParent.updatedatas.data)
+        {  
+            this.setState({items: this.props.dataFromParent.searchBar.results});
+            this.setState({search: this.props.dataFromParent.searchBar.query});
+        }
         if(this.props.dataFromParent.updatedatas.data !== this.state.items && this.props.dataFromParent.updatedatas.data !== undefined)
         {  
             this.setState({items: this.props.dataFromParent.updatedatas.data});
+            this.setState({search: false});
         }
-        var{ isLoaded, items } = this.state;
+        const{ isLoaded, items } = this.state;
         var count = Object.keys(items).length;
         var countBundles= Object.keys(this.state.bundles).length
-
-
+        
+          
         if (!isLoaded){
             return <div>Chargement...</div>
         }
@@ -67,7 +75,9 @@ class AsideCatalog extends Component{
             return(
                 
                 <div id="div_catalog">
-                    <div className="title_lign">
+                  {this.state.search && <div className="title_lign">
+            <h1>Résultats pour votre recherche "<b>{this.state.search}"</b> :</h1></div>}
+            {!this.state.search && <div className="title_lign">
                         <h1>CATALOGUE</h1>
                         <a href="/">
                             <p>{count} produits</p>
@@ -75,7 +85,7 @@ class AsideCatalog extends Component{
                         <a href="catalogBundles">
                             <p>{countBundles} lots</p>
                         </a>
-                    </div>
+                    </div>}
                     {items.map((item, i) => (
                         <div className="w-100 border border-secondary p-3 mb-2 rounded" key={i} id={item.idProduct}>
                             <div className="row">
