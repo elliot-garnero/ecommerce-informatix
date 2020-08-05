@@ -1,6 +1,5 @@
 import React from 'react';
 import MainDeliveryModal from './MainDeliveryModal';
-import { element } from 'prop-types';
 
 class MainOrder extends React.Component {
   constructor(props) {
@@ -14,12 +13,32 @@ class MainOrder extends React.Component {
       location: 'FR',
       deliveryPrice: 0,
       december: new Date().getMonth(),
+      discount: null,
     };
     this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount() {
+    this.discount();
     this.calculateTotal();
+  }
+
+  async discount() {
+    let userID;
+
+    await fetch('http://localhost:8000/api/getUserID')
+      .then((res) => res.json())
+      .then((json) => {
+        userID = json;
+      });
+
+    await fetch('http://localhost:8000/api/getDiscount/' + userID)
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({
+          discount: json,
+        });
+      });
   }
 
   deleteItem(id) {
@@ -87,6 +106,10 @@ class MainOrder extends React.Component {
     // If the weight exceeds 4 kilos there is a fee
     if (weight > 4000) {
       deliveryPrice += 10;
+    }
+
+    if (this.state.discount != (null || 0)) {
+      total -= this.state.discount;
     }
 
     total += deliveryPrice;
@@ -190,10 +213,15 @@ class MainOrder extends React.Component {
                 </div>
                 <span>{this.state.deliveryPrice} €</span>
               </li>
+              {this.state.discount != null && (
+                <li className="list-group-item d-flex justify-content-between">
+                  <span>Rabais</span>
+                  <strong>- {this.state.discount} €</strong>
+                </li>
+              )}
               <li className="list-group-item d-flex justify-content-between">
                 <span>
                   Total (EUR) <MainDeliveryModal />
-                  {/* Total (EUR) <i className="far fa-question-circle"></i> */}
                 </span>
                 <strong>{this.state.total} €</strong>
               </li>

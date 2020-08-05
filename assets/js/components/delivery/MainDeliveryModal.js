@@ -8,33 +8,31 @@ class MainDeliveryModal extends React.Component {
 
   render() {
     return (
-      //   <div>
-      //     <a
-      //       className="text-decoration-none"
-      //       data-toggle="modal"
-      //       data-target="#modal2"
-      //     >
-      //       <i className="far fa-question-circle"></i>
-      //     </a>
-      //     <div className="modal fade modal2" id="modal2">
-      //       <div className="modal-dialog modal-dialog-centered">
-      //         <div className="modal-content">
-      //           <div className="modal-header">
-      //             <h4 className="modal-title">Frais de livraison</h4>
-      //             <button type="button" className="close" data-dismiss="modal">
-      //               &times;
-      //             </button>
-      //           </div>
-      //           <div className="modal-body">
-      //             <h6>Ah ok lol mdr vas y</h6>
-      //             <div className="container"></div>
-      //           </div>
-      //         </div>
-      //       </div>
-      //     </div>
-      //   </div>
-      <div>
-        <p>ok</p>
+      <div className="dropdown">
+        <button
+          className="btn btn-primary btn-sm dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Détails tarifs
+        </button>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <p className="dropdown-item">
+            Si la livraison est express, un surplus de 15% est appliqué
+          </p>
+          <p className="dropdown-item">
+            Si la livraison est en Europe, un surplus de 15% est appliqué
+          </p>
+          <p className="dropdown-item">
+            Si la livraison est en Monde, un surplus de 30% est appliqué
+          </p>
+          <p className="dropdown-item">
+            Si le poids est supérieur à 4KG, il y a 10€ de surcoût
+          </p>
+        </div>
       </div>
     );
   }
