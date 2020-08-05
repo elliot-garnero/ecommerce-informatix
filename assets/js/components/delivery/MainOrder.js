@@ -1,4 +1,5 @@
 import React from 'react';
+import MainDeliveryModal from './MainDeliveryModal';
 import { element } from 'prop-types';
 
 class MainOrder extends React.Component {
@@ -12,6 +13,7 @@ class MainOrder extends React.Component {
       packaging: false,
       location: 'FR',
       deliveryPrice: 0,
+      december: new Date().getMonth(),
     };
     this.deleteItem = this.deleteItem.bind(this);
   }
@@ -41,6 +43,14 @@ class MainOrder extends React.Component {
       totalArr[i] =
         this.state.products[i].price * this.state.products[i].amount;
     }
+
+    let weightArr = [];
+    for (let i = 0; i < this.state.products.length; i++) {
+      weightArr[i] =
+        this.state.products[i].weight * this.state.products[i].amount;
+    }
+
+    let weight = weightArr.reduce((a, b) => a + b, 0);
 
     let total = totalArr.reduce((a, b) => a + b, 0);
     let totalProducts = total;
@@ -72,6 +82,11 @@ class MainOrder extends React.Component {
       totalProducts >= 400
     ) {
       deliveryPrice = 0;
+    }
+
+    // If the weight exceeds 4 kilos there is a fee
+    if (weight > 4000) {
+      deliveryPrice += 10;
     }
 
     total += deliveryPrice;
@@ -176,25 +191,28 @@ class MainOrder extends React.Component {
                 <span>{this.state.deliveryPrice} €</span>
               </li>
               <li className="list-group-item d-flex justify-content-between">
-                <span>Total (EUR)</span>
+                <span>
+                  Total (EUR) <i className="far fa-question-circle"></i>
+                </span>
                 <strong>{this.state.total} €</strong>
               </li>
-              {this.state.total > 400 && (
-                <li className="list-group-item d-flex justify-content-between">
-                  <div className=" form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="packaging"
-                      name="packaging"
-                      onChange={this.changePackaging.bind(this)}
-                    />
-                    <label htmlFor="packaging" className="form-check-label">
-                      Emballage des produits
-                    </label>
-                  </div>
-                </li>
-              )}
+              {this.state.total > 400 ||
+                (this.state.december == 12 && (
+                  <li className="list-group-item d-flex justify-content-between">
+                    <div className=" form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="packaging"
+                        name="packaging"
+                        onChange={this.changePackaging.bind(this)}
+                      />
+                      <label htmlFor="packaging" className="form-check-label">
+                        Emballage des produits
+                      </label>
+                    </div>
+                  </li>
+                ))}
             </ul>
           </div>
           <div className="col-md-8 order-md-1">
