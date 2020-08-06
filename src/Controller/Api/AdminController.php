@@ -8,8 +8,8 @@ use App\Utils\ApiUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Users;
-use App\Repository\UsersRepository;
+use App\Entity\Admin;
+use App\Repository\AdminRepository;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,15 +21,15 @@ use Exception;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class UserController
+ * Class AdminController
  * @package App\Controller\Api
- * @Route("/api/user")
+ * @Route("/api/admin")
  */
-class UserController extends AbstractController
+class AdminController extends AbstractController
 {
 
     /**
-     * @Route("/token", name="api_user_token", methods={"GET"})
+     * @Route("/token", name="api_admin_token", methods={"GET"})
      * @param ApiUtils $apiUtils
      * @return JsonResponse
      * @throws Exception
@@ -49,12 +49,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/info", name="api_user_info", methods={"GET"})
+     * @Route("/info", name="api_admin_info", methods={"GET"})
      * @param ApiUtils $apiUtils
-     * @param UsersRepository $userRepository
+     * @param AdminRepository $userRepository
      * @return JsonResponse
      */
-    public function personalInfo(ApiUtils $apiUtils, UsersRepository $userRepository)
+    public function personalInfo(ApiUtils $apiUtils, AdminRepository $userRepository)
     {
 
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -74,73 +74,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="api_user_register", methods={"POST"})
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param ApiUtils $apiUtils
-     * @param ValidatorInterface $validator
-     * @return Response
-     */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, ApiUtils $apiUtils,
-                             ValidatorInterface $validator): Response
-    {
-
-        $user = new Users();
-
-        // Get request data
-        $apiUtils->getContent($request);
-
-        // Sanitize data
-        $apiUtils->setData($apiUtils->sanitizeData($apiUtils->getData()));
-        $data = $apiUtils->getData();
-
-        try {
-            $date = new \DateTime();
-            $user->setUsername($data["username"]);
-            $user->setRoles(['ROLE_USER']);
-            $user->setPassword($data['password']);
-            $user->setEmail($data["email"]);
-            $user->setLastname($data["lastname"]);
-            $user->setFirstname($data["firstname"]);
-            $user->setCountries($data["countries"]);
-            $user->setCity($data["city"]);
-            $user->setAddress($data["address"]);
-            $user->setCp($data["cp"]);
-            $user->setDeleted('0');
-            $user->setCreatedAt($date);
-
-            // hash of the password we do it here because of validateData
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $data['password']
-                )
-            );
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-        }catch (Exception $e){
-            $apiUtils->errorResponse( "No user for insert");
-            return new JsonResponse($apiUtils->getResponse(),Response::HTTP_BAD_REQUEST,['Content-type'=>'application/json']);
-        }
-
-        $token = new UsernamePasswordToken(
-            $user,
-            null,
-            'main',
-            $user->getRoles()
-        );
-        $this->get('security.token_storage')->setToken($token);
-        $this->get('session')->set('_security_main', serialize($token));
-
-        $apiUtils->successResponse("Erreur",$user);
-        return new JsonResponse($apiUtils->getResponse(), Response::HTTP_CREATED, ['Content-type' => 'application/json']);
-    }
-
-    /**
-     * @Route("/login", name="api_user_login", methods={"POST"})
+     * @Route("/login", name="api_admin_login", methods={"POST"})
      * @param AuthenticationUtils $authenticationUtils
      * @param ApiUtils $apiUtils
      * @return Response
@@ -160,7 +94,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="api_user_logout", methods={"GET"})
+     * @Route("/logout", name="api_admin_logout", methods={"GET"})
      * @throws Exception
      */
     public function logout()
@@ -172,11 +106,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/authenticated", name="api_user_authenticated")
-     * @param UsersRepository $userRepository
+     * @Route("/authenticated", name="api_admin_authenticated")
+     * @param AdminRepository $userRepository
      * @return JsonResponse
      */
-    public function isAuthenticated(UsersRepository $userRepository) : JsonResponse
+    public function isAuthenticated(AdminRepository $userRepository) : JsonResponse
     {
         if (!$this->getUser()){
             $response = [
@@ -194,12 +128,9 @@ class UserController extends AbstractController
             ];
             if (in_array('ROLE_ADMIN', $user->getRoles()))
                 $response["is_admin"] = true;
-            else
-            {
-                $response["is_admin"] = false;
-            }
 
             return new JsonResponse($response,Response::HTTP_OK);
+            
         }
     }
 }

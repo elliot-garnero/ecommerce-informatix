@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import login from '../api/User/login';
+import login from '../../../paths/api/User/login';
 import LoginForm from '../front/Login';
 
 export default function Login() {
@@ -18,6 +18,8 @@ export default function Login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
+    console.log(password);
+
     const requestOptions = { username: username, password: password };
 
     login(requestOptions)
@@ -25,12 +27,12 @@ export default function Login() {
         if (res.data.success) setSuccess(true);
         else
           setError(
-            'Erreur de connexion/ Veullez vérifiée vos identifiants de connexion'
+            'Certain informations sont incorrectes. Réessayez'
           );
       })
       .catch((e) =>
         setError(
-          'Erreur de connexion/ Veullez vérifiée vos identifiants de connexion'
+          'Certain informations sont incorrectes. Réessayez'
         )
       );
 

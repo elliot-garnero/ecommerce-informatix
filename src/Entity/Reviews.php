@@ -49,13 +49,6 @@ class Reviews
      */
     private $content;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=255, nullable=false)
-     */
-    private $username;
-
     public function getIdReview(): ?int
     {
         return $this->idReview;
@@ -105,18 +98,6 @@ class Reviews
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
 
         return $this;
     }

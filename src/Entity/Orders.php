@@ -31,13 +31,6 @@ class Orders
     /**
      * @var string
      *
-     * @ORM\Column(name="ord_products", type="string", length=255, nullable=false)
-     */
-    private $ordProducts;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="ord_lastname", type="string", length=255, nullable=false)
      */
     private $ordLastname;
@@ -98,6 +91,12 @@ class Orders
      */
     private $packaging = 'NULL';
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ord_products", type="string", length=255, nullable=false)
+     */
+    private $ordProducts;
 
     public function getIdOrder(): ?int
     {
@@ -112,18 +111,6 @@ class Orders
     public function setIdUser(int $idUser): self
     {
         $this->idUser = $idUser;
-
-        return $this;
-    }
-
-    public function getOrdProducts(): ?string
-    {
-        return $this->ordProducts;
-    }
-
-    public function setOrdProducts(string $ordProducts): self
-    {
-        $this->ordProducts = $ordProducts;
 
         return $this;
     }
@@ -235,5 +222,18 @@ class Orders
 
         return $this;
     }
+
+    public function getOrdProducts(): ?string
+    {
+        return $this->ordProducts;
+    }
+
+    public function setOrdProducts(string $ordProducts): self
+    {
+        $this->ordProducts = $ordProducts;
+
+        return $this;
+    }
+
 
 }

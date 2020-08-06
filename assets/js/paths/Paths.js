@@ -13,6 +13,7 @@ import Footer from '../components/Footer';
 import Login from '../components/login/container/Login';
 import Register from '../components/login/container/Register';
 import ModifProduct from '../components/products/MainModifsProduct';
+import MainAdmin from '../components/admin/MainAdmin';
 import MainCommandDetail from '../components/users/MainCommandDetail';
 import MainProductReview from '../components/users/MainProductReview';
 import MainListUsers from '../components/admin/MainListUsers';
@@ -40,6 +41,7 @@ class Paths extends Component {
           <Route path="/order" component={MainOrder} />
           <Route path="/tracking" component={MainTracking} />
           <Route exact path="/deliveryList" component={MainDeliveryList} />
+          <Route exact path="/admin" component={MainAdmin} />
           <Route path="/commandDetail:id" component={MainCommandDetail} />
           <Route path="/productReview:id" component={MainProductReview} />
           <Route path="/bundles" component={MainBundles} />

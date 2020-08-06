@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 
-export default function LoginForm(props) {
+export default function MainAdminForm(props) {
     return (
         <div>
             <div className="container login-container">
@@ -14,25 +14,21 @@ export default function LoginForm(props) {
                     }
 
                     <form className="container" onSubmit={props.handleSubmit}>
-                        <div className="card">
-                            <h3 className="card-header info-color white-text text-center py-4 txt-color">
-                                <strong>Connexion</strong>
-                            </h3>
+                            <div className="card">
+                                <h3 className="card-header info-color white-text text-center py-4 txt-color">
+                                    <strong>Connexion administrateur</strong>
+                                </h3>
                             <div className="card-header info-color white-text text-center py-4">
-                                <label htmlFor="exampleInputEmail1">Nom d'utilisateur</label>
-                                <input type="text" required className="form-control" id={"username"} placeholder="Nom d'utilisateur"/>
+                                <label htmlFor="exampleInputEmail1">Nom d'utilisateur admin</label>
+                                <input type="text" className="form-control" id={"username"} placeholder="Nom d'utilisateur"/>
                             </div>
                             <div className="card-header info-color white-text text-center py-4">
-                                <label htmlFor="exampleInputEmail1">Mot de passe</label>
-                                <input type="password" required className="form-control" id={"password"} placeholder="Mot de passe"/>
+                                <label htmlFor="exampleInputEmail1">Mot de passe admin</label>
+                                <input type="password" className="form-control" id={"password"} placeholder="Mot de passe"/>
                             </div>
                             <br />
                             <div className="form-group text-center">
                                 <button type={"submit"} className={"btn btn-primary"}>Connexion</button>
-                            </div>
-                            <br />
-                            <div className="form-group text-center">
-                                <Link to={'/register'} className="no-registered">Inscription !</Link>
                             </div>
                         </div>
                     </form>
