@@ -45,7 +45,7 @@ class SearchBar extends Component {
         return (
             <form onSubmit={this.onSubmitQuery} className="text-center" style={bgStyle}>
                 <input
-                    className="w-50 ml-3"
+                    className="w-25"
                     type="text"
                     placeholder="Rechercher un produit..."
                     value={this.state.query}
