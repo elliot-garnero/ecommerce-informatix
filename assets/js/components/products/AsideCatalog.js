@@ -51,8 +51,6 @@ class AsideCatalog extends Component {
     });
   }
 
-
-
   render(){
      
     if(this.props.dataFromParent.searchBar.results !== this.state.items && this.props.dataFromParent.searchBar.results !== undefined && !this.props.dataFromParent.updatedatas.data)
@@ -75,20 +73,18 @@ class AsideCatalog extends Component {
       }
       else{
           return(
-              <div>
+              
+              <div id="div_catalog">
                 {this.state.search && <div className="title_lign">
-                    <h1>Résultats pour votre recherche "<b>{this.state.search}"</b> :</h1></div>}
-                {!this.state.search && <div className="title_lign">
-                    <div className="row">
-                        <h1 className="txt-orange mb-0 pb-1">CATALOGUE</h1>
-                        <a href="catalog">
-                            <p className="pl-3 pt-4 pb-2">{count} produits</p>
-                        </a>
-                        <a href="catalogBundles">
-                            <p className="pl-3 pt-4 pb-2">{countBundles} lots</p>
-                        </a>
-                    </div>
-                      
+          <h1>Résultats pour votre recherche "<b>{this.state.search}"</b> :</h1></div>}
+          {!this.state.search && <div className="title_lign">
+                      <h1>CATALOGUE</h1>
+                      <a href="/">
+                          <p>{count} produits</p>
+                      </a>
+                      <a href="catalogBundles">
+                          <p>{countBundles} lots</p>
+                      </a>
                   </div>}
                   {items.map((item, i) => (
                       <div className="w-100 border border-secondary p-3 mb-2 rounded" key={i} id={item.idProduct}>
@@ -110,32 +106,25 @@ class AsideCatalog extends Component {
                                   <h2 className="txt-orange">{item.price} €</h2>
                                   {item.promo == true && <h5><span className="p-2 mt-2 badge badge-danger">EN PROMO</span></h5>}
                                   {item.promo == false && <p></p>}
+                                 
                                   {item.stock == 0 &&
-                                        <div>
-                                            <h6 className="text-danger"><em>Indisponible</em></h6><br></br><br></br>
-                                            <div className="col-md">
-                                                <button type="button" className="btn btn-secondary btn-block" disabled><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
-                                            </div>
-                                            <div className="col-md">
-                                                <a href={`/modifProduct${item.idProduct}`}>
-                                                    <button type="button" className="mt-2 btn btn-secondary btn-block"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    }
-                                    {item.stock >= 1 && 
-                                        <div>
-                                            <h6 className="text-success">{item.stock} en stock</h6><br></br><br></br>
-                                            <div className="col-md">
-                                                <button type="button" className="btn btn-success btn-block" onClick={() => this.addProduct(item) }><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
-                                            </div>
-                                            <div className="col-md">
-                                                <a href={`/modifProduct${item.idProduct}`}>
-                                                    <button type="button" className="mt-2 btn btn-secondary btn-block"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    }
+                                      <p>
+                                          <h6 className="text-danger"><em>Indisponible</em></h6><br></br><br></br>
+                                          <button type="button" className="btn btn-secondary" disabled><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
+                                          <a href={`/modifProduct${item.idProduct}`}>
+                                              <button type="button" className="mt-2 btn btn-secondary"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
+                                          </a>
+                                      </p>
+                                  }
+                                  {item.stock >= 1 && 
+                                      <p>
+                                          <h6 className="text-success">{item.stock} en stock</h6><br></br><br></br>
+                                          <button type="button" className="btn btn-success" onClick={() => this.addProduct(item) }><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
+                                          <a href={`/modifProduct${item.idProduct}`}>
+                                              <button type="button" className="mt-2 btn btn-secondary"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
+                                          </a>
+                                      </p>
+                                  }
                               </div>
                           </div>
                       </div>                      

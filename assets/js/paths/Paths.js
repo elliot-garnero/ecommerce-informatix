@@ -48,7 +48,7 @@ class Paths extends Component {
           <Route path="/catalogBundles" component={MainCatalogBundles} />
           <Route path="/manageCategories" component={MainCategories} />
         </Switch>
-        <Footer />
+        <Footer/>
       </div>
     );
   }

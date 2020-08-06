@@ -19,12 +19,23 @@ class Navbar extends Component {
             </a>
           </div>
           <div className="col 4"></div>
-          <div className="col 4 d-flex justify-content-around ">
+          <div className="col 2 d-flex">
+          <div className=" d-flex justify-content-around ">
             <a className="text-decoration-none" href="/login">
               <span className="m-2 txt-white">Se connecter</span>
               <i className="fas fa-user bg-warning p-3 rounded-circle"></i>
             </a>
+            
+          </div>
+          <div className=" d-flex justify-content-around ">
             <MainModal />
+          </div>
+          <div className=" d-flex justify-content-around ">
+            <a className="text-decoration-none" href="/tracking">
+              <span className="m-2 txt-white">Suivre mon colis</span>
+              <i className="fas fa-truck bg-warning p-3 rounded-circle"></i>
+            </a>
+          </div>
           </div>
         </nav>
         {/* BARRE ADMIN */}
