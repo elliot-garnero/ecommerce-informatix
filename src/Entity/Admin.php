@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Admin
  *
- * @ORM\Table(name="admin", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
+ * @ORM\Table(name="admin", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_880E0D76F85E0677", columns={"username"}), @ORM\UniqueConstraint(name="UNIQ_880E0D76E7927C74", columns={"email"})})
  * @ORM\Entity
  */
 class Admin
@@ -15,18 +15,25 @@ class Admin
     /**
      * @var int
      *
-     * @ORM\Column(name="id_admin", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idAdmin;
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @ORM\Column(name="username", type="string", length=180, nullable=false)
      */
-    private $email;
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="roles", type="text", length=0, nullable=false)
+     */
+    private $roles;
 
     /**
      * @var string
@@ -35,19 +42,38 @@ class Admin
      */
     private $password;
 
-    public function getIdAdmin(): ?int
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
+
+    public function getId(): ?int
     {
-        return $this->idAdmin;
+        return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getUsername(): ?string
     {
-        return $this->email;
+        return $this->username;
     }
 
-    public function setEmail(string $email): self
+    public function setUsername(string $username): self
     {
-        $this->email = $email;
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
@@ -60,6 +86,18 @@ class Admin
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

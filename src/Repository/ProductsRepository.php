@@ -93,4 +93,23 @@ class ProductsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findProductsName($name)
+    {  
+        return $this->createQueryBuilder('p')
+        ->andWhere('p.name LIKE :name')
+        ->setParameter('name', $name)
+        ->getQuery()
+        ->getResult();
+    }
+    
+    public function findAllByTag($tag): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.addeddate', 'DESC')
+            ->andWhere('p.name  LIKE :tag OR p.brand LIKE :tag OR p.description LIKE :tag OR p.characteristics LIKE :tag')
+            ->setParameter('tag', '%'.$tag.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }

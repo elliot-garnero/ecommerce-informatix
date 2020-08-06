@@ -11,13 +11,11 @@ class SliderSuggestion extends Component {
     }
 
     componentDidMount() {
-        const id = this.state.id
-        console.log(id)
         fetch('http://localhost:8000/api/productsRandom')
         .then(res => res.json())
         .then(json => {
             this.setState({
-            products2: json,
+            products1: json,
             })
         });
         fetch('http://localhost:8000/api/productsRandom')
@@ -30,7 +28,6 @@ class SliderSuggestion extends Component {
     }
 
     render(){
-
         var { products1, products2 } = this.state;
 
         return(

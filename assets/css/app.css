@@ -1,9 +1,14 @@
 /* ALL */
+.container-md{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+}
 body {
   background-color: lightgray;
 }
 .bg-blue{
-  background-color: #0c3e75;
+  background-color: #0c3e75 !important;
 }
 .bg-grey{
   background-color: rgb(175, 175, 175);
@@ -20,17 +25,12 @@ body {
 .txt-orange {
   color: #f69509;
 }
+.desactived:hover{
+  cursor:not-allowed;
+}
 
 /** Page AsideCatalog **/
-#div_catalog h1{
-  color: #f69509;
-}
-.title_lign{
-  display: inline-flex;
-}
-.title_lign p{
-  padding: 20px 0 0 15px;
-}
+
 .product_info a{
   text-decoration: none;
   color: black !important;

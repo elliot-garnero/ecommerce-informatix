@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import logoSmall from '../../images/logoSmall.png';
 import MainModal from './delivery/MainModal';
 
+//lol
+
 class Navbar extends Component {
   render() {
     return (
-      <div className="container">
+      <div className="container-md">
         <nav className="bg-blue  text-center navbar navbar-expand-lg">
           <div className="col 6">
             <a className="navbar-brand" href="/catalog">
@@ -16,10 +18,7 @@ class Navbar extends Component {
               />
             </a>
           </div>
-          <div className="col 4">
-            <input type="text" placeholder="Rechercher un produit..."></input>
-            <i className="fab fa-sistrix bg-warning m-1 p-2 rounded"></i>
-          </div>
+          <div className="col 4"></div>
           <div className="col 4 d-flex justify-content-around ">
             <a className="text-decoration-none" href="/login">
               <span className="m-2 txt-white">Se connecter</span>
@@ -28,7 +27,7 @@ class Navbar extends Component {
             <MainModal />
           </div>
         </nav>
-
+        {/* BARRE ADMIN */}
         <nav className="bg-grey navbar navbar-expand-lg navbar-light">
           <a className="navbar-brand" href="/catalog">
             Espace Admin :{' '}
@@ -47,10 +46,24 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
               <li className="nav-item active">
-                <a className="nav-link" href="/add">ajouter un produit <span className="sr-only">(current)</span></a>
+                <a className="nav-link" href="/add">
+                  Ajouter un produit <span className="sr-only">(current)</span>
+                </a>
               </li>
               <li className="nav-item active">
-                <a className="nav-link" href="/deliveryList">Liste des commandes <span className="sr-only">(current)</span></a>
+                <a className="nav-link" href="/bundles">
+                  Gestionnaire de lots<span className="sr-only">(current)</span>
+                </a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/deliveryList">
+                  Liste des commandes<span className="sr-only">(current)</span>
+                </a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/listUsers">
+                  Liste des clients<span className="sr-only">(current)</span>
+                </a>
               </li>
             </ul>
           </div>
