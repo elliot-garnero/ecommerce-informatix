@@ -120,7 +120,7 @@ class MainDetailsProduct extends Component {
         }, this);
 
         return(
-            <div className="container">
+            <div className="container-mb">
                 <div className="row mt-5 mb-5 mr-5">
                     <div className="col-md-6 text-center">
                         <div className="pro-img-details">
@@ -138,7 +138,7 @@ class MainDetailsProduct extends Component {
                             </a>
                         </div>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 ml-4">
                         <h4>{data.name}<br></br>
                             {data.new == true && <span className="badge badge-warning">New !!!</span>}
                             {data.new == false && <p></p>}

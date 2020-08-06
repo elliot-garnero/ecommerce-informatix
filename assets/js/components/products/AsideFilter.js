@@ -172,7 +172,7 @@ class AsideFilter extends Component {
       }, this);
 
     return (
-      <div className="p-2 aside_blue">
+      <div className="p-2 aside_blue h-100">
         <div className="row pl-3">
           <h5 className="pb-3 pt-3">Affiner votre recherche :</h5>
         </div>
