@@ -1,4 +1,9 @@
 /* ALL */
+.container-md{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+}
 body {
   background-color: lightgray;
 }
@@ -22,15 +27,7 @@ body {
 }
 
 /** Page AsideCatalog **/
-#div_catalog h1{
-  color: #f69509;
-}
-.title_lign{
-  display: inline-flex;
-}
-.title_lign p{
-  padding: 20px 0 0 15px;
-}
+
 .product_info a{
   text-decoration: none;
   color: black !important;

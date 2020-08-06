@@ -5,7 +5,7 @@ import MainModal from './delivery/MainModal';
 class Navbar extends Component {
   render() {
     return (
-      <div className="container">
+      <div className="container-md">
         <nav className="bg-blue  text-center navbar navbar-expand-lg">
           <div className="col 6">
             <a className="navbar-brand" href="/catalog">

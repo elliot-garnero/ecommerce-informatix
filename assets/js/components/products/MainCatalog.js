@@ -20,7 +20,7 @@ class MainCatalog extends Component {
         
         return(
         
-            <div className="container">
+            <div className="container-md">
                 <div className="row">
                     <div className="col-3">
                     <AsideFilter dataToParent={this.updateState} />

@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ReviewsRepository;
 use App\Entity\Reviews;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 
 class ReviewsController extends AbstractController
 {
@@ -25,7 +25,7 @@ class ReviewsController extends AbstractController
     /**
      * @Route("/product/reviews/{id}", name="show_reviews")
      */
-    public function showReviews($id, ReviewsRepository $repository, UsersRepository $repoUser): Response
+    public function showReviews($id, ReviewsRepository $repository, UserRepository $repoUser): Response
     {
         $reviews = $repository->findBy(['idProduct'=>$id]);
         
@@ -45,16 +45,17 @@ class ReviewsController extends AbstractController
     }
 
     /**
-     * @Route("/product/reviews/name/{id}", name="show_reviews_name")
+     * @Route("/product/reviewsName/{id}", name="show_reviews_name")
      */
-    public function showReviewName($id, ReviewsRepository $repository, UsersRepository $repoUser): Response
+    public function showReviewName($id, ReviewsRepository $repository, UserRepository $repoUser): Response
     {
-        $username= $repoUser->findBy(['id' => $id]);
+        $user = $repoUser->findBy(['id' => $id]);
+        //dd($user);
         $serializedEntity = $this->container
         ->get('serializer')
-        ->serialize($username, 'json');
+        ->serialize($user, 'json');
+        //dd($serializedEntity);
         return new Response($serializedEntity);
     }
-
 
 }

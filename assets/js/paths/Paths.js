@@ -18,7 +18,7 @@ import ModifProduct from '../components/products/MainModifsProduct';
 class Paths extends Component {
   render() {
     return (
-      <div>
+      <div className="container-md">
         <Navbar />
         <Switch>
           <Redirect exact from="/" to="/catalog" />

@@ -55,10 +55,10 @@ class AsideCatalog extends Component{
         }
         else{
             return(
-                <div id="div_catalog">
-                    <div className="title_lign">
-                        <h1>CATALOGUE</h1>
-                        <p>{count} produits</p>
+                <div>
+                    <div className="row">
+                        <h1 className="txt-orange mb-0 pb-1">CATALOGUE</h1>
+                        <p className="pl-3 pt-4 pb-2">{count} produits</p>
                     </div>
                     {items.map((item, i) => (
                         <div className="w-100 border border-secondary p-3 mb-2 rounded" key={i} id={item.idProduct}>
@@ -82,22 +82,30 @@ class AsideCatalog extends Component{
                                     {item.promo == false && <p></p>}
                                    
                                     {item.stock == 0 &&
-                                        <p>
+                                        <div>
                                             <h6 className="text-danger"><em>Indisponible</em></h6><br></br><br></br>
-                                            <button type="button" className="btn btn-secondary" disabled><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
-                                            <a href={`/modifProduct${item.idProduct}`}>
-                                                <button type="button" className="mt-2 btn btn-secondary"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
-                                            </a>
-                                        </p>
+                                            <div className="col-md">
+                                                <button type="button" className="btn btn-secondary btn-block" disabled><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
+                                            </div>
+                                            <div className="col-md">
+                                                <a href={`/modifProduct${item.idProduct}`}>
+                                                    <button type="button" className="mt-2 btn btn-secondary btn-block"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
+                                                </a>
+                                            </div>
+                                        </div>
                                     }
                                     {item.stock >= 1 && 
-                                        <p>
+                                        <div>
                                             <h6 className="text-success">{item.stock} en stock</h6><br></br><br></br>
-                                            <button type="button" className="btn btn-success" onClick={() => this.addProduct(item) }><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
-                                            <a href={`/modifProduct${item.idProduct}`}>
-                                                <button type="button" className="mt-2 btn btn-secondary"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
-                                            </a>
-                                        </p>
+                                            <div className="col-md">
+                                                <button type="button" className="btn btn-success btn-block" onClick={() => this.addProduct(item) }><i className="fa fa-shopping-cart"></i> AJOUTER AU PANIER</button>
+                                            </div>
+                                            <div className="col-md">
+                                                <a href={`/modifProduct${item.idProduct}`}>
+                                                    <button type="button" className="mt-2 btn btn-secondary btn-block"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le produit</button>
+                                                </a>
+                                            </div>
+                                        </div>
                                     }
                                 </div>
                             </div>
