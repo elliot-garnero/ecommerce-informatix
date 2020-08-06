@@ -40,7 +40,7 @@ class ProfileUpdate extends Component {
     e.preventDefault();    
       const data = this.state;
       axios
-        .post(`http://localhost:8000/api/update/2`, data)
+        .post(`http://localhost:8000/api/update`, data)
         .then((res) => {
           console.log(res)
           this.setState({
@@ -56,7 +56,7 @@ class ProfileUpdate extends Component {
            });
         })
         .then((res) => {
-          this.sendToParent(); console.log(this.state.refresh)
+          this.sendToParent();
         })
         .catch(err => console.log(err));   
   }

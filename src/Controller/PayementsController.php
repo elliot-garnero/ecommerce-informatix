@@ -13,13 +13,24 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PayementsController extends AbstractController
 {
+     /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+       $this->security = $security;
+    }
+
     /**
-     * @Route("/api/payments/{idUser}", name="show_payments")
+     * @Route("/api/payments", name="show_payments")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showOne($idUser , PayementsRepository $repository): Response
+    public function showOne( PayementsRepository $repository): Response
     {
-        $pay = $repository->findAll($idUser);
+        $user = $this->getUser()->getId();
+        $pay = $repository->findBy(['idUser' => $user]);
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($pay, 'json');
@@ -58,7 +69,7 @@ class PayementsController extends AbstractController
      * @Route("/api/admin/deBlockCb/{idPay}", name="deBlock_pay")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deBlockPay($idPay , PayementsRepository $repository): Response
+    public function deBlockPay($idPay): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $deBlocked = $entityManager->getRepository(Payements::class)->find($idPay);
@@ -70,11 +81,13 @@ class PayementsController extends AbstractController
     }
 
         /**
-     * @Route("/api/addCb/{id}", name="add_cb")
+     * @Route("/api/addCb", name="add_cb")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addCb($id , Request $request): Response
+    public function addCb(Request $request, PayementsRepository $repository): Response
     {
+        $id = $this->getUser()->getId();
+        $entityManager = $this->getDoctrine()->getManager();
         $data = $request->getContent();
         $data = json_decode($data, true);
         $payFirstname = $data['firstname'];
@@ -83,14 +96,18 @@ class PayementsController extends AbstractController
         $payCvv = $data['payCvv'];
         $payExpiration = $data['payExpiration'];
         $payEmail = 'nav@gmail.com';
-        // if ($data['checked'] == true){
-        //     $default = 1;
-        //     // passer tous les active de cet id a 0
-        // }
-        // else{
-        //     $default = 0;
-        // }
         $default = $data['checked']== true ? 1 : 0;
+        if ($data['checked'] == true){
+            $user = $this->security->getUser();
+            $payCards = $repository->findAll($user);
+            if($payCards){
+                foreach ($payCards as $key => $value) {
+                    $value->setActive(0);
+                    $entityManager->persist($value);
+                    $entityManager->flush();
+                }
+            }
+        }        
         $em = $this->getDoctrine()->getManager();
         $new_cb = new Payements();
         $new_cb->setPayFirstname($payFirstname);

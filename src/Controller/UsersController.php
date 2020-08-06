@@ -9,10 +9,21 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncode;
+use Symfony\Component\Security\Core\Security;
 
 class UsersController extends AbstractController
 {
+
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+       $this->security = $security;
+    }
+
      /**
      * @Route("/api/admin/listUsers", name="list_users")
      * @return \Symfony\Component\HttpFoundation\Response
@@ -56,15 +67,14 @@ class UsersController extends AbstractController
      * @Route("/api/update/{id}", name="change_firstname")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function updateData( $id , UserRepository $repository, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function updateData( UserRepository $repository, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $userPass = new Users();
-        $repoPass = $this->getDoctrine()->getRepository(Users::class);
+        $userid = $this->getUser()->getId();
         $entityManager = $this->getDoctrine()->getManager();
         $data = $request->getContent();
         $newData = json_decode($data, true);
-        $userPass = $repoPass->find($id);
-        $user = $repository->find($id);
+        $userPass = $this->getDoctrine()->getRepository(Users::class)->find($userid);
+        $user = $repository->find($userid);
         foreach($newData as $key => $val){
             if($newData[$key] !== ''){
             switch ($key) {
@@ -93,16 +103,12 @@ class UsersController extends AbstractController
                     $user->setEmail($newData[$key]);
                     break;
                 case 'password':
-                    // $user->setPassword($newData[$key]);
                     $userPass->setPassword(
                         $passwordEncoder->encodePassword(
                             $userPass,
                             $newData[$key]
                         )
                     );
-                    break;
-                case 'setActive':
-                    $user->setPassword($newData[$key]);
                     break;
             }
         }
@@ -111,7 +117,7 @@ class UsersController extends AbstractController
         $entityManager->flush();
         $entityManager->persist($userPass);
         $entityManager->flush();
-        return new Response('information mise à jour :'. $user->getId() . ' '.$user->getLastname().' '.$user->getFirstname());
+        return new Response('information mise à jour : id:'. $user->getId() . ' '.$user->getLastname().' '.$user->getFirstname());
 
     }
 

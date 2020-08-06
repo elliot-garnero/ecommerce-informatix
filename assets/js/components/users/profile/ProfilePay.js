@@ -33,7 +33,7 @@ class ProfilePay extends Component {
     updateState(value) {
         this.setState({ updatedatas: value.update })
         if (value.update == 'refresh') {
-            fetch('http://localhost:8000/api/payments/1')
+            fetch('http://localhost:8000/api/payments')
                 .then(res => res.json())
                 .then(json => {
                     this.setState({
@@ -51,7 +51,7 @@ class ProfilePay extends Component {
             .then(res => {
                 console.log(res)
                 this.setState({ alert: res.message });
-                fetch('http://localhost:8000/api/payments/1')
+                fetch('http://localhost:8000/api/payments')
                     .then(res => res.json())
                     .then(json => {
                         this.setState({
@@ -70,7 +70,7 @@ class ProfilePay extends Component {
             .then(res => {
                 console.log(res)
                 this.setState({ alert: res.message });
-                fetch('http://localhost:8000/api/payments/1')
+                fetch('http://localhost:8000/api/payments')
                     .then(res => res.json())
                     .then(json => {
                         this.setState({
@@ -84,7 +84,7 @@ class ProfilePay extends Component {
 
     componentDidMount() {
 
-        fetch('http://localhost:8000/api/payments/1')
+        fetch('http://localhost:8000/api/payments')
             .then(res => res.json())
             .then(json => {
                 json == '' ? json = null : json;

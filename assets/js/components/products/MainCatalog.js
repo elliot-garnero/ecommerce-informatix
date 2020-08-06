@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import AsideFilter from "./AsideFilter";
 import AsideCatalog from "./AsideCatalog";
-
+import SearchBar from './SearchBar';
 class MainCatalog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        updatedatas: []
+        updatedatas: [],
+        searchBar:''
       } 
       this.updateState = this.updateState.bind(this);
     }
 
     updateState(value) {
         this.setState({updatedatas:value.update})
+        this.setState({searchBar:value})
     }
     
     render(){
@@ -23,6 +25,9 @@ class MainCatalog extends Component {
         
             <div className="container">
                 <div className="row">
+                <div className="col-12">
+                    <SearchBar dataToParent={this.updateState} />
+                    </div>
                     <div className="col-3">
                     <AsideFilter dataToParent={this.updateState} />
                     </div>

@@ -14,6 +14,7 @@ class MainOrder extends React.Component {
       deliveryPrice: 0,
       december: new Date().getMonth(),
       discount: null,
+      poids: null
     };
     this.deleteItem = this.deleteItem.bind(this);
   }
@@ -70,7 +71,7 @@ class MainOrder extends React.Component {
     }
 
     let weight = weightArr.reduce((a, b) => a + b, 0);
-
+    this.setState({poids: weight})
     let total = totalArr.reduce((a, b) => a + b, 0);
     let totalProducts = total;
     let deliveryPrice = 0;
@@ -165,7 +166,7 @@ class MainOrder extends React.Component {
   }
 
   render() {
-    let { products } = this.state;
+    let { products, poids } = this.state;
     return (
       <div className="container mt-3 mb-3">
         <div className="row">
@@ -193,7 +194,7 @@ class MainOrder extends React.Component {
                   <div>
                     <h6 className="my-0">{product.name}</h6>
                     <small>
-                      <a href="#">Fiche produit</a>
+                      <a href={`/detailsProduct${product.idProduct}`} target="_blanck">Fiche produit</a>
                     </small>
                   </div>
                   <span className="text-muted">{product.price} €</span>
@@ -213,6 +214,10 @@ class MainOrder extends React.Component {
                 </div>
                 <span>{this.state.deliveryPrice} €</span>
               </li>
+              <li className="list-group-item d-flex justify-content-between">
+                  <span>Poids</span>
+                  <strong> {poids} g</strong>
+                </li>
               {this.state.discount != null && (
                 <li className="list-group-item d-flex justify-content-between">
                   <span>Rabais</span>

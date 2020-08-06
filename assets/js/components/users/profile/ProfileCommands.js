@@ -11,32 +11,23 @@ class ProfileCommands extends Component {
     this.updateState = this.updateState.bind(this);
   }
 
-  updateState(value) {
-    this.setState({ updatedatas: value.update });
-  }
+    updateState(value) {
+        this.setState({updatedatas:value.update})
+    
+    }
+    
+    componentDidMount() {
+        fetch('http://localhost:8000/api/command')
+            .then(res => res.json())
+            .then(json => {
+                json =='' ? json = null : json;
+                this.setState({
+                    isLoaded: true,
+                    commands: json
+                })
+            });
+    }
 
-  componentDidMount() {
-    fetch('http://localhost:8000/api/command/1')
-      .then((res) => res.json())
-      .then((json) => {
-        json == '' ? (json = null) : json;
-        this.setState({
-          isLoaded: true,
-          commands: json,
-        });
-      });
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:8000/api/command/1')
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({
-          isLoaded: true,
-          commands: json,
-        });
-      });
-  }
 
   render() {
     const { updatedatas, commands, isLoaded } = this.state;

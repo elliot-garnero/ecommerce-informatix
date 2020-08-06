@@ -13,12 +13,23 @@ use Symfony\Component\Security\Core\Security;
 class OrdersController extends AbstractController
 {
     /**
-     * @Route("/api/command/{idUser}", name="show_orders")
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+       $this->security = $security;
+    }
+
+    /**
+     * @Route("/api/command", name="show_orders")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showOne($idUser , OrdersRepository $repository): Response
+    public function showOne( OrdersRepository $repository): Response
     {
-        $orders = $repository->findBy(['idUser' => $idUser]);
+        $user = $this->getUser()->getId();
+        $orders = $repository->findBy(['idUser' =>$user]);
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($orders, 'json');
