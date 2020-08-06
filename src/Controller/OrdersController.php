@@ -37,6 +37,19 @@ class OrdersController extends AbstractController
     }
 
     /**
+     * @Route("/api/detailCommand/{idCommand}", name="detailCommand")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detailCommand($idCommand , OrdersRepository $repository): Response
+    {
+        $orders = $repository->findBy(['idOrder' => $idCommand]);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($orders, 'json');
+        return new Response($serializedEntity);
+    }
+
+    /**
      * @Route("/api/orderList", name="orderList")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -81,6 +94,17 @@ class OrdersController extends AbstractController
         $entityManager->flush();
 
         return new Response('Saved modif product with id '. $order->getIdOrder() . "<br><a href=\"/deliveryList\">Back</a>");
+    }
+
+    /**
+     * @Route("/api/getUserID", name="getUserID")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getUserID(OrdersRepository $repository): Response
+    {
+        $user = $this->getUser()->getId();
+
+        return new Response($user);
     }
 
  

@@ -3,6 +3,8 @@ import logoSmall from '../../images/logoSmall.png';
 import MainModal from './delivery/MainModal';
 import axios from 'axios';
 
+//lol
+
 class Navbar extends Component {
 
   render() {
@@ -47,17 +49,25 @@ class Navbar extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
-            <li className="nav-item active">
-                <a className="nav-link" href="/add">Ajouter un produit <span className="sr-only">(current)</span></a>
+              <li className="nav-item active">
+                <a className="nav-link" href="/add">
+                  Ajouter un produit <span className="sr-only">(current)</span>
+                </a>
               </li>
               <li className="nav-item active">
-                <a className="nav-link" href="/bundles">Gestionnaire de lots<span className="sr-only">(current)</span></a>
+                <a className="nav-link" href="/bundles">
+                  Gestionnaire de lots<span className="sr-only">(current)</span>
+                </a>
               </li>
               <li className="nav-item active">
-                <a className="nav-link" href="/deliveryList">Liste des commandes<span className="sr-only">(current)</span></a>
+                <a className="nav-link" href="/deliveryList">
+                  Liste des commandes<span className="sr-only">(current)</span>
+                </a>
               </li>
               <li className="nav-item active">
-                <a className="nav-link" href="/listUsers">Liste des clients<span className="sr-only">(current)</span></a>
+                <a className="nav-link" href="/listUsers">
+                  Liste des clients<span className="sr-only">(current)</span>
+                </a>
               </li>
             </ul>
           </div>

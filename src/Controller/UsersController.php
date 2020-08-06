@@ -51,7 +51,20 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/update", name="change_firstname")
+     * @Route("/api/getDiscount/{id}", name="getDiscount")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getDiscount($id , UserRepository $repository): Response
+    {
+        $key = $repository->find($id)->getDiscount();
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($key, 'json');
+        return new Response($serializedEntity);
+    }
+
+    /**
+     * @Route("/api/update/{id}", name="change_firstname")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function updateData( UserRepository $repository, Request $request, UserPasswordEncoderInterface $passwordEncoder)

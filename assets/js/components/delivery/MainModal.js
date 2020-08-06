@@ -69,7 +69,11 @@ class MainModal extends React.Component {
     if (this.state.products.length > 0) {
       return (
         <div>
-          <a className="text-decoration-none" data-toggle="modal" data-target="#modal1" >
+          <a
+            className="text-decoration-none"
+            data-toggle="modal"
+            data-target="#modal1"
+          >
             <span className="m-2 txt-white">Mon panier</span>
             <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
           </a>
@@ -93,12 +97,10 @@ class MainModal extends React.Component {
                   <div className="container">
                     {this.state.products.map((product, num) => (
                       <div key={num} id={product.idProduct}>
+                        {/* key changed from idProduct to num */}
                         <div className="row">
                           <div className="col">
-                            <img
-                              className="img-fluid"
-                              src={product.picture1}
-                            />
+                            <img className="img-fluid" src={product.picture1} />
                           </div>
                           <div className="col pt-5">
                             <ul type="none">
@@ -140,7 +142,11 @@ class MainModal extends React.Component {
     } else {
       return (
         <div>
-          <a className="text-decoration-none" data-toggle="modal" data-target="#modal1" >
+          <a
+            className="text-decoration-none"
+            data-toggle="modal"
+            data-target="#modal1"
+          >
             <span className="m-2 txt-white">Mon panier</span>
             <i className="fas fa-shopping-cart bg-warning p-3 rounded-circle"></i>
           </a>
