@@ -23,6 +23,27 @@ class ReviewsController extends AbstractController
     }
 
     /**
+     * @Route("/api/createreview", name="create_reviews")
+     */
+    public function createReview(ReviewsRepository $repository, UsersRepository $repoUser): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser()->getId();
+
+        $review = new Reviews();
+        $review->setIdProduct($_POST['productID']);
+        $review->setIdUser($user);
+        $review->setRating($_POST['rating']);
+        $review->setContent($_POST['review']);
+
+        $entityManager->persist($review);
+        $entityManager->flush();
+        
+        return new Response('Saved new review with id '. $review->getIdReview() . "<br><a href=\"/\">Back</a>");
+    }
+
+    /**
      * @Route("/product/reviews/{id}", name="show_reviews")
      */
     public function showReviews($id, ReviewsRepository $repository, UserRepository $repoUser): Response

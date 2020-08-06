@@ -44,6 +44,28 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @Route("/api/search", name="search_products")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchProducts(ProductsRepository $repository, Request $request): Response
+    {
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+        $tag = $data['query'];
+        $products = $repository->findAllByTag($tag);
+        // Si pas d'article
+        if (!$products) {
+            throw $this->createNotFoundException(
+                'Pas d\'article correspondant ! '
+            );
+        }
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($products, 'json');
+        return new Response($serializedEntity);
+    }
+
+    /**
      * @Route("/api/products/{id}", name="show_product")
      * @return \Symfony\Component\HttpFoundation\Response
      */

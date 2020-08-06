@@ -29,6 +29,14 @@ class MainAdd extends Component {
             <strong>Administrateur /Ajouter un produit</strong>
           </h2>
           <div className="card-header info-color white-text text-center py-4">
+            <a href="/manageCategories">
+              <button type="button" className="btn btn-secondary">
+                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                Gérer les catégories
+              </button>
+            </a>
+          </div>
+          <div className="card-header info-color white-text text-center py-4">
             <label htmlFor="categorie">Categorie</label>
             <select className="form-control" name="categorie">
               {categories.map((categorie) => (
@@ -198,7 +206,7 @@ class MainAdd extends Component {
           <input
             type="submit"
             className="btn btn-primary btn-block"
-            value="Submit"
+            value="Ajouter ce produit"
           />
           <br />
         </div>

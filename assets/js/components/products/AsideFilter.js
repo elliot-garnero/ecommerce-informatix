@@ -1,47 +1,46 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class AsideFilter extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-          price_min: '',
-          price_max: 500,
-          brand:[],
-          nameProduct: [],
-          categorie: [],
-          search: '',
-          update:''
-        }
-        this.byPriceChange = this.byPriceChange.bind(this);
-        this.byPrice = this.byPrice.bind(this);
-        this.byBrand = this.byBrand.bind(this);
-        this.byName = this.byName.bind(this);
-        this.byCategorie = this.byCategorie.bind(this);
-        this.inputChange =this.inputChange.bind(this);
-          
-    }
+class AsideFilter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      price_min: '',
+      price_max: 500,
+      brand: [],
+      nameProduct: [],
+      categorie: [],
+      search: '',
+      update: '',
+    };
+    this.byPriceChange = this.byPriceChange.bind(this);
+    this.byPrice = this.byPrice.bind(this);
+    this.byBrand = this.byBrand.bind(this);
+    this.byName = this.byName.bind(this);
+    this.byCategorie = this.byCategorie.bind(this);
+    this.inputChange = this.inputChange.bind(this);
+  }
 
-    componentDidMount() {
-        fetch('http://localhost:8000/api/products')
-            .then(res => res.json())
-            .then(json => {
-                this.setState({ nameProduct: json });
-                //console.log(this.state.nameProduct);
-            });
-        fetch('http://localhost:8000/api/productsBrand')
-            .then(res => res.json())
-            .then(json => {
-                this.setState({ brand: json });
-                //console.log(this.state.brand);
-            });
-        fetch('http://localhost:8000/api/getcategories')
-            .then(res => res.json())
-            .then(json => {
-                this.setState({ categorie: json });
-                //console.log(this.state.categorie);
-            });
-    }
+  componentDidMount() {
+    fetch('http://localhost:8000/api/products')
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({ nameProduct: json });
+        //console.log(this.state.nameProduct);
+      });
+    fetch('http://localhost:8000/api/productsBrand')
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({ brand: json });
+        //console.log(this.state.brand);
+      });
+    fetch('http://localhost:8000/api/getcategories')
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({ categorie: json });
+        //console.log(this.state.categorie);
+      });
+  }
 
   byPriceChange(event) {
     const target = event.target;
@@ -189,7 +188,9 @@ class AsideFilter extends Component{
                 id="price_min"
                 className="form-control mb-3"
               >
-                <option value="0" defaultValue>0</option>
+                <option value="0" defaultValue>
+                  0
+                </option>
                 <option value="50">50</option>
                 <option value="100">100</option>
                 <option value="200">200</option>
