@@ -18,10 +18,7 @@ class Navbar extends Component {
               />
             </a>
           </div>
-          <div className="col 4">
-            <input type="text" placeholder="Rechercher un produit..."></input>
-            <i className="fab fa-sistrix bg-warning m-1 p-2 rounded"></i>
-          </div>
+          <div className="col 4"></div>
           <div className="col 4 d-flex justify-content-around ">
             <a className="text-decoration-none" href="/login">
               <span className="m-2 txt-white">Se connecter</span>

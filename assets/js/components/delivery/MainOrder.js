@@ -1,5 +1,5 @@
 import React from 'react';
-import { element } from 'prop-types';
+import MainDeliveryModal from './MainDeliveryModal';
 
 class MainOrder extends React.Component {
   constructor(props) {
@@ -12,12 +12,34 @@ class MainOrder extends React.Component {
       packaging: false,
       location: 'FR',
       deliveryPrice: 0,
+      december: new Date().getMonth(),
+      discount: null,
+      poids: null
     };
     this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount() {
+    this.discount();
     this.calculateTotal();
+  }
+
+  async discount() {
+    let userID;
+
+    await fetch('http://localhost:8000/api/getUserID')
+      .then((res) => res.json())
+      .then((json) => {
+        userID = json;
+      });
+
+    await fetch('http://localhost:8000/api/getDiscount/' + userID)
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({
+          discount: json,
+        });
+      });
   }
 
   deleteItem(id) {
@@ -42,6 +64,14 @@ class MainOrder extends React.Component {
         this.state.products[i].price * this.state.products[i].amount;
     }
 
+    let weightArr = [];
+    for (let i = 0; i < this.state.products.length; i++) {
+      weightArr[i] =
+        this.state.products[i].weight * this.state.products[i].amount;
+    }
+
+    let weight = weightArr.reduce((a, b) => a + b, 0);
+    this.setState({poids: weight})
     let total = totalArr.reduce((a, b) => a + b, 0);
     let totalProducts = total;
     let deliveryPrice = 0;
@@ -72,6 +102,15 @@ class MainOrder extends React.Component {
       totalProducts >= 400
     ) {
       deliveryPrice = 0;
+    }
+
+    // If the weight exceeds 4 kilos there is a fee
+    if (weight > 4000) {
+      deliveryPrice += 10;
+    }
+
+    if (this.state.discount != (null || 0)) {
+      total -= this.state.discount;
     }
 
     total += deliveryPrice;
@@ -127,7 +166,7 @@ class MainOrder extends React.Component {
   }
 
   render() {
-    let { products } = this.state;
+    let { products, poids } = this.state;
     return (
       <div className="container mt-3 mb-3">
         <div className="row">
@@ -155,7 +194,7 @@ class MainOrder extends React.Component {
                   <div>
                     <h6 className="my-0">{product.name}</h6>
                     <small>
-                      <a href="#">Fiche produit</a>
+                      <a href={`/detailsProduct${product.idProduct}`} target="_blanck">Fiche produit</a>
                     </small>
                   </div>
                   <span className="text-muted">{product.price} €</span>
@@ -176,25 +215,38 @@ class MainOrder extends React.Component {
                 <span>{this.state.deliveryPrice} €</span>
               </li>
               <li className="list-group-item d-flex justify-content-between">
-                <span>Total (EUR)</span>
-                <strong>{this.state.total} €</strong>
-              </li>
-              {this.state.total > 400 && (
+                  <span>Poids</span>
+                  <strong> {poids} g</strong>
+                </li>
+              {this.state.discount != null && (
                 <li className="list-group-item d-flex justify-content-between">
-                  <div className=" form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="packaging"
-                      name="packaging"
-                      onChange={this.changePackaging.bind(this)}
-                    />
-                    <label htmlFor="packaging" className="form-check-label">
-                      Emballage des produits
-                    </label>
-                  </div>
+                  <span>Rabais</span>
+                  <strong>- {this.state.discount} €</strong>
                 </li>
               )}
+              <li className="list-group-item d-flex justify-content-between">
+                <span>
+                  Total (EUR) <MainDeliveryModal />
+                </span>
+                <strong>{this.state.total} €</strong>
+              </li>
+              {this.state.total > 400 ||
+                (this.state.december == 12 && (
+                  <li className="list-group-item d-flex justify-content-between">
+                    <div className=" form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="packaging"
+                        name="packaging"
+                        onChange={this.changePackaging.bind(this)}
+                      />
+                      <label htmlFor="packaging" className="form-check-label">
+                        Emballage des produits
+                      </label>
+                    </div>
+                  </li>
+                ))}
             </ul>
           </div>
           <div className="col-md-8 order-md-1">

@@ -13,12 +13,23 @@ use Symfony\Component\Security\Core\Security;
 class OrdersController extends AbstractController
 {
     /**
-     * @Route("/api/command/{idUser}", name="show_orders")
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+       $this->security = $security;
+    }
+
+    /**
+     * @Route("/api/command", name="show_orders")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showOne($idUser , OrdersRepository $repository): Response
+    public function showOne( OrdersRepository $repository): Response
     {
-        $orders = $repository->findBy(['idUser' => $idUser]);
+        $user = $this->getUser()->getId();
+        $orders = $repository->findBy(['idUser' =>$user]);
         $serializedEntity = $this->container
         ->get('serializer')
         ->serialize($orders, 'json');
@@ -83,6 +94,17 @@ class OrdersController extends AbstractController
         $entityManager->flush();
 
         return new Response('Saved modif product with id '. $order->getIdOrder() . "<br><a href=\"/deliveryList\">Back</a>");
+    }
+
+    /**
+     * @Route("/api/getUserID", name="getUserID")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getUserID(OrdersRepository $repository): Response
+    {
+        $user = $this->getUser()->getId();
+
+        return new Response($user);
     }
 
  

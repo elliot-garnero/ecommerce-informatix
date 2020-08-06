@@ -46,9 +46,9 @@ class MainCategories extends Component {
                 <label htmlFor="categories">Liste des catégories</label>
                 <div className="form-control">
                     <ul className="list-group">
-                    {categories.map((categorie) => (
+                    {categories.map((categorie,i) => (
                         console.log(categorie.idCat),
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                        <li key={i} className="list-group-item d-flex justify-content-between align-items-center">
                             <strong>{categorie.catName}</strong>
                             <div>
                                 <button type="button" className="btn btn-danger"

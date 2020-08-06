@@ -32,7 +32,7 @@ export default class PayModal extends Component {
     e.preventDefault();
     const data = this.state;
     axios
-      .post(`http://localhost:8000/api/addCb/1`, data)
+      .post(`http://localhost:8000/api/addCb`, data)
       .then((res) => {
         if (res) {
           console.log(res)
@@ -43,6 +43,7 @@ export default class PayModal extends Component {
       })
       .catch(err => console.log(err));
   }
+  
   onTextChange(e) {
     this.setState({ ...this.state, [e.target.name]: e.target.value });
   };

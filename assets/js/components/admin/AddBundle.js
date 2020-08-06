@@ -50,16 +50,16 @@ class AddBundle extends Component {
                         name="products"
                         size="5"
                         onChange={(e) => this.handleChange(e)}>
-                        {products.map((product) => (
+                        {products.map((product, i) => (
                             <option 
-                            key={product.idProduct}
+                            key={i}
                             value={product.name+" (réf= "+product.idProduct+",couleur= "+product.color+")"}
                             >
                                 {product.name} (réf: {product.idProduct}, couleur: {product.color})
                             </option>
                         ))}
                         </select>
-                        <text className="m-2">Sélectionné : {selectionned}</text>
+                        <p className="m-2">Sélectionné : {selectionned}</p>
                     </div>
                     <div className="card-header info-color white-text text-center py-4">
                         <label htmlFor="refs">Produits</label>
