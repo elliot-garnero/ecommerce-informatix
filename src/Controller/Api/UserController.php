@@ -194,12 +194,72 @@ class UserController extends AbstractController
             ];
             if (in_array('ROLE_ADMIN', $user->getRoles()))
                 $response["is_admin"] = true;
-            else
-            {
-                $response["is_admin"] = false;
-            }
 
             return new JsonResponse($response,Response::HTTP_OK);
+        }
+    }
+
+    /**
+     * @Route("/deleteaccount", name="api_user_delete_account", methods={"DELETE"})
+     * @param Request $request
+     * @param UsersRepository $userRepository
+     * @param ApiUtils $apiUtils
+     * @return JsonResponse
+     */
+    public function deleteAccount(Request $request ,UsersRepository $userRepository,ApiUtils $apiUtils): JsonResponse
+    {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $userRepository->findOneBy(['username'=>$this->getUser()->getUsername()]);
+
+        // Get request data
+        $apiUtils->getContent($request);
+
+        // Sanitize data
+        $apiUtils->setData($apiUtils->sanitizeData($apiUtils->getData()));
+        $data = $apiUtils->getData();
+
+        // CSRF Protection process
+        if (!empty($data["token"])) {
+            // if token received is the same than original do process
+            if (hash_equals($_SESSION["token"], $data["token"])) {
+                // logout user
+                $this->get('session')->invalidate();
+                $this->get('security.token_storage')->setToken(null);
+
+                try {
+                    if ($user === null){
+                        $apiUtils->notFoundResponse("No user connected");
+                        return new JsonResponse($apiUtils->getResponse(),Response::HTTP_NOT_FOUND,['Content-type'=>'application/json']);
+                    }
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->remove($user);
+                    $entityManager->flush();
+
+                }catch (Exception $e) {
+                    $apiUtils->errorResponse("Erreur",[$e->getMessage()]);
+                    return new JsonResponse($apiUtils->getResponse(), Response::HTTP_ACCEPTED,['Content-type'=>'application/json']);
+                }
+
+                $apiUtils->successResponse("");
+                return new JsonResponse($apiUtils->getResponse(), Response::HTTP_ACCEPTED,['Content-type'=>'application/json']);
+            }else {
+                // Send error response if csrf token isn't valid
+                $apiUtils->setResponse([
+                    "success" => false,
+                    "message" => "Register not completed",
+                    "errors" => []
+                ]);
+                return new JsonResponse($apiUtils->getResponse(), Response::HTTP_BAD_REQUEST, ['Content-type' => 'application/json']);
+            }
+        }else {
+            // Send error response if there's no csrf token
+            $apiUtils->setResponse([
+                "success" => false,
+                "message" => "Not valid token ",
+                "errors" => $data["token"]
+            ]);
+            return new JsonResponse($apiUtils->getResponse(), Response::HTTP_BAD_REQUEST, ['Content-type' => 'application/json']);
         }
     }
 }

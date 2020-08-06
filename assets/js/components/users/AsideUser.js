@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+
 
 class AsideUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
         update: '',
-        id: "",
         user:null,
         isLoaded: false,
         updatedatas:this.props.dataFromParent,
@@ -18,7 +17,7 @@ class AsideUser extends Component {
 
     refresh(){
         
-        fetch('http://localhost:8000/api/user/16')
+        fetch('http://localhost:8000/api/user/1')
           .then(res => res.json())
           .then(json => {
               this.setState({
@@ -35,39 +34,18 @@ class AsideUser extends Component {
     }
     
     componentDidMount() {
-        this.getDatas();
-        // console.log(this.state.id);
-        // fetch('http://localhost:8000/api/user/16')
-        //   .then(res => res.json())
-        //   .then(json => {
-        //       this.setState({
-        //         user: json,
-        //         isLoaded:true,
-        //         flag:true
-        //       })
-        // });
-        // console.log('toto2')
-    }
-
-
-    async getDatas() {
-        await axios.get(`http://127.0.0.1:8000/api/user/authenticated`)
-        .then((res) => {
-            console.log(res);
-            this.setState({ id: res.data.results.id});
-        });
-        console.log(this.state.id);
-            await  fetch('http://localhost:8000/api/user/'+this.state.id)
-            .then(res => res.json())
-            .then(json => {
-                console.log(this.state.id);
-                this.setState({
+        
+        fetch('http://localhost:8000/api/user/1')
+          .then(res => res.json())
+          .then(json => {
+              this.setState({
                 user: json,
                 isLoaded:true,
                 flag:true
-                })
+              })
         });
-      }
+        
+    }
 
     render(){
         const {updatedatas, user, isLoaded, flag} = this.state;
