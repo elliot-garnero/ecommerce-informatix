@@ -38,11 +38,12 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/user/{id}", name="show_user")
+     * @Route("/api/user", name="show_user")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showOne($id , UserRepository $repository): Response
+    public function showOne( UserRepository $repository): Response
     {
+        $id = $this->getUser()->getId();
         $key = $repository->find($id);
         $serializedEntity = $this->container
         ->get('serializer')

@@ -19,7 +19,7 @@ class AsideUser extends Component {
 
     refresh(){
         
-        fetch('http://localhost:8000/api/user/7')
+        fetch('http://localhost:8000/api/user')
           .then(res => res.json())
           .then(json => {
               this.setState({
@@ -49,7 +49,7 @@ class AsideUser extends Component {
     
     componentDidMount() {
         
-        fetch('http://localhost:8000/api/user/7')
+        fetch('http://localhost:8000/api/user')
           .then(res => res.json())
           .then(json => {
               this.setState({
