@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Admin
  *
  * @ORM\Table(name="admin", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_880E0D76F85E0677", columns={"username"}), @ORM\UniqueConstraint(name="UNIQ_880E0D76E7927C74", columns={"email"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\AdminRepository")
  */
 class Admin
 {
