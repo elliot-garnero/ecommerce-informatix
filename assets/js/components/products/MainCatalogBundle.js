@@ -57,7 +57,7 @@ class MainCatalogBundles extends Component {
         const bundles = this.state.bundles
         const countBundles= Object.keys(bundles).length
         return(       
-            <div className="container">
+            <div className="container-mb">
                 <div className="col">
                     <div className="row">
                         <div className="col-3 bg-blue"></div>

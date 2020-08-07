@@ -1,8 +1,6 @@
 <?php
 
-
-namespace App\Controller\Api;
-
+namespace App\Controller;
 
 use App\Utils\ApiUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,14 +20,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class UserController
- * @package App\Controller\Api
+ * @package App\Controller
  * @Route("/api/user")
  */
 class UserController extends AbstractController
 {
 
     /**
-     * @Route("/token", name="api_user_token", methods={"GET"})
+     * @Route("/token", name="api_user_token")
      * @param ApiUtils $apiUtils
      * @return JsonResponse
      * @throws Exception
@@ -49,7 +47,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/info", name="api_user_info", methods={"GET"})
+     * @Route("/info", name="api_user_info")
      * @param ApiUtils $apiUtils
      * @param UsersRepository $userRepository
      * @return JsonResponse
@@ -74,7 +72,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="api_user_register", methods={"POST"})
+     * @Route("/register", name="api_user_register")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param ApiUtils $apiUtils
@@ -140,7 +138,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="api_user_login", methods={"POST"})
+     * @Route("/login", name="api_user_login")
      * @param AuthenticationUtils $authenticationUtils
      * @param ApiUtils $apiUtils
      * @return Response
@@ -160,7 +158,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="api_user_logout", methods={"GET"})
+     * @Route("/logout", name="api_user_logout")
      * @throws Exception
      */
     public function logout()
@@ -172,7 +170,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/authenticated", name="api_user_authenticated", methods={"GET"})
+     * @Route("/authenticated", name="api_user_authenticated")
      * @param UsersRepository $userRepository
      * @return JsonResponse
      */

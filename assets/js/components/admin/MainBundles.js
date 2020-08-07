@@ -28,7 +28,7 @@ class MainBundles extends Component {
     render(){
         const bundles = this.state.bundles;
         return(
-        <div className="container">
+        <div className="container-mb">
             <div className="col">
                 <div className="row">
                     <div className="col">
@@ -46,10 +46,11 @@ class MainBundles extends Component {
                         </div>
                         <div className="row m-3">
                             <a href={`/addBundle`}>
-                                <button type="button" className="mt-2 btn btn-primary"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Créer un nouveau lot</button>
+                                <button type="button" className="mt-2 btn btn-primary btn-block"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Créer un nouveau lot</button>
                             </a>
                         </div>
                         <div className="row m-2 mt-0 p-2 pt-0">
+                        <div class="table-responsive">
                             <table className="table">
                                 <thead className="thead-light">
                                     <tr>
@@ -76,13 +77,14 @@ class MainBundles extends Component {
                                         <td>{bundle.bundPrice} €</td>
                                         <td>
                                             <a href={`/modifsBundle${bundle.idBundle}`}>
-                                                <button type="button" className="mt-2 btn btn-secondary"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier</button>
+                                                <button type="button" className="mt-2 btn btn-secondary btn-block"><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier</button>
                                             </a>
                                         </td>
                                     </tr>
                                 ))}
                                 </tbody>
-                            </table>                      
+                            </table>
+                            </div>                   
                         </div>
                     </div>
                 </div> 

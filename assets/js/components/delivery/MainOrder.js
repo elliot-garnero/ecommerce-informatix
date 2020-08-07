@@ -168,7 +168,7 @@ class MainOrder extends React.Component {
   render() {
     let { products, poids } = this.state;
     return (
-      <div className="container mt-3 mb-3">
+      <div className="container-mb mt-3 mb-3">
         <div className="row">
           <div className="col-md-4 order-md-2 mb-4">
             <h4 className="d-flex justify-content-between align-items-center mb-3">

@@ -4,7 +4,7 @@ import {Link, Redirect} from "react-router-dom";
 export default function LoginForm(props) {
     return (
         <div>
-            <div className="container login-container">
+            <div className="container-mb login-container">
                 <div className="login-form-1">
                     {
                         props.submited && props.success ?
@@ -13,7 +13,7 @@ export default function LoginForm(props) {
                             <h5 className={"text-center text-danger"}>{props.error}</h5>
                     }
 
-                    <form className="container" onSubmit={props.handleSubmit}>
+                    <form className="container-mb" onSubmit={props.handleSubmit}>
                         <div className="card">
                             <h3 className="card-header info-color white-text text-center py-4 txt-color">
                                 <strong>Connexion</strong>
@@ -24,7 +24,7 @@ export default function LoginForm(props) {
                             <div className="card-header info-color white-text text-center py-4">
                                 <input type="password" className="form-control" id={"password"} placeholder="Mot de passe"/>
                             </div>
-                            <div className="form-group text-center">
+                            <div className="form-group text-center mt-3">
                                 <button type={"submit"} className={"btn btn-primary"}>Connexion</button>
                             </div>
                             <div className="form-group text-center">

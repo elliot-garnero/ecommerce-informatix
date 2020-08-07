@@ -25,12 +25,12 @@ export default function Login() {
         if (res.data.success) setSuccess(true);
         else
           setError(
-            'Erreur de connexion/ Veullez vérifiée vos identifiants de connexion'
+            'Erreur de connexion/ Veuillez vérifier vos identifiants de connexion'
           );
       })
       .catch((e) =>
         setError(
-          'Erreur de connexion/ Veullez vérifiée vos identifiants de connexion'
+          'Erreur de connexion/ Veuillez vérifier vos identifiants de connexion'
         )
       );
 

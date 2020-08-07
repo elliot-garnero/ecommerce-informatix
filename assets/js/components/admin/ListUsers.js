@@ -108,47 +108,49 @@ class ListUsers extends Component {
             return (
                 <div className="col">
                     <div className="row">
-                        <a className="mt-3 mb-3 ml-2" href="#" onClick={this.downloadUsersData}>Télecharger la liste des clients</a>
+                        <a className="mt-3 mb-3 ml-2" href="#" onClick={this.downloadUsersData}><button className="btn btn-primary">Télecharger la liste des clients</button></a>
                     </div>
                     <div className="row">
-                        <Table striped bordered hover size="sm">
-                            <thead>
-                                <tr>
-                                    <th>#id</th>
-                                    <th>Pseudo</th>
-                                    <th>Prénom</th>
-                                    <th>Nom</th>
-                                    <th>Email</th>
-                                    <th>Adresse</th>
-                                    <th>CP</th>
-                                    <th>Ville</th>
-                                    <th>Pays</th>
-                                    <th>Crée le</th>
-                                    <th>Rabais</th>
-                                    <th>Paiements</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                {this.state.users.map((user, i) => (
-
-                                    <tr key={i} id={user.id}>
-                                        <td>{user.id}</td>
-                                        <td>{user.username}</td>
-                                        <td>{user.firstname}</td>
-                                        <td>{user.lastname}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.address}</td>
-                                        <td>{user.cp}</td>
-                                        <td>{user.city}</td>
-                                        <td>{user.countries}</td>
-                                        <td>{new Date(user.createdAt.substr(0, 10)).toLocaleDateString('fr-FR', options)}</td>
-                                        <td><button onClick={(e) => this.showModal(user.id, user.lastname, user.firstname, user.discount)} className="btn btn-warning sm">Ajouter</button></td>
-                                        <td><button onClick={(e) => this.showBlockModal(user.id, user.lastname, user.firstname)} className="btn btn-warning sm">Restreindre</button></td>
+                        <div class="table-responsive">
+                            <Table striped bordered hover size="sm">
+                                <thead>
+                                    <tr>
+                                        <th>#id</th>
+                                        <th>Pseudo</th>
+                                        <th>Prénom</th>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        <th>Adresse</th>
+                                        <th>CP</th>
+                                        <th>Ville</th>
+                                        <th>Pays</th>
+                                        <th>Crée le</th>
+                                        <th>Rabais</th>
+                                        <th>Paiements</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                                </thead>
+                                <tbody>
+
+                                    {this.state.users.map((user, i) => (
+
+                                        <tr key={i} id={user.id}>
+                                            <td>{user.id}</td>
+                                            <td>{user.username}</td>
+                                            <td>{user.firstname}</td>
+                                            <td>{user.lastname}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.address}</td>
+                                            <td>{user.cp}</td>
+                                            <td>{user.city}</td>
+                                            <td>{user.countries}</td>
+                                            <td>{new Date(user.createdAt.substr(0, 10)).toLocaleDateString('fr-FR', options)}</td>
+                                            <td><button onClick={(e) => this.showModal(user.id, user.lastname, user.firstname, user.discount)} className="btn btn-success">Ajouter</button></td>
+                                            <td><button onClick={(e) => this.showBlockModal(user.id, user.lastname, user.firstname)} className="btn btn-warning">Restreindre</button></td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </div>
                     </div>
                     
 

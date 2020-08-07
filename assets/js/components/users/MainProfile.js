@@ -26,7 +26,7 @@ class MainProfile extends Component {
         
         return(
         
-            <div className="container">
+            <div className="container-mb">
     
                 <div className="row mt-3">
                     

@@ -12,9 +12,11 @@ class Navbar extends Component {
           <div className="col 6">
             <a className="navbar-brand" href="/catalog">
               <img
-                className="img-thumbnail w-50"
+                className="img-thumbnail img-fluid logo-img"
                 src={logoSmall}
                 alt="logoInformatix"
+                min-width="200"
+                max-width="200"
               />
             </a>
           </div>

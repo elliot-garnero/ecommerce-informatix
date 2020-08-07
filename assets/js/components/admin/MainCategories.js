@@ -38,7 +38,7 @@ class MainCategories extends Component {
         const categories= this.state.categories
         const deleted= this.state.deleted
         return(
-        <div className="container card">
+        <div className="container-mb card">
             <h2 className="m-4 text-center txt-orange">
                 <strong>Administrateur / Gérer les catégories : </strong>
             </h2>
@@ -51,7 +51,7 @@ class MainCategories extends Component {
                         <li key={i} className="list-group-item d-flex justify-content-between align-items-center">
                             <strong>{categorie.catName}</strong>
                             <div>
-                                <button type="button" className="btn btn-danger"
+                                <button type="button" className="btn btn-danger btn-block"
                                     onClick={() => this.deleteCategorie(categorie.idCat)}> 
                                     Supprimer cette catégorie 
                                 </button>
