@@ -64,7 +64,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/update/{id}", name="change_firstname")
+     * @Route("/api/update", name="change_firstname")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function updateData( UserRepository $repository, Request $request, UserPasswordEncoderInterface $passwordEncoder)
