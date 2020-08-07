@@ -40,9 +40,9 @@ class SliderSuggestion extends Component {
                 </div>
                 
                 <div id="multi-item-example" className="carousel slide carousel-multi-item" data-ride="carousel">
-                    <div className="controls-top">
-                        <a className="btn-floating" href="#multi-item-example" data-slide="prev"><i className="fas fa-chevron-left"></i></a>
-                        <a className="btn-floating" href="#multi-item-example" data-slide="next"><i className="fas fa-chevron-right"></i></a>
+                    <div className="row ml-3 controls-top">
+                        <a className=" p-3 rounded-circle" href="#multi-item-example" data-slide="prev"><i className="fas fa-chevron-left"></i></a>
+                        <a className="p-3 rounded-circle" href="#multi-item-example" data-slide="next"><i className="fas fa-chevron-right"></i></a>
                     </div>
                    
                     <ol className="carousel-indicators">

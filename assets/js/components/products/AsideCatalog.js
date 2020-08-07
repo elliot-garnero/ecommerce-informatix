@@ -79,7 +79,7 @@ class AsideCatalog extends Component {
                 {this.state.search && <div className="title_lign">
                     <h1>Résultats pour votre recherche "<b>{this.state.search}"</b> :</h1></div>}
                 {!this.state.search && <div className="title_lign">
-                    <div className="row">
+                    <div className="row pl-3">
                         <h1 className="txt-orange mb-0 pb-1">CATALOGUE</h1>
                         <a href="catalog">
                             <p className="pl-3 pt-4 pb-2">{count} produits</p>

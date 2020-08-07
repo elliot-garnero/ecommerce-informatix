@@ -91,9 +91,7 @@ class AsideProfile extends Component {
         const updatedatas = this.state;
        
         return(
-            
-            <div className="container">
-           
+          <div className="container-mb">
             {this.state.isEmptyState && <AddComButton addCom={this.addCommands} />}
             {this.state.isEmptyState && <AddAdressButton addAdress={this.addAdress} />}
             {this.state.isEmptyState && <AddUpdateButton addUpdate={this.addUpdate} />}
@@ -103,8 +101,6 @@ class AsideProfile extends Component {
             {this.state.update && <ProfileUpdate dataToParent={this.updateState}/>}
             {this.state.pay && <ProfilePay />}
           </div>   
-            
-
         )
     }
 }

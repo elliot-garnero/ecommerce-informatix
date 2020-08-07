@@ -44,8 +44,8 @@ class MainDeliveryList extends React.Component {
     const options = { year: 'numeric', month: 'short', day: 'numeric'};
 
       return(
-        <div className="container">
-          <div className="mb-4 mt-4 p-2 aside_blue">
+        <div className="container-mb">
+          <div className="mb-2 mt-2 p-3 aside_blue">
             <div className="row">
               <div className="col-3">
                 <h5>Filtrer les commandes par :</h5>

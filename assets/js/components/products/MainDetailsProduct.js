@@ -120,8 +120,8 @@ class MainDetailsProduct extends Component {
         }, this);
 
         return(
-            <div className="container">
-                <div className="row mt-5 mb-5 mr-5">
+            <div className="container-mb">
+                <div className="row mt-5 mb-5">
                     <div className="col-md-6 text-center">
                         <div className="pro-img-details">
                             <img className="img-fluid" src={data.picture1} alt="picture1" width="400"/>
@@ -199,11 +199,11 @@ class MainDetailsProduct extends Component {
                 </div>
                 <hr></hr>
                 
-                <div className="container">
+                <div className="">
                     <h4>{count} Avis</h4>
                     {reviews.length == 0 && <div className="pb-5">Aucun avis n'a été laissé sur ce produit</div>}
                     {reviews.length > 0 && 
-                        <div  className="pb-5">
+                        <div  className="pb-4">
                             {reviews.map((review, i) => (
                             <div key={i} id={review.id} className="border p-3">
                                 {review.rating == 5 &&
@@ -261,7 +261,9 @@ class MainDetailsProduct extends Component {
                     }
                 </div>
                 <div className="row">
+                    <div className="container-mb">
                     <SliderSuggestion />
+                    </div>
                 </div>
             </div>
         )

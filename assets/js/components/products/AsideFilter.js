@@ -172,7 +172,7 @@ class AsideFilter extends Component {
       }, this);
 
     return (
-      <div className="p-2 aside_blue">
+      <div className="p-2 aside_blue h-100">
         <div className="row pl-3">
           <h5 className="pb-3 pt-3">Affiner votre recherche :</h5>
         </div>
@@ -186,11 +186,9 @@ class AsideFilter extends Component {
                 onChange={this.byPriceChange}
                 name="price_min"
                 id="price_min"
-                className="form-control mb-3"
+                className="form-control"
               >
-                <option value="0" defaultValue>
-                  0
-                </option>
+                <option value="0" defaultValue>0</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
                 <option value="200">200</option>
@@ -219,9 +217,7 @@ class AsideFilter extends Component {
                 <option value="100">100</option>
                 <option value="200">200</option>
                 <option value="400">400</option>
-                <option value="500" defaultValue>
-                  500
-                </option>
+                <option value="500" defaultValue>500</option>
                 <option value="600">600</option>
                 <option value="700">700</option>
                 <option value="800">800</option>
@@ -233,9 +229,7 @@ class AsideFilter extends Component {
             </div>
           </div>
           <div className="col">
-            <button type="submit" className="btn btn-secondary mb-3">
-              valider
-            </button>
+            <button type="submit" className="btn btn-secondary mb-3">valider</button>
           </div>
         </form>
 
@@ -255,9 +249,7 @@ class AsideFilter extends Component {
             </div>
           </div>
           <div className="col">
-            <button type="submit" className="btn btn-secondary mb-3">
-              valider
-            </button>
+            <button type="submit" className="btn btn-secondary mb-3">valider</button>
           </div>
         </form>
 

@@ -22,7 +22,7 @@ class Users extends Component {
     return (
       <div>
         <section className="row-section">
-          <div className="container">
+          <div className="container-mb">
             <div className="row">
               <h2 className="text-center">List of users</h2>
             </div>

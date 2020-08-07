@@ -71,7 +71,6 @@ class ProfileUpdate extends Component {
     return (
 
       <div className="card">
-
         <div className="card-body">
           <div className="row">
             <div className="col-md-12">
@@ -93,52 +92,37 @@ class ProfileUpdate extends Component {
                   <div className="col-6">
                     <input id="firstname" name="firstname" placeholder="Prénom" className="form-control here" type="text" onChange={(e) => this.onTextChange(e)} />
                   </div>
-
                 </div>
-
                 <div className="form-group row">
                   <label htmlFor="lastname" className="col-4 col-form-label">Nom</label>
                   <div className="col-6">
                     <input id="lastname" name="lastname" placeholder="Nom" className="form-control here" type="text" onChange={(e) => this.onTextChange(e)} />
                   </div>
-
                 </div>
-
-
                 <div className="form-group row">
                   <label htmlFor="email" className="col-4 col-form-label">Email</label>
                   <div className="col-6">
                     <input id="email" name="email" placeholder="Email" className="form-control here" type="text" onChange={(e) => this.onTextChange(e)} />
                   </div>
-
                 </div>
-
                 <div className="form-group row">
                   <label htmlFor="address" className="col-4 col-form-label">Adresse</label>
                   <div className="col-6">
                     <input id="address" name="address" placeholder="Adresse" className="form-control here" type="text" onChange={(e) => this.onTextChange(e)} />
                   </div>
-
                 </div>
-
                 <div className="form-group row">
                   <label htmlFor="cp" className="col-4 col-form-label">Code postal</label>
                   <div className="col-6">
                     <input id="cp" name="cp" placeholder="Code Postal" className="form-control here" type="text" onChange={(e) => this.onTextChange(e)} />
                   </div>
-
                 </div>
-
-
                 <div className="form-group row">
                   <label htmlFor="city" className="col-4 col-form-label">Ville</label>
                   <div className="col-6">
                     <input id="city" name="city" placeholder="Ville" className="form-control here" type="text" onChange={(e) => this.onTextChange(e)} />
                   </div>
-
                 </div>
-
-
                 <div className="form-group row">
                   <label htmlFor="countries" className="col-4 col-form-label">Pays</label>
                   <div className="col-6">
@@ -148,16 +132,12 @@ class ProfileUpdate extends Component {
                       name="countries"
                     />
                   </div>
-
                 </div>
-
-
                 <div className="form-group row">
                   <label htmlFor="password" className="col-4 col-form-label">Nouveau mot de passe</label>
                   <div className="col-6">
                     <input id="password" name="password" placeholder="Nouveau mot de passe" className="form-control here" type="text" onChange={(e) => this.onTextChange(e)} />
                   </div>
-
                 </div>
                 <div className="form-group row">
                 <div className="col-4"></div>

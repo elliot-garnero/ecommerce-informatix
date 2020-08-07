@@ -8,7 +8,7 @@ export default function RegisterForm(props) {
 
     return (  
         <div>
-            <div className="container login-container">
+            <div className="container-mb login-container">
                 <div className="login-form-1">
                     {
                         props.submited && props.success ?
@@ -17,7 +17,7 @@ export default function RegisterForm(props) {
                             <h5 className={"text-center text-danger"}>{props.error}</h5>
                     }
 
-                    <form  className="container" onSubmit={props.handleSubmit}>
+                    <form  className="container-mb" onSubmit={props.handleSubmit}>
                         <h3 className="card-header info-color white-text text-center py-4 txt-color">
                             <strong>Inscription</strong>
                         </h3>

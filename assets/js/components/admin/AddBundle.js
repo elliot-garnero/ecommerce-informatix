@@ -38,7 +38,7 @@ class AddBundle extends Component {
         const products= this.state.products
         const selectionned = this.state.selectionned
         return(
-        <div className="container card">
+        <div className="container-mb card">
             <form method="POST" action="/api/createBundle">
                     <h2 className="m-4 text-center txt-orange">
                         <strong>Administrateur / Création de lot : </strong>

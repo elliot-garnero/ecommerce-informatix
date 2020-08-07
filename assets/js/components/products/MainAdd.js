@@ -23,7 +23,7 @@ class MainAdd extends Component {
     const loading = this.state.loading;
     const categories = this.state.categories;
     return (
-      <form method="POST" action="/api/createproduct" className="container">
+      <form method="POST" action="/api/createproduct" className="container-mb">
         <div className="card">
           <h2 className="card-header info-color white-text text-center py-4 txt-color">
             <strong>Administrateur /Ajouter un produit</strong>

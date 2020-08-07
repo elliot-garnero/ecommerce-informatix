@@ -26,8 +26,13 @@ body {
   color: #f69509;
 }
 .desactived:hover{
-  cursor:not-allowed;
+  cursor: not-allowed;
 }
+
+.logo-img{
+  max-width: 180px !important;
+}
+
 
 /** Page AsideCatalog **/
 

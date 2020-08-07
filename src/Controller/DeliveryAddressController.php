@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\DeliveryAddress;
+use App\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\DeliveryAddressRepository;
+use App\Repository\UsersRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -27,7 +29,7 @@ class DeliveryAddressController extends AbstractController
      * @Route("/api/address", name="show_address")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAdresses(DeliveryAddressRepository $repository): Response
+    public function showAdresses(DeliveryAddressRepository $repository, UsersRepository $repoUsers): Response
     {
         $user = $this->getUser()->getId();
         $addresses = $repository->findBy(['idUser' =>$user]);

@@ -18,7 +18,7 @@ class MainListUsers extends Component {
         const updatedatas = this.state;
         return (
 
-            <div className="container">
+            <div className="container-mb">
 
                 
                     <ListUsers /> 
