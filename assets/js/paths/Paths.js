@@ -21,7 +21,9 @@ import ModifsBundle from '../components/admin/ModifsBundle';
 import AddBundle from '../components/admin/AddBundle';
 import MainCatalogBundles from '../components/products/MainCatalogBundle';
 import MainCategories from '../components/admin/MainCategories';
+
 import MainAdminForm from '../components/admin/MainAdminForm';
+import MainCatalogAdmin from '../components/admin/MainCatalogAdmin';
 class Paths extends Component {
   render() {
     return (
@@ -29,6 +31,8 @@ class Paths extends Component {
         <Navbar />
         <Switch>
           <Redirect exact from="/" to="/catalog" />
+          <Route path="/admin" component={MainAdminForm} />
+          <Route exact path="/catalogAdmin" component={MainCatalogAdmin} />
           <Route path="/admin" component={MainAdminForm} />
           <Route path="/listUsers" component={MainListUsers} />
           <Route exact path="/catalog" component={MainCatalog} />
