@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import AsideProfile from "./AsideProfile";
 import AsideUser from "./AsideUser";
-
+import axios from 'axios';
 
 class MainProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
         updatedatas: this.props.dataFromParent,
-        address: false
+        address: false,
+      
       } 
       this.updateState = this.updateState.bind(this);
+
     }
 
     updateState(value) {
@@ -20,7 +22,8 @@ class MainProfile extends Component {
         })
         
     }
-    
+
+
     render(){
         const updatedatas = this.state;
         

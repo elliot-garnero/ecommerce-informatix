@@ -14,7 +14,8 @@ class MainOrder extends React.Component {
       deliveryPrice: 0,
       december: new Date().getMonth(),
       discount: null,
-      poids: null
+      poids: null,
+      address:''
     };
     this.deleteItem = this.deleteItem.bind(this);
   }
@@ -29,10 +30,16 @@ class MainOrder extends React.Component {
 
     await fetch('http://localhost:8000/api/getUserID')
       .then((res) => res.json())
-      .then((json) => {
+      .then((json) => {console.log(json)
         userID = json;
       });
-
+      await fetch('http://localhost:8000/api/getAddress/' + userID)
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({
+          address: json[0],
+        });
+      });
     await fetch('http://localhost:8000/api/getDiscount/' + userID)
       .then((res) => res.json())
       .then((json) => {
@@ -53,6 +60,8 @@ class MainOrder extends React.Component {
       },
       () => this.calculateTotal()
     );
+    window.location.reload(false);
+      
   }
 
   // Get total price products
@@ -166,6 +175,7 @@ class MainOrder extends React.Component {
   }
 
   render() {
+    const {address} = this.state;console.log(address)
     let { products, poids } = this.state;
     return (
       <div className="container-mb mt-3 mb-3">
@@ -240,6 +250,7 @@ class MainOrder extends React.Component {
                         id="packaging"
                         name="packaging"
                         onChange={this.changePackaging.bind(this)}
+
                       />
                       <label htmlFor="packaging" className="form-check-label">
                         Emballage des produits
@@ -277,6 +288,7 @@ class MainOrder extends React.Component {
                     id="firstName"
                     name="firstName"
                     required
+                    defaultValue={address.delFirstname}
                   />
                 </div>
                 <div className="col-md-6 mb-3">
@@ -287,6 +299,7 @@ class MainOrder extends React.Component {
                     id="lastName"
                     name="lastName"
                     required
+                    defaultValue={address.delLastname}
                   />
                 </div>
               </div>
@@ -299,6 +312,7 @@ class MainOrder extends React.Component {
                   id="email"
                   name="email"
                   required
+                  
                 />
               </div>
 
@@ -310,6 +324,7 @@ class MainOrder extends React.Component {
                   id="address"
                   name="address"
                   required
+                  defaultValue={address.delAddress}
                 />
               </div>
 
@@ -332,6 +347,7 @@ class MainOrder extends React.Component {
                     name="country"
                     onChange={this.changeLocation.bind(this)}
                     required
+                   
                   >
                     <option value="FR">France</option>
                     <option value="EU">Europe</option>
@@ -346,6 +362,7 @@ class MainOrder extends React.Component {
                     id="zip"
                     name="zip"
                     required
+                    defaultValue={address.delCp}
                   />
                 </div>
               </div>

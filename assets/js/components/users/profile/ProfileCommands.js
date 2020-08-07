@@ -34,7 +34,7 @@ class ProfileCommands extends Component {
     const commandStyle = { width: '100%' };
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     if (!isLoaded) {
-      return <div>Chargement...</div>;
+      return <div className="mb-5 mt-5">Recherche d'un utilisateur connecté...</div>;
     } else {
       return (
         <div className=" mt-5">

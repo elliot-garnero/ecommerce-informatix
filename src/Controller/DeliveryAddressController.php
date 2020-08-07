@@ -39,6 +39,20 @@ class DeliveryAddressController extends AbstractController
         return new Response($serializedEntity);
     }
 
+    /**
+     * @Route("/api/getAddress/{id}", name="defaut_address")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function defautAdresses($id,DeliveryAddressRepository $repository, UsersRepository $repoUsers): Response
+    {
+        $user = $this->getUser()->getId();
+        $addresses = $repository->findBy(['idUser' =>$id, 'active' => true]);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($addresses, 'json');
+        return new Response($serializedEntity);
+    }
+
      /**
      * @Route("/api/addAddress", name="add_address")
      * @return \Symfony\Component\HttpFoundation\Response

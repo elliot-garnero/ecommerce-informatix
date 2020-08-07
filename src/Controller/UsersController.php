@@ -50,6 +50,8 @@ class UsersController extends AbstractController
         return new Response($serializedEntity);
     }
 
+   
+    
     /**
      * @Route("/api/getDiscount/{id}", name="getDiscount")
      * @return \Symfony\Component\HttpFoundation\Response

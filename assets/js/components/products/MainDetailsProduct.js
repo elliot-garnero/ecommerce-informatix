@@ -80,6 +80,8 @@ class MainDetailsProduct extends Component {
             products,
         };
         });
+        window.location.reload(false);
+      
     }
 
     // nouvelle requete si change couleur ou taille

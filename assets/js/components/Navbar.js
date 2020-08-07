@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import logoSmall from '../../images/logoSmall.png';
 import MainModal from './delivery/MainModal';
-
-//lol
+import axios from 'axios';
 
 class Navbar extends Component {
+
   render() {
     return (
       <div className="container-md">
@@ -20,11 +20,21 @@ class Navbar extends Component {
               />
             </a>
           </div>
-          <div className="col 4"></div>
+          <div className="col 2"></div>
+         
           <div className="col 4 d-flex justify-content-around ">
             <a className="text-decoration-none" href="/login">
               <span className="m-2 txt-white">Se connecter</span>
+              <i className="fas fa-power-off bg-warning p-3 rounded-circle"></i>
+            </a>
+            
+            <a className="text-decoration-none" href="/user">
+              <span className="m-2 txt-white">Mon compte</span>
               <i className="fas fa-user bg-warning p-3 rounded-circle"></i>
+            </a>
+            <a className="text-decoration-none" href="/tracking">
+              <span className="m-2 txt-white">Suivis <br/>colis</span>
+              <i className="fa fa-truck bg-warning p-3 rounded-circle"></i>
             </a>
             <MainModal />
           </div>

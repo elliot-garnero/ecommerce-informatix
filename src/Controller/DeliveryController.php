@@ -68,7 +68,7 @@ class DeliveryController extends AbstractController
         // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
 
-        return new Response('Saved new order with id '. $order->getIdOrder() . "<br><a href=\"/\">Back</a>");
+        return new Response('Commande n° '. $order->getIdOrder() . " éffectuée <br><a href=\"/\">Back</a>");
     }
 
      /**
