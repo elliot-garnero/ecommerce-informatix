@@ -28,9 +28,11 @@ body {
 .desactived:hover{
   cursor: not-allowed;
 }
-
 .logo-img{
   max-width: 180px !important;
+}
+.link:hover{
+  cursor: pointer;
 }
 
 
