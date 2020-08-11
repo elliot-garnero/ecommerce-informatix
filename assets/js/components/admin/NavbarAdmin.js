@@ -5,7 +5,7 @@ class NavbarAdmin extends Component {
     return (
       <div className="container-md">
         <nav className="bg-grey navbar navbar-expand-lg navbar-light">
-          <a className="navbar-brand" href="/catalog">
+          <a className="navbar-brand" href="/catalogAdmin">
             Espace Admin :{' '}
           </a>
           <button

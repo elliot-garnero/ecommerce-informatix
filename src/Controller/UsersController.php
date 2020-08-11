@@ -124,12 +124,11 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/addDiscount", name="addDiscount")
+     * @Route("/api/addDiscount/{id}", name="addDiscount")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addDiscount(UserRepository $repository, Request $request)
+    public function addDiscount($id, UserRepository $repository, Request $request)
     {
-        $id = $this->getUser()->getId();
         $entityManager = $this->getDoctrine()->getManager();
         $data = $request->getContent();
         $newData = json_decode($data, true);

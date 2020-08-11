@@ -25,17 +25,19 @@ class ReviewsController extends AbstractController
     /**
      * @Route("/api/createreview", name="create_reviews")
      */
-    public function createReview(ReviewsRepository $repository, UsersRepository $repoUser): Response
+    public function createReview(ReviewsRepository $repository/*, UsersRepository $repoUser*/): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
 
         $user = $this->getUser()->getId();
+        $username = $this->getUser()->getUsername();
 
         $review = new Reviews();
         $review->setIdProduct($_POST['productID']);
         $review->setIdUser($user);
         $review->setRating($_POST['rating']);
         $review->setContent($_POST['review']);
+        $review->setUsername($username);
 
         $entityManager->persist($review);
         $entityManager->flush();

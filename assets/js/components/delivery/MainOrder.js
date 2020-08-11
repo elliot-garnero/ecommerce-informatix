@@ -14,30 +14,37 @@ class MainOrder extends React.Component {
       deliveryPrice: 0,
       december: new Date().getMonth(),
       discount: null,
+      paiement: '',
       poids: null,
-      address:''
+      address: '',
     };
     this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount() {
     this.discount();
-    this.calculateTotal();
   }
 
   async discount() {
     let userID;
-
+    await this.calculateTotal();
     await fetch('http://localhost:8000/api/getUserID')
       .then((res) => res.json())
-      .then((json) => {console.log(json)
+      .then((json) => {
         userID = json;
       });
-      await fetch('http://localhost:8000/api/getAddress/' + userID)
+    await fetch('http://localhost:8000/api/getAddress/' + userID)
       .then((res) => res.json())
       .then((json) => {
         this.setState({
           address: json[0],
+        });
+      });
+    await fetch('http://localhost:8000/api/getPaiement/' + userID)
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({
+          paiement: json[0],
         });
       });
     await fetch('http://localhost:8000/api/getDiscount/' + userID)
@@ -47,6 +54,7 @@ class MainOrder extends React.Component {
           discount: json,
         });
       });
+    await this.calculateTotal();
   }
 
   deleteItem(id) {
@@ -61,7 +69,6 @@ class MainOrder extends React.Component {
       () => this.calculateTotal()
     );
     window.location.reload(false);
-      
   }
 
   // Get total price products
@@ -80,7 +87,7 @@ class MainOrder extends React.Component {
     }
 
     let weight = weightArr.reduce((a, b) => a + b, 0);
-    this.setState({poids: weight})
+    this.setState({ poids: weight });
     let total = totalArr.reduce((a, b) => a + b, 0);
     let totalProducts = total;
     let deliveryPrice = 0;
@@ -141,7 +148,7 @@ class MainOrder extends React.Component {
     });
 
     this.setState({
-      total: total.toFixed(2),
+      total: parseInt(total.toFixed(2)),
       deliveryPrice: deliveryPrice.toFixed(2),
       productsString,
     });
@@ -175,7 +182,8 @@ class MainOrder extends React.Component {
   }
 
   render() {
-    const {address} = this.state;console.log(address)
+    const { address } = this.state;
+    const { paiement } = this.state;
     let { products, poids } = this.state;
     return (
       <div className="container-mb mt-3 mb-3">
@@ -204,7 +212,12 @@ class MainOrder extends React.Component {
                   <div>
                     <h6 className="my-0">{product.name}</h6>
                     <small>
-                      <a href={`/detailsProduct${product.idProduct}`} target="_blanck">Fiche produit</a>
+                      <a
+                        href={`/detailsProduct${product.idProduct}`}
+                        target="_blanck"
+                      >
+                        Fiche produit
+                      </a>
                     </small>
                   </div>
                   <span className="text-muted">{product.price} €</span>
@@ -225,9 +238,9 @@ class MainOrder extends React.Component {
                 <span>{this.state.deliveryPrice} €</span>
               </li>
               <li className="list-group-item d-flex justify-content-between">
-                  <span>Poids</span>
-                  <strong> {poids} g</strong>
-                </li>
+                <span>Poids</span>
+                <strong> {poids} g</strong>
+              </li>
               {this.state.discount != null && (
                 <li className="list-group-item d-flex justify-content-between">
                   <span>Rabais</span>
@@ -240,8 +253,8 @@ class MainOrder extends React.Component {
                 </span>
                 <strong>{this.state.total} €</strong>
               </li>
-              {this.state.total > 400 ||
-                (this.state.december == 12 && (
+              {this.state.december == 12 ||
+                (this.state.total > 400 && (
                   <li className="list-group-item d-flex justify-content-between">
                     <div className=" form-check">
                       <input
@@ -250,7 +263,6 @@ class MainOrder extends React.Component {
                         id="packaging"
                         name="packaging"
                         onChange={this.changePackaging.bind(this)}
-
                       />
                       <label htmlFor="packaging" className="form-check-label">
                         Emballage des produits
@@ -312,7 +324,6 @@ class MainOrder extends React.Component {
                   id="email"
                   name="email"
                   required
-                  
                 />
               </div>
 
@@ -347,7 +358,6 @@ class MainOrder extends React.Component {
                     name="country"
                     onChange={this.changeLocation.bind(this)}
                     required
-                   
                   >
                     <option value="FR">France</option>
                     <option value="EU">Europe</option>
@@ -377,16 +387,18 @@ class MainOrder extends React.Component {
                     className="form-control"
                     id="cc-name"
                     name="cc-name"
+                    defaultValue={paiement.payLastname}
                     required
                   />
                 </div>
                 <div className="col-md-6 mb-3">
                   <label htmlFor="cc-number">Numero de carte</label>
                   <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     id="cc-number"
                     name="cc-number"
+                    defaultValue={paiement.payCb}
                     required
                   />
                 </div>
@@ -395,20 +407,22 @@ class MainOrder extends React.Component {
                 <div className="col-md-3 mb-3">
                   <label htmlFor="cc-expiration">Date d'expiration</label>
                   <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     id="cc-expiration"
                     name="cc-expiration"
+                    defaultValue={paiement.payExpiration}
                     required
                   />
                 </div>
                 <div className="col-md-3 mb-3">
                   <label htmlFor="cc-expiration">CVV</label>
                   <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     id="cc-cvv"
                     name="cc-cvv"
+                    defaultValue={paiement.payCvv}
                     required
                   />
                 </div>

@@ -38,6 +38,19 @@ class PayementsController extends AbstractController
     }
 
     /**
+     * @Route("/api/getPaiement/{id}", name="defaut_paiement")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function defautPayement($id,PayementsRepository $payRepos): Response
+    {
+        $payement = $payRepos->findBy(['idUser' =>$id, 'active' => true]);
+        $serializedEntity = $this->container
+        ->get('serializer')
+        ->serialize($payement, 'json');
+        return new Response($serializedEntity);
+    }
+
+    /**
      * @Route("/api/admin/pay/{idUser}", name="show_pay")
      * @return \Symfony\Component\HttpFoundation\Response
      */

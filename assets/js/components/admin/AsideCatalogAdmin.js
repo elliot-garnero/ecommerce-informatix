@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import MainModal from '../delivery/MainModal';
 
-class AsideCatalog extends Component {
+class AsideCatalogAdmin extends Component {
   constructor(props) {
     super(props);
 
@@ -185,7 +184,7 @@ class AsideCatalog extends Component {
                           PANIER
                         </button>
                       </div>
-                      {/* <div className="col-md">
+                      <div className="col-md">
                         <a href={`/modifProduct${item.idProduct}`}>
                           <button
                             type="button"
@@ -198,7 +197,7 @@ class AsideCatalog extends Component {
                             Modifier le produit
                           </button>
                         </a>
-                      </div> */}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -211,4 +210,4 @@ class AsideCatalog extends Component {
   }
 }
 
-export default AsideCatalog;
+export default AsideCatalogAdmin;
