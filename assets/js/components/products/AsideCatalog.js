@@ -154,7 +154,7 @@ class AsideCatalog extends Component {
                           PANIER
                         </button>
                       </div>
-                      <div className="col-md">
+                      {/* <div className="col-md">
                         <a href={`/modifProduct${item.idProduct}`}>
                           <button
                             type="button"
@@ -167,7 +167,7 @@ class AsideCatalog extends Component {
                             Modifier le produit
                           </button>
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   )}
                   {item.stock >= 1 && (
